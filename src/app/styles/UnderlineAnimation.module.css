@@ -1,0 +1,20 @@
+
+.link {
+    text-decoration: none; /* Menghilangkan underline default */
+    position: relative; /* Menentukan posisi untuk pseudo-element */
+  }
+  
+  .link::after {
+    content: ''; /* Membuat elemen kosong */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%; /* Dimulai dengan lebar 0% */
+    height: 2px;
+    background-color: #d9c5a7; /* Warna underline */
+    transition: width 0.3s ease; /* Transisi efek animasi */
+  }
+  
+  .link:hover::after {
+    width: 100%; /* Lebar menjadi penuh saat hover */
+  }
