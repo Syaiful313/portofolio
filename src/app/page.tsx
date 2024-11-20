@@ -10,27 +10,14 @@ export default function Home() {
   return (
     <div className="m-0 box-border p-0">
       <div className="leading-relaxed bg-black">
-        {/* Navbar */}
         <Navbar />
-
-        {/* Home Section */}
         <HomeSection />
-
-
-        {/* About Section */}
         <AboutSection />
-
-        {/* Projects Section */}
         <ProjectSection />
-
-        <MarqueeText/>
-
-        {/* Contact Section */}
+        <MarqueeText />
         <ContactSection />
 
-        {/* Footer */}
         <Footer />
-        
       </div>
     </div>
   );

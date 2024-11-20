@@ -38,7 +38,6 @@ const CaseStudySection = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             
-            {/* Konten dengan ikon */}
             <div className="relative p-6 bg-[#1c1c1c] h-full text-[#d9c5a7]">
               <h3 className="text-2xl font-semibold mb-4">{study.title}</h3>
               <div className="flex items-start space-x-3 mb-3">
