@@ -1,4 +1,5 @@
 import styles from "@/app/styles/UnderlineAnimation.module.css";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -7,18 +8,18 @@ const Navbar = () => {
         Fulful.
       </div>
       <div className="hidden space-x-4 font-serif sm:flex px-14">
-        <a href="#home" className={`${styles.link} text-[#d9c5a7]`}>
+        <Link href="#home" className={`${styles.link} text-[#d9c5a7]`}>
           Home
-        </a>
-        <a href="#about" className={`${styles.link} text-[#d9c5a7]`}>
+        </Link>
+        <Link href="#about" className={`${styles.link} text-[#d9c5a7]`}>
           About
-        </a>
-        <a href="#projects" className={`${styles.link} text-[#d9c5a7]`}>
+        </Link>
+        <Link href="#projects" className={`${styles.link} text-[#d9c5a7]`}>
           Projects
-        </a>
-        <a href="#contact" className={`${styles.link} text-[#d9c5a7]`}>
+        </Link>
+        <Link href="#contact" className={`${styles.link} text-[#d9c5a7]`}>
           Contact
-        </a>
+        </Link>
       </div>
     </nav>
   );
