@@ -40,12 +40,12 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-9 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-[90%] sm:max-w-[40%] transition-all duration-300 ${
+        className={`fixed top-5 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-[90%] sm:max-w-[40%] transition-all duration-300 ${
           isScrolled ? "shadow-lg" : ""
         }`}
       >
         <div
-          className={`flex items-center justify-between rounded-xl p-4 ${
+          className={`flex items-center justify-between rounded-xl p-2 ${
             isScrolled
               ? "bg-[#d9c5a7]/25 backdrop-blur-lg border border-[#d9c5a7]/30"
               : "bg-[#d9c5a7]/15 backdrop-blur-sm border border-[#d9c5a7]"
