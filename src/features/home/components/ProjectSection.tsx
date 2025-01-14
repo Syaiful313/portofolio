@@ -1,7 +1,7 @@
 import { FaExclamationCircle, FaLightbulb, FaCheckCircle } from "react-icons/fa";
 import Image from "next/image";
 
-const CaseStudySection = () => {
+const ProjectSection = () => {
   const caseStudies = [
     {
       title: "Sistem Manajemen Toko",
@@ -66,5 +66,5 @@ const CaseStudySection = () => {
   );
 };
 
-export default CaseStudySection;
+export default ProjectSection;
 
