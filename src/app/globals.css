@@ -23,7 +23,6 @@ html {
   animation: marquee 20s linear infinite;
 }
 
-/* Keyframes for Enhanced FadeIn Animation */
 @keyframes enhancedFadeIn {
   0% {
     opacity: 0;
@@ -42,13 +41,11 @@ html {
   }
 }
 
-/* Base Animation Class */
 .animate-enhancedFadeIn {
   opacity: 0;
   animation: enhancedFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Delayed Animations */
 .animate-enhancedFadeIn.delay-1 {
   animation-delay: 0.4s;
 }
