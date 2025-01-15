@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card"; // Komponen dari ShadCN UI
+} from "@/components/ui/card"; 
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,24 +21,24 @@ const ProjectSection = () => {
       problem: "Kesulitan mengelola dan menerbitkan artikel blog.",
       solution: "Aplikasi web untuk membuat dan mengelola konten blog secara mudah.",
       outcome: "Meningkatkan efisiensi penulisan dan pengelolaan blog.",
-      image: "/assets/blog-app-screenshot.png", // Pastikan gambar ini ada di public/assets/
-      link: "https://blog-app.example.com", // Ganti dengan URL proyek Anda
+      image: "/assets/blog-app-screenshot.png", 
+      link: "https://blog-jcwd-0510-fe.vercel.app/",
     },
     {
       title: "Web Ticket",
       problem: "Proses pemesanan tiket acara yang rumit.",
       solution: "Website sederhana untuk memesan tiket acara dengan sistem pembayaran mudah.",
       outcome: "Mempermudah pengguna dalam memesan tiket dan meningkatkan transaksi.",
-      image: "/assets/web-ticket-mockup.jpg", // Pastikan gambar ini ada di public/assets/
-      link: "https://web-ticket.example.com", // Ganti dengan URL proyek Anda
+      image: "/assets/web-ticket-mockup.jpg", 
+      link: "https://starticket.vercel.app/",
     },
     {
       title: "Company Profile",
       problem: "Perusahaan membutuhkan website untuk memperkenalkan layanan mereka.",
       solution: "Website sederhana untuk menampilkan profil perusahaan dan layanan.",
       outcome: "Meningkatkan visibilitas perusahaan dengan desain yang jelas dan profesional.",
-      image: "/assets/company-profile-screenshot.png", // Pastikan gambar ini ada di public/assets/
-      link: "https://company-profile.example.com", // Ganti dengan URL proyek Anda
+      image: "/assets/company-profile-screenshot.png", 
+      link: "https://strategik.vercel.app/", 
     },
   ];
 
@@ -47,7 +47,6 @@ const ProjectSection = () => {
       id="projects"
       className="relative min-h-screen w-full bg-gradient-to-b from-black to-[#111111] py-24 px-8 overflow-hidden"
     >
-      {/* Overlay Pola Geometris */}
       <div className="absolute inset-0 pointer-events-none">
         <svg
           className="w-full h-full opacity-10"
