@@ -61,3 +61,9 @@ html {
 .animate-enhancedFadeIn.delay-5 {
   animation-delay: 2s;
 }
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, #ffffff 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+  background-size: 24px 24px;
+}
