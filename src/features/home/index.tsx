@@ -10,6 +10,7 @@ const HomePage = () => {
       <HeroSection />
       <MarqueeText/>
       <AboutSection />
+      <MarqueeText/>
       <ProjectSection />
       <MarqueeText/>
       <ContactSection />
