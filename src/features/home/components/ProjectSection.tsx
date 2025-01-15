@@ -127,7 +127,9 @@ const ProjectSection = () => {
                 href={study.link}
                 target="_blank"
                 rel="noopener noreferrer"
+
                 className="inline-block text-sm font-semibold text-[#d9c5a7] border border-[#d9c5a7] rounded-full px-4 py-1 hover:bg-[#d9c5a7] hover:text-gray-900 transition-colors duration-300"
+
               >
                 View Project Details
               </Link>
