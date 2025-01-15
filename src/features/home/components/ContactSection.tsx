@@ -63,7 +63,10 @@ const ContactSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-[#1a1a1a] to-[#2a2a2a] px-4 py-16 md:py-24 lg:py-32">
+    <section
+      id="contact"
+      className="bg-gradient-to-b from-[#1a1a1a] to-[#2a2a2a] px-4 py-16 md:py-24 lg:py-32"
+    >
       <Card className="mx-auto max-w-3xl border-none bg-[#1a1a1a]/90 shadow-xl backdrop-blur">
         <CardHeader className="space-y-4 text-center">
           <CardTitle className="text-4xl font-bold text-[#d9c5a7]">
