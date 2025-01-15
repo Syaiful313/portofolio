@@ -1,3 +1,4 @@
+import MarqueeText from "@/components/MarqueeSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import HeroSection from "./components/HeroSection";
@@ -7,8 +8,10 @@ const HomePage = () => {
   return (
     <>
       <HeroSection />
+      <MarqueeText/>
       <AboutSection />
       <ProjectSection />
+      <MarqueeText/>
       <ContactSection />
     </>
   );
