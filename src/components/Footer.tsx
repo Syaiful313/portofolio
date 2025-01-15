@@ -12,7 +12,7 @@ import {
   FaLinkedin,
   FaMapMarkerAlt,
   FaRocket,
-  FaTwitter
+  FaTwitter,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -33,17 +33,38 @@ const Footer = () => {
   ];
 
   const links = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
   ];
 
   const socialLinks = [
-    { icon: FaGithub, href: "#", name: "GitHub", color: "#333" },
-    { icon: FaLinkedin, href: "#", name: "LinkedIn", color: "#0077b5" },
-    { icon: FaTwitter, href: "#", name: "Twitter", color: "#1da1f2" },
-    { icon: FaInstagram, href: "#", name: "Instagram", color: "#e4405f" },
+    {
+      icon: FaInstagram,
+      href: "https://www.instagram.com/fulful.tmg/",
+      name: "Instagram",
+      color: "#e4405f",
+    },
+    {
+      icon: FaLinkedin,
+      href: "https://www.linkedin.com/in/muhammad-syaiful-mu-min-599a27283/",
+      name: "LinkedIn",
+      color: "#0077b5",
+    },
+    {
+      icon: FaTwitter,
+      href: "https://x.com/fulful_tmg",
+      name: "Twitter",
+      color: "#1da1f2",
+    },
+    
+    {
+      icon: FaGithub,
+      href: "https://github.com/Syaiful313",
+      name: "GitHub",
+      color: "#333",
+    },
   ];
 
   const handleEmailClick = async () => {
