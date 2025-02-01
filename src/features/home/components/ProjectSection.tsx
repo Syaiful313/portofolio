@@ -18,7 +18,7 @@ const ProjectSection = () => {
   const caseStudies = [
     {
       title: "Blog App",
-      image: "/assets/blog-app-screenshot.png",
+      image: "/assets/bloghub.png",
       link: "https://blog-jcwd-0510-fe.vercel.app/",
     },
     {
