@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card"; 
+} from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,38 +18,35 @@ const ProjectSection = () => {
   const caseStudies = [
     {
       title: "Blog App",
-      problem: "Kesulitan mengelola dan menerbitkan artikel blog.",
-      solution: "Aplikasi web untuk membuat dan mengelola konten blog secara mudah.",
-      outcome: "Meningkatkan efisiensi penulisan dan pengelolaan blog.",
-      image: "/assets/blog-app-screenshot.png", 
+      image: "/assets/blog-app-screenshot.png",
       link: "https://blog-jcwd-0510-fe.vercel.app/",
     },
     {
       title: "Web Ticket",
-      problem: "Proses pemesanan tiket acara yang rumit.",
-      solution: "Website sederhana untuk memesan tiket acara dengan sistem pembayaran mudah.",
-      outcome: "Mempermudah pengguna dalam memesan tiket dan meningkatkan transaksi.",
-      image: "/assets/web-ticket-mockup.jpg", 
+      image: "/assets/WebTicket.png",
       link: "https://starticket.vercel.app/",
     },
     {
       title: "Company Profile",
-      problem: "Perusahaan membutuhkan website untuk memperkenalkan layanan mereka.",
-      solution: "Website sederhana untuk menampilkan profil perusahaan dan layanan.",
-      outcome: "Meningkatkan visibilitas perusahaan dengan desain yang jelas dan profesional.",
-      image: "/assets/company-profile-screenshot.png", 
-      link: "https://strategik.vercel.app/", 
+      image: "/assets/CompanyProfile.png",
+      link: "https://strategik.vercel.app/",
     },
+    {
+      title: "Blog with cms",
+      image: "/assets/BlogCms.png",
+      link: "https://blog-cms-muhammad-syaiful.vercel.app/",
+    },
+    
   ];
 
   return (
     <section
       id="projects"
-      className="relative min-h-screen w-full bg-gradient-to-b from-black to-[#111111] py-24 px-8 overflow-hidden"
+      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-black to-[#111111] px-8 py-24"
     >
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="pointer-events-none absolute inset-0">
         <svg
-          className="w-full h-full opacity-10"
+          className="h-full w-full opacity-10"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
           viewBox="0 0 800 600"
@@ -75,50 +72,30 @@ const ProjectSection = () => {
         </svg>
       </div>
 
-      <h2 className="mb-12 text-center font-serif text-4xl text-[#d9c5a7] relative z-10">
+      <h2 className="relative z-10 mb-12 text-center font-serif text-4xl text-[#d9c5a7]">
         Project Case Studies
       </h2>
-      <div className="mx-auto grid max-w-6xl gap-6 grid-cols-1 md:grid-cols-3 relative z-10">
+      <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
         {caseStudies.map((study, index) => (
           <Card
             key={index}
-            className="mx-auto w-full max-w-sm transform rounded-3xl bg-[#1c1c1c] text-[#d9c5a7] shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out flex flex-col"
+            className="mx-auto flex w-full max-w-sm transform flex-col rounded-3xl bg-[#1c1c1c] text-[#d9c5a7] shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"
           >
-            <CardHeader className="relative overflow-hidden rounded-t-3xl h-48 flex-shrink-0">
+            <CardHeader className="relative h-48 flex-shrink-0 overflow-hidden rounded-t-3xl">
               <Image
                 src={study.image}
                 alt={`${study.title} Screenshot`}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-t-3xl object-cover brightness-90 hover:brightness-100 transition-all duration-300 ease-out"
+                className="rounded-t-3xl object-cover brightness-90 transition-all duration-300 ease-out hover:brightness-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-30 rounded-t-3xl"></div>
+              <div className="absolute inset-0 rounded-t-3xl bg-gradient-to-t from-black via-transparent to-transparent opacity-30"></div>
             </CardHeader>
 
-            <CardContent className="p-4 space-y-4 flex-grow">
+            <CardContent className="flex-grow space-y-4 p-4">
               <CardTitle className="text-xl font-semibold">
                 {study.title}
               </CardTitle>
-              <CardDescription className="space-y-3">
-                <div className="flex items-start space-x-3">
-                  <FaExclamationCircle className="text-2xl text-red-500 mt-1" />
-                  <p className="text-sm">
-                    <strong className="text-white">Problem:</strong> {study.problem}
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <FaLightbulb className="text-2xl text-yellow-400 mt-1" />
-                  <p className="text-sm">
-                    <strong className="text-white">Solution:</strong> {study.solution}
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <FaCheckCircle className="text-2xl text-green-500 mt-1" />
-                  <p className="text-sm">
-                    <strong className="text-white">Outcome:</strong> {study.outcome}
-                  </p>
-                </div>
-              </CardDescription>
             </CardContent>
 
             <CardFooter className="p-4">
@@ -126,9 +103,7 @@ const ProjectSection = () => {
                 href={study.link}
                 target="_blank"
                 rel="noopener noreferrer"
-
-                className="inline-block text-sm font-semibold text-[#d9c5a7] border border-[#d9c5a7] rounded-full px-4 py-1 hover:bg-[#d9c5a7] hover:text-gray-900 transition-colors duration-300"
-
+                className="inline-block rounded-full border border-[#d9c5a7] px-4 py-1 text-sm font-semibold text-[#d9c5a7] transition-colors duration-300 hover:bg-[#d9c5a7] hover:text-gray-900"
               >
                 View Project Details
               </Link>
