@@ -74,14 +74,14 @@ const ProjectSection = () => {
                     className="absolute inset-0 flex items-center justify-center bg-black/50"
                   >
                     <div className="text-center">
-                      <h3 className="mb-4 text-2xl text-white">
+                      <h3 className="mb-4 text-2xl text-[#d9c5a7]">
                         {project.title}
                       </h3>
                       <Link
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-full bg-white px-6 py-2 text-black transition-all hover:bg-opacity-90"
+                        className="rounded-full text-[#d9c5a7] bg-[#1a1a1a] px-6 py-2  transition-all hover:bg-opacity-90"
                       >
                         View Project
                       </Link>
