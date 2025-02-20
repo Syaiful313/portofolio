@@ -153,7 +153,7 @@ const Footer = () => {
               transition={{ duration: 0.5 }}
             >
               <h2 className="mb-4 text-3xl font-bold text-[#d9c5a7]">
-                Muhammad Syaiful
+                Muhammad Syaiful Mu'min
               </h2>
               <p className="mb-6 leading-relaxed text-gray-400">
                 Transforming ideas into exceptional digital experiences.
@@ -368,7 +368,7 @@ const Footer = () => {
                   <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
                     <FaMapMarkerAlt className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
                   </div>
-                  <span>Indonesia</span>
+                  <span>Temanggung, Jawa Tengah, Indonesia</span>
                 </motion.div>
               </div>
             </div>

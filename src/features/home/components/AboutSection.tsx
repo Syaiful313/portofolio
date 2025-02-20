@@ -71,14 +71,14 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black"
     >
       <motion.div
         className="absolute inset-0 opacity-5"
         style={{ y: backgroundY }}
       >
         <div className="bg-grid-pattern absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
       </motion.div>
 
       {[...Array(20)].map((_, i) => (
@@ -173,7 +173,7 @@ const AboutSection = () => {
             <div className="relative">
               <p className="text-lg leading-relaxed text-[#d9c5a7] md:text-xl">
                 Hey! I'm{" "}
-                <span className="relative inline-block font-semibold text-white">
+                <span className="relative inline-block font-serif font-bold">
                   Muhammad Syaiful Mu'min
                   <motion.span
                     className="absolute -bottom-1 left-0 h-0.5 w-full bg-[#c4b5a0]/30"
@@ -204,6 +204,7 @@ const AboutSection = () => {
                 >
                   <Link
                     href={link.href}
+                    target="_blank"
                     aria-label={link.name}
                     className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-zinc-800/50 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-700/50 hover:shadow-lg hover:shadow-[#c4b5a0]/10"
                   >
