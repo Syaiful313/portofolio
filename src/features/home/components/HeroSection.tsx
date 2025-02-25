@@ -126,7 +126,7 @@ const HomeSection = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl font-light text-[#d9c5a7] sm:text-2xl md:text-3xl lg:text-4xl"
             >
-              I am Fullstack Web Developer
+              I am Full-Stack Web Developer
             </motion.p>
 
             <motion.article
