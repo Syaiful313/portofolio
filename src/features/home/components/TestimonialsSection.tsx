@@ -131,24 +131,24 @@ const TestimonialSection: React.FC = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#1a1a1a] py-16"
+      className="relative overflow-hidden bg-[#1a1a1a] py-10 md:py-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: isInView ? 1 : 0 }}
       transition={{ duration: 1 }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="relative z-10 mx-auto max-w-6xl px-4">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -50 }}
           transition={{ duration: 0.7 }}
-          className="mb-16 text-center"
+          className="mb-8 md:mb-16 text-center"
         >
-          <h2 className="mb-4 font-serif text-4xl font-bold text-[#d9c5a7]">
+          <h2 className="mb-2 font-serif text-2xl font-bold text-[#d9c5a7] md:mb-4 md:text-4xl">
             Client Testimonials
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-[#d9c5a7]/80">
+          <p className="mx-auto max-w-2xl text-sm text-[#d9c5a7]/80 md:text-base">
             Hear directly from industry leaders who have transformed their
             businesses with our innovative solutions.
           </p>
@@ -162,25 +162,26 @@ const TestimonialSection: React.FC = () => {
               initial="initial"
               animate="animate"
               exit="exit"
-              className={`relative rounded-2xl p-8 shadow-2xl ${currentTestimonial.background}`}
+              className={`relative rounded-2xl p-4 md:p-8 shadow-2xl ${currentTestimonial.background}`}
             >
-              <div className="mb-6 flex items-start">
+              <div className="mb-4 md:mb-6 flex items-start">
                 <Quote
-                  className="mr-6 flex-shrink-0 text-[#d9c5a7]/50"
-                  size={50}
+                  className="mr-3 md:mr-6 flex-shrink-0 text-[#d9c5a7]/50"
+                  size={30}
+                  strokeWidth={1.5}
                 />
-                <p className="text-2xl italic leading-relaxed text-[#d9c5a7]">
+                <p className="text-base md:text-lg italic leading-relaxed text-[#d9c5a7]">
                   "{currentTestimonial.quote}"
                 </p>
               </div>
 
-              <div className="mt-8 flex items-center justify-between">
+              <div className="mt-4 md:mt-8 flex items-center justify-between">
                 <div className="flex items-center">
                   <div>
-                    <h3 className="text-2xl font-semibold text-[#d9c5a7]">
+                    <h3 className="text-base font-semibold text-[#d9c5a7] md:text-xl">
                       {currentTestimonial.name}
                     </h3>
-                    <p className="text-base text-[#d9c5a7]/80">
+                    <p className="text-xs text-[#d9c5a7]/80 md:text-base">
                       {currentTestimonial.position} at{" "}
                       {currentTestimonial.company}
                     </p>
@@ -194,23 +195,23 @@ const TestimonialSection: React.FC = () => {
             variants={navigationVariants}
             initial="initial"
             animate="animate"
-            className="mt-12 flex items-center justify-center space-x-4"
+            className="mt-6 md:mt-12 flex items-center justify-center space-x-2 md:space-x-4"
           >
             <motion.button
               onClick={handlePrev}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="rounded-full bg-[#1a1a1a] p-3"
+              className="rounded-full bg-[#1a1a1a] p-2 md:p-3"
             >
-              <ChevronLeft className="text-[#d9c5a7]" size={30} />
+              <ChevronLeft className="text-[#d9c5a7]" size={20} />
             </motion.button>
 
-            <div className="flex space-x-2">
+            <div className="flex space-x-1 md:space-x-2">
               {testimonials.map((_, index) => (
                 <motion.div
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`h-4 w-4 cursor-pointer rounded-full ${
+                  className={`h-2 w-2 md:h-4 md:w-4 cursor-pointer rounded-full ${
                     index === currentIndex
                       ? "bg-[#d9c5a7]"
                       : "bg-[#d9c5a7]/30 hover:bg-[#d9c5a7]/50"
@@ -225,14 +226,15 @@ const TestimonialSection: React.FC = () => {
               onClick={handleNext}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="rounded-full bg-[#1a1a1a] p-3"
+              className="rounded-full bg-[#1a1a1a] p-2 md:p-3"
             >
-              <ChevronRight className="text-[#d9c5a7]" size={30} />
+              <ChevronRight className="text-[#d9c5a7]" size={20} />
             </motion.button>
           </motion.div>
         </div>
       </div>
 
+      {/* Background decorative elements */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{
@@ -240,7 +242,7 @@ const TestimonialSection: React.FC = () => {
           scale: isInView ? 1 : 0.5,
         }}
         transition={{ duration: 1 }}
-        className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#d9c5a7]/10 blur-3xl"
+        className="absolute -right-20 -top-20 h-60 w-60 md:h-96 md:w-96 rounded-full bg-[#d9c5a7]/10 blur-3xl"
       />
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
@@ -249,7 +251,7 @@ const TestimonialSection: React.FC = () => {
           scale: isInView ? 1 : 0.5,
         }}
         transition={{ duration: 1, delay: 0.2 }}
-        className="absolute -bottom-20 -left-20 h-96 w-96 rounded-full bg-[#d9c5a7]/10 blur-3xl"
+        className="absolute -bottom-20 -left-20 h-60 w-60 md:h-96 md:w-96 rounded-full bg-[#d9c5a7]/10 blur-3xl"
       />
     </motion.section>
   );
