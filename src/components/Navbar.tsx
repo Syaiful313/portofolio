@@ -14,12 +14,13 @@ const Navbar = () => {
     { href: "/", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#projects", label: "Projects" },
+    { href: "#experience", label: "Experience" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const scrollThreshold = 100; // Increased threshold for more noticeable effect
+      const scrollThreshold = 100;
 
       // Check scroll direction and position
       if (currentScrollY > lastScrollY) {
@@ -78,7 +79,7 @@ const Navbar = () => {
             </h1>
           </Link>
 
-          <div className="hidden space-x-6 px-14 font-serif sm:flex">
+          <div className="hidden space-x-6 px-14 font-serif sm:flex items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -93,8 +94,8 @@ const Navbar = () => {
               </Link>
             ))}
 
-            <Link href="/contact">
-              <Button className="rounded-lg bg-[#d9c5a7] px-5 py-2 hover:bg-[#d9c5a7]/80">
+            <Link href="/contact" className="ml-2">
+              <Button className="rounded-lg bg-[#d9c5a7] px-4 py-2 text-sm hover:bg-[#d9c5a7]/80">
                 Let's Talk
               </Button>
             </Link>
