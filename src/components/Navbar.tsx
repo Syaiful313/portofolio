@@ -22,22 +22,17 @@ const Navbar = () => {
       const currentScrollY = window.scrollY;
       const scrollThreshold = 100;
 
-      // Check scroll direction and position
       if (currentScrollY > lastScrollY) {
-        // Scrolling down
         if (currentScrollY > scrollThreshold) {
           setIsNavbarVisible(false);
         }
       } else {
-        // Scrolling up
         setIsNavbarVisible(true);
       }
 
-      // Update scroll state
       setLastScrollY(currentScrollY);
       setIsScrolled(currentScrollY > 20);
 
-      // Active section detection
       const sections = navLinks.map((link) => link.href.replace("#", ""));
       sections.forEach((section) => {
         const element = document.getElementById(section);
@@ -59,7 +54,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed left-1/2 top-0 z-[1000] w-full max-w-[90%] -translate-x-1/2 transform transition-all duration-300 sm:max-w-[40%] 
+        className={`fixed left-1/2 top-0 z-[1000] -translate-x-1/2 transform transition-all duration-300 
           ${isScrolled ? "shadow-lg" : ""} 
           ${isNavbarVisible 
             ? "translate-y-5 opacity-100" 
