@@ -54,12 +54,11 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed left-1/2 top-0 z-[1000] -translate-x-1/2 transform transition-all duration-300 
-          ${isScrolled ? "shadow-lg" : ""} 
-          ${isNavbarVisible 
-            ? "translate-y-5 opacity-100" 
-            : "-translate-y-full opacity-0"}`
-        }
+        className={`fixed left-1/2 top-0 z-[1000] w-full max-w-[90%] -translate-x-1/2 transform transition-all duration-300 md:max-w-[80%] lg:max-w-[47%] ${isScrolled ? "shadow-lg" : ""} ${
+          isNavbarVisible
+            ? "translate-y-5 opacity-100"
+            : "-translate-y-full opacity-0"
+        }`}
       >
         <div
           className={`flex items-center justify-between rounded-xl p-2 ${
@@ -74,7 +73,7 @@ const Navbar = () => {
             </h1>
           </Link>
 
-          <div className="hidden space-x-6 px-14 font-serif sm:flex items-center">
+          <div className="hidden items-center space-x-6 px-14 font-serif sm:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -105,7 +104,7 @@ const Navbar = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="flex flex-col items-center justify-center mt-2 rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg sm:hidden">
+          <div className="mt-2 flex flex-col items-center justify-center rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg sm:hidden">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
