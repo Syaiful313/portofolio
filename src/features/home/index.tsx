@@ -1,18 +1,18 @@
 import MarqueeText from "@/components/MarqueeSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
+import Experience from "./components/ExperienceSection";
 import HeroSection from "./components/HeroSection";
-import ProjectSection from "./components/ProjectSection";
+import Portfolio from "./components/PortofolioSection";
 import TestimonialsSection from "./components/TestimonialsSection";
-import ExperienceSection from "./components/ExperienceSection";
 
 const HomePage = () => {
   return (
     <>
       <HeroSection />
       <AboutSection />
-      <ProjectSection />
-      <ExperienceSection />
+      <Portfolio/>
+      <Experience />
       <TestimonialsSection />
       <MarqueeText />
       <ContactSection />

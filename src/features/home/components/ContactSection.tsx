@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-const ContactSection: React.FC = () => {
+const ContactSection = () => {
   return (
-    <section className="relative flex min-h-screen items-center justify-center bg-black text-[#E6E0D3]">
-      <div className="max-w-4xl px-4 text-center">
+    <section className="bg-black text-[#E6E0D3]">
+      <div className="mx-auto my-56 max-w-4xl px-4 text-center">
         <p className="mb-4 text-sm uppercase tracking-widest opacity-70">
           PROJECT IN MIND?
         </p>
@@ -21,7 +21,7 @@ const ContactSection: React.FC = () => {
           href="/contact"
           className="inline-block rounded-xl bg-[#d9c5a7] px-6 py-3 text-lg font-medium text-black transition-colors hover:bg-opacity-90"
         >
-          GET IN TOUCH 
+          GET IN TOUCH
         </Link>
       </div>
     </section>
