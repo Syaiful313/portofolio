@@ -13,8 +13,8 @@ export const projects = [
       "Vercel",
       "Shadcn UI",
     ],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://strategik.vercel.app/",
+    githubUrl: "https://github.com/Syaiful313/Company-Profile",
     details: {
       situation:
         "Perusahaan membutuhkan website untuk menampilkan profil, layanan, dan blog mereka dengan pengelolaan konten yang mudah.",
@@ -39,8 +39,8 @@ export const projects = [
       "Tailwind CSS",
       "Shadcn UI",
     ],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://blog-cms-muhammad-syaiful.vercel.app/",
+    githubUrl: "https://github.com/Syaiful313/blog-cms",
     details: {
       situation:
         "Diperlukan sistem blog yang fleksibel dengan kemampuan mengelola konten tanpa harus mengedit kode.",
@@ -66,7 +66,7 @@ export const projects = [
       "PostgreSQL",
       "Shadcn UI",
     ],
-    liveUrl: "#",
+    liveUrl: "https://blog-jcwd-0510-fe.vercel.app/",
     githubUrl: "#",
     details: {
       situation:
@@ -91,10 +91,9 @@ export const projects = [
       "Prisma",
       "PostgreSQL",
       "Stripe",
-      "Socket.io",
       "Shadcn UI",
     ],
-    liveUrl: "#",
+    liveUrl: "https://starticket.vercel.app/",
     githubUrl: "#",
     details: {
       situation:
@@ -111,7 +110,7 @@ export const projects = [
     id: 5,
     title: "HotCoffee Blog",
     description:
-      "A minimalist and modern blog platform designed for coffee enthusiasts, offering engaging content and a subscription feature.",
+      "Platform blog minimalis dan modern yang dirancang untuk para penggemar kopi, menawarkan konten yang menarik dan fitur berlangganan.",
     image: "/blogbackendless.png",
     category: "frontend",
     technologies: [
@@ -123,7 +122,7 @@ export const projects = [
       "Shadcn UI",
     ],
     liveUrl: "https://hotcoffee-blog-backendless.vercel.app",
-    githubUrl: "https://github.com/yourusername/hotcoffee-blog",
+    githubUrl: "https://github.com/Syaiful313/blog-jcwd-0610",
     details: {
       situation:
         "Recognizing a lack of dedicated platforms for coffee enthusiasts to share and read engaging content, the goal was to create a modern blog focusing on coffee culture.",
@@ -138,7 +137,7 @@ export const projects = [
     id: 6,
     title: "Socio Space",
     description:
-      "A company profile website for a co-working space, showcasing services, workspace options, and an integrated blog for community engagement.",
+      "Situs web profil perusahaan untuk ruang kerja bersama, menampilkan layanan, pilihan ruang kerja, dan blog terintegrasi untuk keterlibatan komunitas.",
     image: "/companyprofilebackendless.png",
     category: "frontend",
     technologies: [
@@ -150,7 +149,7 @@ export const projects = [
       "Shadcn UI",
     ],
     liveUrl: "https://socio-space.vercel.app",
-    githubUrl: "https://github.com/yourusername/socio-space",
+    githubUrl: "https://github.com/Syaiful313/socio-space",
     details: {
       situation:
         "A co-working space needed an online presence to showcase their services and attract potential clients.",
