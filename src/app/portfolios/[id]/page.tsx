@@ -2,14 +2,14 @@ import PortofolioDetailPage from "@/features/portofolio/PortofolioDetail";
 import { projects } from "@/utils/projects";
 
 interface PortfolioDetailProps {
-  params: Promise<{ id: string }>; // Changed to Promise
+  params: Promise<{ id: string }>; 
 }
 
-const Portfolio = async ({ params }: PortfolioDetailProps) => { // Added async
-  const { id } = await params; // Added await
+const Portfolio = async ({ params }: PortfolioDetailProps) => { 
+  const { id } = await params;
   
   const project = projects.find(
-    (item) => item.id.toString() === id // Use destructured id
+    (item) => item.id.toString() === id
   );
 
   if (!project) {
