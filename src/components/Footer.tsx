@@ -14,6 +14,7 @@ import {
   FaRocket,
   FaTwitter,
 } from "react-icons/fa";
+import CountUp from "./CountUp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -58,7 +59,7 @@ const Footer = () => {
       name: "Twitter",
       color: "#1da1f2",
     },
-    
+
     {
       icon: FaGithub,
       href: "https://github.com/Syaiful313",
@@ -165,42 +166,42 @@ const Footer = () => {
                   className="text-center"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <motion.span
-                    className="block text-2xl font-bold text-[#d9c5a7]"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                  >
-                    1
-                  </motion.span>
+                  <CountUp
+                    from={0}
+                    to={1}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                    className="count-up-text block text-2xl font-bold text-[#d9c5a7]"
+                  />
                   <span className="text-sm text-gray-400">Years Exp.</span>
                 </motion.div>
                 <motion.div
                   className="text-center"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <motion.span
-                    className="block text-2xl font-bold text-[#d9c5a7]"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                  >
-                    5+
-                  </motion.span>
+                  <CountUp
+                    from={0}
+                    to={5}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                    className="count-up-text block text-2xl font-bold text-[#d9c5a7]"
+                  />
                   <span className="text-sm text-gray-400">Projects</span>
                 </motion.div>
                 <motion.div
                   className="text-center"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <motion.span
-                    className="block text-2xl font-bold text-[#d9c5a7]"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                  >
-                    10+
-                  </motion.span>
+                  <CountUp
+                    from={0}
+                    to={10}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                    className="count-up-text block text-2xl font-bold text-[#d9c5a7]"
+                  />
                   <span className="text-sm text-gray-400">Clients</span>
                 </motion.div>
               </div>

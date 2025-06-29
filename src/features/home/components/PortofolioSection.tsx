@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,21 +10,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
+import { projects } from "@/utils/projects";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/utils/projects";
+import { useEffect, useState } from "react";
 
 export default function Portfolio() {
   const [filter, setFilter] = useState("all");
@@ -55,7 +45,7 @@ export default function Portfolio() {
   return (
     <section
       id="projects"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 py-32 text-[#d9c5a7] mx-4 md:mx-0"
+      className="relative mx-4 overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 py-32 text-[#d9c5a7] md:mx-0"
     >
       {/* Animated Background */}
       <motion.div
@@ -106,53 +96,6 @@ export default function Portfolio() {
             development. Each project demonstrates my problem-solving approach
             and technical skills.
           </p>
-
-          <div className="mb-8 flex flex-wrap justify-center gap-2 font-sans">
-            <Button
-              variant="outline"
-              onClick={() => setFilter("all")}
-              className={`rounded-full border-[#d9c5a7] hover:bg-[#d9c5a7]/20 ${
-                filter === "all"
-                  ? "text-[#d9c5a7]"
-                  : "bg-[#d9c5a7]/30 text-foreground hover:text-foreground"
-              }`}
-            >
-              All Projects
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setFilter("frontend")}
-              className={`rounded-full border-[#d9c5a7] hover:bg-[#d9c5a7]/20 ${
-                filter === "frontend"
-                  ? "text-[#d9c5a7]"
-                  : "bg-[#d9c5a7]/30 text-foreground hover:text-foreground"
-              }`}
-            >
-              Frontend
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setFilter("backend")}
-              className={`rounded-full border-[#d9c5a7] hover:bg-[#d9c5a7]/20 ${
-                filter === "backend"
-                  ? "text-[#d9c5a7]"
-                  : "bg-[#d9c5a7]/30 text-foreground hover:text-foreground"
-              }`}
-            >
-              Backend
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setFilter("fullstack")}
-              className={`rounded-full border-[#d9c5a7] hover:bg-[#d9c5a7]/20 ${
-                filter === "fullstack"
-                  ? "text-[#d9c5a7]"
-                  : "bg-[#d9c5a7]/30 text-foreground hover:text-foreground"
-              }`}
-            >
-              Full-Stack
-            </Button>
-          </div>
         </motion.div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -171,12 +114,12 @@ export default function Portfolio() {
                     alt={project.title}
                     height={600}
                     width={800}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+                    className="h-full w-full object-cover transition-transform duration-500"
                   />
                 </div>
                 <CardHeader>
                   <CardTitle className="font-serif">{project.title}</CardTitle>
-                  <CardDescription className="font-sans text-[#d9c5a7]/90 line-clamp-2">
+                  <CardDescription className="line-clamp-2 font-sans text-[#d9c5a7]/90">
                     {project.description}
                   </CardDescription>
                 </CardHeader>
@@ -193,127 +136,19 @@ export default function Portfolio() {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        aria-label={`View details for ${project.title}`}
-                        className="rounded-xl border-[#d9c5a7] hover:bg-[#d9c5a7]/20"
-                      >
-                        View Details
-                      </Button>
-                    </DialogTrigger>
-
-                    <DialogContent className="max-h-[90vh] max-w-xl overflow-y-auto bg-black text-[#d9c5a7]/80">
-                      <DialogHeader>
-                        <DialogTitle className="font-serif text-2xl">
-                          {project.title}
-                        </DialogTitle>
-                        <DialogDescription className="mt-2 font-sans text-base text-foreground/70">
-                          {project.description}
-                        </DialogDescription>
-                      </DialogHeader>
-
-                      <div className="mt-6">
-                        {/* Project Image */}
-                        <div className="relative mb-6 h-64 w-full overflow-hidden rounded-xl">
-                          <Image
-                            src={project.image || "/placeholder.svg"}
-                            alt={`Screenshot of ${project.title}`}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 768px"
-                            priority
-                            className="object-cover"
-                          />
-                        </div>
-
-                        <div className="space-y-6">
-                          {/* STAR Method Cards */}
-                          <div className="grid grid-cols-1 gap-6">
-                            <div className="rounded-lg bg-muted/50 p-4 transition-all hover:bg-muted/70">
-                              <h4 className="mb-2 font-serif text-lg text-primary">
-                                Situation
-                              </h4>
-                              <p className="text-foreground/80">
-                                {project.details?.situation}
-                              </p>
-                            </div>
-
-                            <div className="rounded-lg bg-muted/50 p-4 transition-all hover:bg-muted/70">
-                              <h4 className="mb-2 font-serif text-lg text-primary">
-                                Task
-                              </h4>
-                              <p className="text-foreground/80">
-                                {project.details?.task}
-                              </p>
-                            </div>
-
-                            <div className="rounded-lg bg-muted/50 p-4 transition-all hover:bg-muted/70">
-                              <h4 className="mb-2 font-serif text-lg text-primary">
-                                Action
-                              </h4>
-                              <p className="text-foreground/80">
-                                {project.details?.action}
-                              </p>
-                            </div>
-
-                            <div className="rounded-lg bg-muted/50 p-4 transition-all hover:bg-muted/70">
-                              <h4 className="mb-2 font-serif text-lg text-primary">
-                                Result
-                              </h4>
-                              <p className="text-foreground/80">
-                                {project.details?.result}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Technologies */}
-                          <div className="mt-6">
-                            <h4 className="mb-3 font-serif text-lg">
-                              Technologies Used:
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {(project.technologies || []).map(
-                                (tech, techIndex) => (
-                                  <Badge
-                                    key={`${tech}-${techIndex}`}
-                                    variant="secondary"
-                                    className="text-sm"
-                                  >
-                                    {tech}
-                                  </Badge>
-                                ),
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Footer Actions */}
-                        <div className="mt-8 flex items-center justify-between gap-4 border-t pt-4">
-                          <DialogClose asChild>
-                            <Button variant="outline">Close</Button>
-                          </DialogClose>
-
-                          <div className="flex gap-2">
-                            {project.liveUrl && (
-                              <Button variant="default" size="sm" asChild>
-                                <Link
-                                  href={project.liveUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  aria-label="View live demo"
-                                >
-                                  <ExternalLink className="mr-2 h-4 w-4" />
-                                  Live Demo
-                                </Link>
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                <CardFooter className="flex justify-end">
+                  <Link
+                    href={`/portfolios/${project.id}`}
+                    passHref
+                    legacyBehavior
+                  >
+                    <Button
+                      variant="outline"
+                      className="rounded-xl border-[#d9c5a7] hover:bg-[#d9c5a7]/20"
+                    >
+                      View Details
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </motion.div>
