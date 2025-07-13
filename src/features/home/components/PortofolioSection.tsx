@@ -137,11 +137,7 @@ export default function Portfolio() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-end">
-                  <Link
-                    href={`/portfolios/${project.id}`}
-                    passHref
-                    legacyBehavior
-                  >
+                  <Link href={`/portfolios/${project.id}`}>
                     <Button
                       variant="outline"
                       className="rounded-xl border-[#d9c5a7] hover:bg-[#d9c5a7]/20"
