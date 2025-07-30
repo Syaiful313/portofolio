@@ -1,39 +1,16 @@
 export const experiences = [
-    {
-      id: 1,
-      title: "Frontend Developer",
-      company: "DigitalCraft Studios",
-      period: "2017 - 2019",
-      description:
-        "Focused on creating engaging user interfaces and implementing frontend functionality for web applications. Worked closely with UX designers to translate designs into functional code.",
-      responsibilities: [
-        "Developed responsive and accessible user interfaces",
-        "Implemented complex UI components and animations",
-        "Optimized frontend performance and user experience",
-        "Participated in UX research and design feedback sessions",
-      ],
-      technologies: [
-        "JavaScript",
-        "HTML5",
-        "CSS3",
-        "Vue.js",
-        "Webpack",
-        "Jest",
-      ],
-    },
-    {
-      id: 2,
-      title: "Web Development Intern",
-      company: "StartUp Nexus",
-      period: "2016 - 2017",
-      description:
-        "Assisted in the development of web applications and gained hands-on experience with modern web technologies. Participated in code reviews and team meetings to enhance skills.",
-      responsibilities: [
-        "Assisted in building and maintaining web applications",
-        "Fixed bugs and implemented minor features",
-        "Learned version control and collaborative development practices",
-        "Participated in agile development processes",
-      ],
-      technologies: ["JavaScript", "HTML", "CSS", "jQuery", "Bootstrap", "PHP"],
-    },
-  ];
+  {
+    id: 1,
+    title: "Fullstack Web Developer",
+    company: "Freelance Project - Pengadaan Barang Web App",
+    period: "Feb 2024 – Apr 2024",
+    description: [
+      "Merancang dan membangun aplikasi pengadaan barang berbasis web dengan fitur pengajuan barang, persetujuan admin, dan pelacakan status.",
+      "Menggunakan stack teknologi Next.js, TypeScript, Tailwind CSS di frontend dan Express.js, PostgreSQL, serta Prisma di backend.",
+      "Mengimplementasikan sistem autentikasi JWT dan role-based access control untuk admin, manager, dan user.",
+      "Menerapkan validasi form, notifikasi status pengajuan, serta dashboard ringkasan data.",
+    ],
+
+    technologies: ["Next.JS", "Tailwind", "Express.JS", "Prisma", "PostgreSQL"],
+  },
+];
