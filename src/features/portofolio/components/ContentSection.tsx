@@ -1,5 +1,5 @@
+import { CheckCircle, Code, ExternalLink, Target, Zap } from "lucide-react";
 import Link from "next/link";
-import { ExternalLink, Code, Zap, Target, CheckCircle } from "lucide-react";
 
 const ContentSection = ({ project }: { project: any }) => {
   return (
@@ -11,15 +11,13 @@ const ContentSection = ({ project }: { project: any }) => {
             <span className="mb-2 inline-block rounded-full bg-[#d9c5a7]/10 px-4 py-2 text-sm font-medium uppercase tracking-wider text-[#d9c5a7]/80">
               {project.category}
             </span>
-            <h2 className="text-2xl font-bold md:text-3xl">
-              Project Details
-            </h2>
+            <h2 className="text-2xl font-bold md:text-3xl">Project Details</h2>
           </div>
-          
+
           {project.liveUrl !== "#" && (
-            <Link 
-              href={project.liveUrl} 
-              target="_blank" 
+            <Link
+              href={project.liveUrl}
+              target="_blank"
               className="group mt-4 flex items-center gap-2 rounded-lg bg-[#d9c5a7] px-6 py-3 font-medium text-[#1a1a1a] transition-all duration-300 hover:bg-[#d9c5a7]/90 hover:shadow-lg md:mt-0"
             >
               <span>View Live Demo</span>
@@ -35,11 +33,9 @@ const ContentSection = ({ project }: { project: any }) => {
               <div className="rounded-lg bg-[#d9c5a7]/10 p-2">
                 <Code className="h-6 w-6" />
               </div>
-              <h3 className="text-2xl font-semibold">
-                Technologies Used
-              </h3>
+              <h3 className="text-2xl font-semibold">Technologies Used</h3>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {project.technologies.map((tech: string, index: number) => (
                 <div
@@ -75,9 +71,11 @@ const ContentSection = ({ project }: { project: any }) => {
                 <div className="rounded-lg bg-blue-500/10 p-2">
                   <Target className="h-5 w-5 text-blue-400" />
                 </div>
-                <h4 className="text-lg font-semibold text-[#d9c5a7]">Situation</h4>
+                <h4 className="text-lg font-semibold text-[#d9c5a7]">
+                  Situation
+                </h4>
               </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 group-hover:text-[#d9c5a7]/90 transition-colors">
+              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
                 {project.details.situation}
               </p>
             </div>
@@ -90,7 +88,7 @@ const ContentSection = ({ project }: { project: any }) => {
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">Task</h4>
               </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 group-hover:text-[#d9c5a7]/90 transition-colors">
+              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
                 {project.details.task}
               </p>
             </div>
@@ -103,7 +101,7 @@ const ContentSection = ({ project }: { project: any }) => {
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">Action</h4>
               </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 group-hover:text-[#d9c5a7]/90 transition-colors">
+              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
                 {project.details.action}
               </p>
             </div>
@@ -116,7 +114,7 @@ const ContentSection = ({ project }: { project: any }) => {
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">Result</h4>
               </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 group-hover:text-[#d9c5a7]/90 transition-colors">
+              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
                 {project.details.result}
               </p>
             </div>
@@ -126,9 +124,9 @@ const ContentSection = ({ project }: { project: any }) => {
         {/* Live URL at bottom for mobile */}
         {project.liveUrl !== "#" && (
           <div className="mt-12 block md:hidden">
-            <Link 
-              href={project.liveUrl} 
-              target="_blank" 
+            <Link
+              href={project.liveUrl}
+              target="_blank"
               className="group flex w-full items-center justify-center gap-2 rounded-lg border border-[#d9c5a7]/30 bg-transparent px-6 py-4 font-medium text-[#d9c5a7] transition-all duration-300 hover:border-[#d9c5a7] hover:bg-[#d9c5a7]/5"
             >
               <span>View Live Demo</span>
