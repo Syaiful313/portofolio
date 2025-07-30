@@ -1,17 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { testimonials } from "@/utils/testimonials";
-import { AnimatePresence, motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { useEffect, useState } from "react";
+import { testimonials } from "@/utils/testimonials";
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,19 +26,19 @@ export default function Testimonials() {
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (autoplay && !isHovered) {
+    if (autoplay) {
       interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-      }, 6000);
+      }, 5000);
     }
 
     return () => clearInterval(interval);
-  }, [autoplay, isHovered, testimonials.length]);
+  }, [autoplay, testimonials.length]);
 
   const handlePrev = () => {
     setAutoplay(false);
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
     );
   };
 
@@ -56,68 +55,28 @@ export default function Testimonials() {
         testimonials[(currentIndex + 2) % testimonials.length],
       ];
 
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-      scale: 0.9,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -50,
-      scale: 0.9,
-      transition: {
-        duration: 0.4,
-      },
-    },
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
   return (
-    <section
-      id="testimonials"
-      className="mx-4 bg-muted/30 py-32 text-[#d9c5a7] md:mx-0"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <section id="testimonials" className="py-32 bg-muted/30 mx-4 md:mx-0 text-[#d9c5a7]">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          className="text-center mb-16"
         >
-          <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
             Client Testimonials
           </h2>
-          <div className="mx-auto mb-8 h-1 w-20 bg-primary"></div>
-          <p className="mx-auto max-w-2xl text-foreground/80">
+          <div className="w-20 h-1 bg-primary mx-auto mb-8"></div>
+          <p className="text-foreground/80 max-w-2xl mx-auto">
             Don't just take my word for it. Here's what my clients have to say
             about working with me on their web development projects.
           </p>
         </motion.div>
 
         <div className="relative">
-          <div className="mb-8 flex justify-center">
+          <div className="flex justify-center mb-8">
             <Button
               variant="outline"
               size="icon"
@@ -137,44 +96,37 @@ export default function Testimonials() {
             </Button>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <AnimatePresence mode="wait">
-              {visibleTestimonials.map((testimonial, index) => (
-                <motion.div
-                  key={`${testimonial.id}-${currentIndex}-${index}`}
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className={index === 0 ? "md:col-span-1" : ""}
-                >
-                  <Card className="h-full border-none shadow-lg shadow-[#d9c5a7]/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#d9c5a7]/40">
-                    <CardContent className="flex h-full flex-col p-6">
-                      <Quote className="mb-4 h-10 w-10 text-primary/30" />
-                      <p className="mb-6 flex-grow italic text-foreground/80">
-                        "{testimonial.quote}"
-                      </p>
-                      <div className="flex items-center">
-                        <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
-                          <span className="font-semibold text-primary">
-                            {testimonial.name.charAt(0)}
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold">{testimonial.name}</h4>
-                          <p className="text-sm text-foreground/70">
-                            {testimonial.position}
-                          </p>
-                        </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {visibleTestimonials.map((testimonial, index) => (
+              <motion.div
+                key={`${testimonial.id}-${index}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className={index === 0 ? "md:col-span-1" : ""}
+              >
+                <Card className="h-full border-none shadow-md shadow-[#d9c5a7]/30 hover:shadow-lg hover:shadow-[#d9c5a7]/50 transition-shadow">
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <Quote className="h-10 w-10 text-primary/30 mb-4" />
+                    <p className="text-foreground/80 italic mb-6 flex-grow">
+                      "{testimonial.quote}"
+                    </p>
+                    <div className="flex items-center">
+                      <div>
+                        <h4 className="font-semibold">{testimonial.name}</h4>
+                        <p className="text-sm text-foreground/70">
+                          {testimonial.position}
+                        </p>
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="flex justify-center mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -182,7 +134,7 @@ export default function Testimonials() {
                   setAutoplay(false);
                   setCurrentIndex(index);
                 }}
-                className={`mx-1 h-3 w-3 rounded-full transition-all duration-200 ${
+                className={`w-3 h-3 rounded-full mx-1 ${
                   index === currentIndex ? "bg-[#d9c5a7]" : "bg-[#d9c5a7]/30"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}

@@ -1,81 +1,41 @@
 "use client";
-import BlurText from "@/components/BlurText";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import BlurText from "@/components/BlurText";
 
 const HomeSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const [screenSize, setScreenSize] = useState({
-    isMobile: false,
-    isTablet: false,
-    isDesktop: false,
-  });
-
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll();
-
-  const getScreenSize = useCallback(() => {
-    const width = window.innerWidth;
-    return {
-      isMobile: width < 768,
-      isTablet: width >= 768 && width < 1024,
-      isDesktop: width >= 1024,
-    };
-  }, []);
 
   const backgroundY = useTransform(
     scrollYProgress,
     [0, 1],
-    screenSize.isMobile
-      ? ["0%", "30%"]
-      : screenSize.isTablet
-        ? ["0%", "60%"]
-        : ["0%", "100%"],
+    ["0%", isMobile ? "50%" : "100%"]
   );
-
   const textY = useTransform(
     scrollYProgress,
     [0, 1],
-    screenSize.isMobile
-      ? ["0%", "15%"]
-      : screenSize.isTablet
-        ? ["0%", "30%"]
-        : ["0%", "50%"],
+    ["0%", isMobile ? "25%" : "50%"]
   );
-
-  const animationConfig = useMemo(
-    () => ({
-      duration: screenSize.isMobile ? 0.4 : screenSize.isTablet ? 0.6 : 0.8,
-      damping: screenSize.isMobile ? 20 : screenSize.isTablet ? 15 : 10,
-      stiffness: screenSize.isMobile ? 120 : screenSize.isTablet ? 80 : 50,
-    }),
-    [screenSize],
-  );
-
-  const particleCount = useMemo(() => {
-    if (screenSize.isMobile) return 8;
-    if (screenSize.isTablet) return 15;
-    return 25;
-  }, [screenSize]);
 
   useEffect(() => {
-    setIsMounted(true);
-
-    const updateScreenSize = () => {
-      setScreenSize(getScreenSize());
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting);
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
         });
       },
-      {
-        threshold: screenSize.isMobile ? 0.1 : 0.2,
-        rootMargin: "50px",
-      },
+      { threshold: 0.1 }
     );
 
     const element = document.getElementById("home");
@@ -83,197 +43,165 @@ const HomeSection = () => {
       observer.observe(element);
     }
 
-    updateScreenSize();
-
-    let resizeTimeout: NodeJS.Timeout | null = null;
-    const handleResize = () => {
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
-      resizeTimeout = setTimeout(updateScreenSize, 150);
-    };
-
-    window.addEventListener("resize", handleResize);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
 
     return () => {
       if (element) {
         observer.unobserve(element);
       }
-      window.removeEventListener("resize", handleResize);
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
+      window.removeEventListener("resize", checkMobile);
     };
-  }, [getScreenSize, screenSize.isMobile]);
+  }, []);
 
-  const generateStableParticles = useMemo(() => {
-    if (!isMounted) return [];
-
-    const seededRandom = (seed: number) => {
-      const x = Math.sin(seed) * 10000;
-      return x - Math.floor(x);
+  const getAnimationConfig = () => {
+    return {
+      duration: isMobile ? 0.5 : 0.8,
+      damping: isMobile ? 15 : 10,
+      stiffness: isMobile ? 100 : 50,
     };
+  };
 
-    return [...Array(particleCount)].map((_, i) => ({
-      key: i,
-      animate: {
-        x: ["0%", `${seededRandom(i * 2) * 100}%`],
-        y: ["0%", `${seededRandom(i * 3) * 100}%`],
-        scale: [1, seededRandom(i * 4) * 0.5 + 0.5, 1],
-        opacity: [0, seededRandom(i * 5) * 0.3 + 0.1, 0],
-      },
-      transition: {
-        duration: seededRandom(i * 6) * 4 + (screenSize.isMobile ? 4 : 6),
-        repeat: Infinity,
-        ease: "linear" as const,
-        delay: seededRandom(i * 7) * 2,
-      },
-      style: {
-        left: `${seededRandom(i * 8) * 100}%`,
-        top: `${seededRandom(i * 9) * 100}%`,
-      },
-    }));
-  }, [particleCount, screenSize.isMobile, isMounted]);
+  const config = getAnimationConfig();
+  const particleCount = isMobile ? 10 : 20;
 
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900"
+      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900"
     >
-      {/* Animated Background */}
-      <motion.div
-        className="absolute inset-0 opacity-5"
-        style={{ y: backgroundY }}
-      >
-        <div className="bg-grid-pattern absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
-      </motion.div>
+      <div className="container mx-auto">
+        {/* Animated Background */}
+        <motion.div
+          className="absolute inset-0 opacity-5"
+          style={{ y: backgroundY }}
+        >
+          <div className="bg-grid-pattern absolute inset-0" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
+        </motion.div>
 
-      {/* Floating Particles - Only render on client */}
-      {isMounted &&
-        generateStableParticles.map(({ key, animate, transition, style }) => (
+        {/* Floating Particles */}
+        {[...Array(particleCount)].map((_, i) => (
           <motion.div
-            key={key}
-            className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
-            animate={animate}
-            transition={transition}
-            style={style}
+            key={i}
+            className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
+            animate={{
+              x: ["0%", `${Math.random() * 100}%`],
+              y: ["0%", `${Math.random() * 100}%`],
+              scale: [1, Math.random() + 0.5, 1],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * (isMobile ? 3 : 5) + (isMobile ? 3 : 5),
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
           />
         ))}
 
-      {/* Main Content Container - Perfect Centering */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="container mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="py-12">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isVisible ? 1 : 0 }}
-            transition={{ duration: animationConfig.duration }}
-            className="flex w-full justify-center"
+            transition={{ duration: config.duration }}
+            className="my-24 flex flex-col items-center justify-center text-center md:my-56"
           >
-            <motion.div
-              style={{ y: textY }}
-              className="flex w-full max-w-5xl flex-col items-center justify-center space-y-4 text-center sm:space-y-6 md:space-y-8"
-            >
-              {/* Header */}
+            <motion.div style={{ y: textY }} className="space-y-6">
               <motion.header
-                initial={{ opacity: 0, x: screenSize.isMobile ? -20 : -50 }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : screenSize.isMobile ? -20 : -50,
+                initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
+                animate={{ 
+                  opacity: isVisible ? 1 : 0, 
+                  x: isVisible ? 0 : isMobile ? -20 : -50 
                 }}
-                transition={{
-                  duration: animationConfig.duration,
+                transition={{ 
+                  duration: config.duration, 
                   delay: 0.2,
                   type: "spring",
-                  damping: animationConfig.damping,
-                  stiffness: animationConfig.stiffness,
+                  damping: config.damping,
+                  stiffness: config.stiffness,
                 }}
-                className="flex w-full justify-center"
               >
-                <h1 className="px-2 text-center font-serif text-2xl leading-tight text-[#c4b5a0] sm:px-0 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                <h1 className="relative font-serif text-4xl leading-tight text-[#c4b5a0] sm:text-5xl md:text-7xl">
                   <BlurText
                     text="Muhammad Syaiful Mu'min"
                     delay={500}
                     animateBy="words"
                     direction="top"
-                    className="block text-center"
+                    className="inline-block"
                   />
                 </h1>
               </motion.header>
 
-              {/* Subtitle */}
               <motion.p
-                initial={{ opacity: 0, y: screenSize.isMobile ? 10 : 20 }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  y: isVisible ? 0 : screenSize.isMobile ? 10 : 20,
+                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
+                animate={{ 
+                  opacity: isVisible ? 1 : 0, 
+                  y: isVisible ? 0 : isMobile ? 10 : 20 
                 }}
-                transition={{
-                  duration: animationConfig.duration,
+                transition={{ 
+                  duration: config.duration, 
                   delay: 0.4,
                   type: "spring",
-                  damping: animationConfig.damping,
+                  damping: config.damping,
                 }}
-                className="text-center text-lg font-light text-[#d9c5a7] sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
+                className="text-xl font-light text-[#d9c5a7] sm:text-2xl md:text-3xl lg:text-4xl"
               >
                 I am Full-Stack Web Developer
               </motion.p>
 
-              {/* Description */}
               <motion.article
-                initial={{ opacity: 0, x: screenSize.isMobile ? 20 : 50 }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : screenSize.isMobile ? 20 : 50,
+                initial={{ opacity: 0, x: isMobile ? 20 : 50 }}
+                animate={{ 
+                  opacity: isVisible ? 1 : 0, 
+                  x: isVisible ? 0 : isMobile ? 20 : 50 
                 }}
-                transition={{
-                  duration: animationConfig.duration,
+                transition={{ 
+                  duration: config.duration, 
                   delay: 0.3,
                   type: "spring",
-                  damping: animationConfig.damping,
-                  stiffness: animationConfig.stiffness,
+                  damping: config.damping,
+                  stiffness: config.stiffness,
                 }}
-                className="mx-auto w-full max-w-2xl space-y-3 text-center text-[#d9c5a7] md:space-y-4"
+                className="prose prose-lg mx-auto mt-6 max-w-2xl text-[#d9c5a7]"
               >
-                <p className="text-center text-sm leading-relaxed sm:text-base md:text-lg lg:text-xl">
+                <p className="text-base sm:text-lg md:text-xl">
                   I create stunning and highly functional websites that blend
                   modern design with user-focused functionality. My mission is
                   to turn ideas into digital realities with precision and
                   creativity.
                 </p>
-                <p className="text-center text-xs italic text-gray-400 sm:text-sm md:text-base">
+                <p className="mt-4 text-sm italic text-gray-400 sm:text-base">
                   "Bringing your vision to life through code."
                 </p>
               </motion.article>
 
-              {/* CTA Button */}
-              <motion.div
-                initial={{ opacity: 0, y: screenSize.isMobile ? 10 : 20 }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  y: isVisible ? 0 : screenSize.isMobile ? 10 : 20,
+              <motion.button
+                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
+                animate={{ 
+                  opacity: isVisible ? 1 : 0, 
+                  y: isVisible ? 0 : isMobile ? 10 : 20 
                 }}
-                transition={{
-                  duration: screenSize.isMobile ? 0.3 : 0.5,
+                transition={{ 
+                  duration: isMobile ? 0.3 : 0.5, 
                   delay: 0.6,
                   type: "spring",
-                  damping: screenSize.isMobile ? 20 : 10,
+                  damping: isMobile ? 20 : 10,
                 }}
-                className="mt-6 flex justify-center sm:mt-8 md:mt-10"
+                className="mt-10"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-block"
+                <Link
+                  href="/#projects"
+                  className="rounded-full bg-[#d9c5a7] px-6 py-3 text-sm font-medium text-black shadow-md transition-transform hover:scale-105 hover:bg-[#c8b397] focus:outline-none focus:ring-4 focus:ring-[#d9c5a7]/50 sm:text-base"
                 >
-                  <Link
-                    href="/#projects"
-                    className="inline-block rounded-full bg-[#d9c5a7] px-6 py-3 text-sm font-medium text-black shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#c8b397] hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-[#d9c5a7]/50 sm:px-8 sm:py-4 sm:text-base md:text-lg"
-                  >
-                    Explore My Work
-                  </Link>
-                </motion.div>
-              </motion.div>
+                  Explore My Work
+                </Link>
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
