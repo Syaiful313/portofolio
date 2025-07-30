@@ -3,11 +3,12 @@ import { skills } from "@/utils/skills";
 import { socialLinks } from "@/utils/sosialLink";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const { scrollYProgress } = useScroll();
 
   const backgroundY = useTransform(
@@ -22,7 +23,24 @@ const AboutSection = () => {
     ["0%", isMobile ? "25%" : "50%"],
   );
 
+  const particleCount = isMobile ? 10 : 20;
+  const particleData = useMemo(() => {
+    if (!isClient) return [];
+
+    return Array.from({ length: particleCount }, (_, i) => ({
+      id: i,
+      initialX: Math.random() * 100,
+      initialY: Math.random() * 100,
+      animateX: Math.random() * 100,
+      animateY: Math.random() * 100,
+      scale: Math.random() + 0.5,
+      duration: Math.random() * (isMobile ? 3 : 5) + (isMobile ? 3 : 5),
+    }));
+  }, [isClient, particleCount, isMobile]);
+
   useEffect(() => {
+    setIsClient(true);
+
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -66,8 +84,6 @@ const AboutSection = () => {
 
   const config = getAnimationConfig();
 
-  const particleCount = isMobile ? 10 : 20;
-
   return (
     <section
       id="about"
@@ -82,27 +98,29 @@ const AboutSection = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
         </motion.div>
 
-        {[...Array(particleCount)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
-            animate={{
-              x: ["0%", `${Math.random() * 100}%`],
-              y: ["0%", `${Math.random() * 100}%`],
-              scale: [1, Math.random() + 0.5, 1],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * (isMobile ? 3 : 5) + (isMobile ? 3 : 5),
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
+        {/* Only render particles on client side */}
+        {isClient &&
+          particleData.map((particle) => (
+            <motion.div
+              key={particle.id}
+              className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
+              animate={{
+                x: ["0%", `${particle.animateX}%`],
+                y: ["0%", `${particle.animateY}%`],
+                scale: [1, particle.scale, 1],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                left: `${particle.initialX}%`,
+                top: `${particle.initialY}%`,
+              }}
+            />
+          ))}
 
         <div className="py-12">
           <motion.div
