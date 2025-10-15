@@ -45,7 +45,7 @@ export const experiences = [
     id: 3,
     title: "Development System Intern",
     company: "Scuto Indonesia",
-    period: "Okt 2025 – Sekarang",
+    period: "Sep 2025 – Sekarang",
     description: [
       "Membantu pengembangan sistem internal Scuto Indonesia pada sisi frontend dan backend.",
       "Melakukan integrasi API dan database, debugging, serta dokumentasi pengembangan.",
