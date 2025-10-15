@@ -141,13 +141,7 @@ export default function Experience() {
                           <h4 className="mb-2 text-right font-semibold">
                             Key Responsibilities:
                           </h4>
-                          <ul className="mb-4 list-inside list-disc space-y-1 text-foreground/80">
-                            {exp.responsibilities.map((resp, respIndex) => (
-                              <li key={respIndex} className="text-right">
-                                {resp}
-                              </li>
-                            ))}
-                          </ul>
+
                           <div className="flex flex-wrap justify-end gap-2">
                             {exp.technologies.map((tech, techIndex) => (
                               <Badge key={techIndex} variant="outline">
@@ -185,11 +179,7 @@ export default function Experience() {
                           <h4 className="mb-2 font-semibold">
                             Key Responsibilities:
                           </h4>
-                          <ul className="mb-4 list-inside list-disc space-y-1 text-foreground/80">
-                            {exp.responsibilities.map((resp, respIndex) => (
-                              <li key={respIndex}>{resp}</li>
-                            ))}
-                          </ul>
+
                           <div className="flex flex-wrap gap-2">
                             {exp.technologies.map((tech, techIndex) => (
                               <Badge key={techIndex} variant="outline">
@@ -228,11 +218,6 @@ export default function Experience() {
                         <h4 className="mb-2 font-semibold">
                           Key Responsibilities:
                         </h4>
-                        <ul className="mb-3 ml-5 list-disc space-y-1 text-foreground/80">
-                          {exp.responsibilities.map((resp, respIndex) => (
-                            <li key={respIndex}>{resp}</li>
-                          ))}
-                        </ul>
                         <div className="flex flex-wrap gap-2">
                           {exp.technologies.map((tech, techIndex) => (
                             <Badge key={techIndex} variant="outline">
