@@ -144,7 +144,11 @@ export default function Experience() {
 
                           <div className="flex flex-wrap justify-end gap-2">
                             {exp.technologies.map((tech, techIndex) => (
-                              <Badge key={techIndex} variant="outline">
+                              <Badge
+                                key={techIndex}
+                                variant="outline"
+                                className="rounded-full"
+                              >
                                 {tech}
                               </Badge>
                             ))}
@@ -182,7 +186,11 @@ export default function Experience() {
 
                           <div className="flex flex-wrap gap-2">
                             {exp.technologies.map((tech, techIndex) => (
-                              <Badge key={techIndex} variant="outline">
+                              <Badge
+                                key={techIndex}
+                                variant="outline"
+                                className="rounded-full"
+                              >
                                 {tech}
                               </Badge>
                             ))}
@@ -220,7 +228,11 @@ export default function Experience() {
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {exp.technologies.map((tech, techIndex) => (
-                            <Badge key={techIndex} variant="outline">
+                            <Badge
+                              key={techIndex}
+                              variant="outline"
+                              className="rounded-full"
+                            >
                               {tech}
                             </Badge>
                           ))}
