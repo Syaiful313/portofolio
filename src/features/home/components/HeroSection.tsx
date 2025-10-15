@@ -7,23 +7,34 @@ import BlurText from "@/components/BlurText";
 const HomeSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{ left: number; top: number }>
+  >([]);
   const { scrollYProgress } = useScroll();
 
   const backgroundY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", isMobile ? "50%" : "100%"]
+    ["0%", isMobile ? "50%" : "100%"],
   );
   const textY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", isMobile ? "25%" : "50%"]
+    ["0%", isMobile ? "25%" : "50%"],
   );
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
+
+    // Generate particles only on client-side
+    const particleCount = window.innerWidth < 768 ? 10 : 20;
+    const newParticles = Array.from({ length: particleCount }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }));
+    setParticles(newParticles);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,7 +46,7 @@ const HomeSection = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     const element = document.getElementById("home");
@@ -63,7 +74,6 @@ const HomeSection = () => {
   };
 
   const config = getAnimationConfig();
-  const particleCount = isMobile ? 10 : 20;
 
   return (
     <section
@@ -81,7 +91,7 @@ const HomeSection = () => {
         </motion.div>
 
         {/* Floating Particles */}
-        {[...Array(particleCount)].map((_, i) => (
+        {particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
@@ -97,8 +107,8 @@ const HomeSection = () => {
               ease: "linear",
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
             }}
           />
         ))}
@@ -113,12 +123,12 @@ const HomeSection = () => {
             <motion.div style={{ y: textY }} className="space-y-6">
               <motion.header
                 initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
-                animate={{ 
-                  opacity: isVisible ? 1 : 0, 
-                  x: isVisible ? 0 : isMobile ? -20 : -50 
+                animate={{
+                  opacity: isVisible ? 1 : 0,
+                  x: isVisible ? 0 : isMobile ? -20 : -50,
                 }}
-                transition={{ 
-                  duration: config.duration, 
+                transition={{
+                  duration: config.duration,
                   delay: 0.2,
                   type: "spring",
                   damping: config.damping,
@@ -138,12 +148,12 @@ const HomeSection = () => {
 
               <motion.p
                 initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
-                animate={{ 
-                  opacity: isVisible ? 1 : 0, 
-                  y: isVisible ? 0 : isMobile ? 10 : 20 
+                animate={{
+                  opacity: isVisible ? 1 : 0,
+                  y: isVisible ? 0 : isMobile ? 10 : 20,
                 }}
-                transition={{ 
-                  duration: config.duration, 
+                transition={{
+                  duration: config.duration,
                   delay: 0.4,
                   type: "spring",
                   damping: config.damping,
@@ -155,12 +165,12 @@ const HomeSection = () => {
 
               <motion.article
                 initial={{ opacity: 0, x: isMobile ? 20 : 50 }}
-                animate={{ 
-                  opacity: isVisible ? 1 : 0, 
-                  x: isVisible ? 0 : isMobile ? 20 : 50 
+                animate={{
+                  opacity: isVisible ? 1 : 0,
+                  x: isVisible ? 0 : isMobile ? 20 : 50,
                 }}
-                transition={{ 
-                  duration: config.duration, 
+                transition={{
+                  duration: config.duration,
                   delay: 0.3,
                   type: "spring",
                   damping: config.damping,
@@ -181,12 +191,12 @@ const HomeSection = () => {
 
               <motion.button
                 initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
-                animate={{ 
-                  opacity: isVisible ? 1 : 0, 
-                  y: isVisible ? 0 : isMobile ? 10 : 20 
+                animate={{
+                  opacity: isVisible ? 1 : 0,
+                  y: isVisible ? 0 : isMobile ? 10 : 20,
                 }}
-                transition={{ 
-                  duration: isMobile ? 0.3 : 0.5, 
+                transition={{
+                  duration: isMobile ? 0.3 : 0.5,
                   delay: 0.6,
                   type: "spring",
                   damping: isMobile ? 20 : 10,

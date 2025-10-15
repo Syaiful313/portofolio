@@ -19,11 +19,21 @@ import { useEffect, useState } from "react";
 export default function Portfolio() {
   const [filter, setFilter] = useState("all");
   const [isVisible, setIsVisible] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{ left: number; top: number }>
+  >([]);
   const { scrollYProgress } = useScroll();
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
+    // Generate particles only on client-side
+    const newParticles = Array.from({ length: 20 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }));
+    setParticles(newParticles);
+
     const handleScroll = () => {
       const element = document.getElementById("projects");
       if (element) {
@@ -57,7 +67,7 @@ export default function Portfolio() {
       </motion.div>
 
       {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
+      {particles.map((particle, i) => (
         <motion.div
           key={i}
           className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
@@ -73,8 +83,8 @@ export default function Portfolio() {
             ease: "linear",
           }}
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
           }}
         />
       ))}

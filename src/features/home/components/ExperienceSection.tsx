@@ -15,12 +15,22 @@ import { useEffect, useState } from "react";
 
 export default function Experience() {
   const [isVisible, setIsVisible] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{ left: number; top: number }>
+  >([]);
   const { scrollYProgress } = useScroll();
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   useEffect(() => {
+    // Generate particles only on client-side
+    const newParticles = Array.from({ length: 20 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }));
+    setParticles(newParticles);
+
     const handleScroll = () => {
       const element = document.getElementById("experience");
       if (element) {
@@ -37,7 +47,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative overflow-hidden mx-4 md:mx-0 bg-gradient-to-b from-zinc-900 via-black to-black py-32 text-[#d9c5a7]"
+      className="relative mx-4 overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black py-32 text-[#d9c5a7] md:mx-0"
     >
       <div className="container mx-auto">
         {/* Animated Background */}
@@ -50,7 +60,7 @@ export default function Experience() {
         </motion.div>
 
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
+        {particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
@@ -66,8 +76,8 @@ export default function Experience() {
               ease: "linear",
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
             }}
           />
         ))}

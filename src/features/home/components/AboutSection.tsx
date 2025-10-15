@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{ left: number; top: number }>
+  >([]);
   const { scrollYProgress } = useScroll();
 
   const backgroundY = useTransform(
@@ -26,6 +29,14 @@ const AboutSection = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
+
+    // Generate particles only on client-side
+    const particleCount = window.innerWidth < 768 ? 10 : 20;
+    const newParticles = Array.from({ length: particleCount }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }));
+    setParticles(newParticles);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -66,8 +77,6 @@ const AboutSection = () => {
 
   const config = getAnimationConfig();
 
-  const particleCount = isMobile ? 10 : 20;
-
   return (
     <section
       id="about"
@@ -82,7 +91,8 @@ const AboutSection = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
         </motion.div>
 
-        {[...Array(particleCount)].map((_, i) => (
+        {/* Floating Particles */}
+        {particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
@@ -98,8 +108,8 @@ const AboutSection = () => {
               ease: "linear",
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
             }}
           />
         ))}
