@@ -1,4 +1,21 @@
-export const projects = [
+export type Project = {
+  id: number;
+  title: string;
+  description: string;
+  image?: string;
+  category: string;
+  technologies: string[];
+  liveUrl: string;
+  githubUrl: string;
+  details: {
+    situation: string;
+    task: string;
+    action: string;
+    result: string;
+  };
+};
+
+export const projects: Project[] = [
   {
     id: 1,
     title: "Company Profile Website",

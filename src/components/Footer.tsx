@@ -33,13 +33,13 @@ const Footer = () => {
   const links = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
+    { name: "Portfolio", href: "#portfolios" },
     { name: "Contact", href: "#contact" },
   ];
 
   const handleEmailClick = async () => {
     try {
-      await navigator.clipboard.writeText("me@example.com");
+      await navigator.clipboard.writeText("mthitz313@gmail.com");
       setIsEmailCopied(true);
       setTimeout(() => setIsEmailCopied(false), 2000);
     } catch (err) {

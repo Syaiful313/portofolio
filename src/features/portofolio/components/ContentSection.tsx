@@ -1,10 +1,11 @@
+import type { Project } from "@/utils/projects";
 import { CheckCircle, Code, ExternalLink, Target, Zap } from "lucide-react";
 import Link from "next/link";
 
-const ContentSection = ({ project }: { project: any }) => {
+const ContentSection = ({ project }: { project: Project }) => {
   return (
     <section>
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto max-w-6xl px-4 py-16">
         {/* Category and Live URL Section */}
         <div className="mb-12 flex flex-col items-start justify-between border-b border-[#d9c5a7]/20 pb-8 md:flex-row md:items-center">
           <div>
@@ -18,6 +19,7 @@ const ContentSection = ({ project }: { project: any }) => {
             <Link
               href={project.liveUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className="group mt-4 flex items-center gap-2 rounded-lg bg-[#d9c5a7] px-6 py-3 font-medium text-[#1a1a1a] transition-all duration-300 hover:bg-[#d9c5a7]/90 hover:shadow-lg md:mt-0"
             >
               <span>View Live Demo</span>
@@ -54,6 +56,7 @@ const ContentSection = ({ project }: { project: any }) => {
               <Link
                 href={project.githubUrl}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-[#d9c5a7]/70 transition-colors hover:text-[#d9c5a7]"
               >
                 <Code className="h-4 w-4" />
@@ -127,6 +130,7 @@ const ContentSection = ({ project }: { project: any }) => {
             <Link
               href={project.liveUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className="group flex w-full items-center justify-center gap-2 rounded-lg border border-[#d9c5a7]/30 bg-transparent px-6 py-4 font-medium text-[#d9c5a7] transition-all duration-300 hover:border-[#d9c5a7] hover:bg-[#d9c5a7]/5"
             >
               <span>View Live Demo</span>

@@ -6,10 +6,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { useState, useEffect, useMemo } from "react";
+import { FaInstagram, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Contact = () => {
+  // Deterministic PRNG (Mulberry32) to avoid SSR/client mismatches
+  const particles = useMemo(() => {
+    function mulberry32(a: number) {
+      return function () {
+        let t = (a += 0x6d2b79f5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    const rand = mulberry32(123456789);
+    return Array.from({ length: 20 }).map(() => {
+      const left = `${rand() * 100}%`;
+      const top = `${rand() * 100}%`;
+      const endX = `${rand() * 100}%`;
+      const endY = `${rand() * 100}%`;
+      const scaleMid = 0.5 + rand();
+      const duration = 5 + rand() * 5;
+      return { left, top, endX, endY, scaleMid, duration };
+    });
+  }, []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -71,10 +92,10 @@ const Contact = () => {
       delay: 0.2,
     },
     {
-      href: "https://www.facebook.com/profile.php?id=100009387189626",
-      label: "Facebook",
-      icon: FaFacebook,
-      color: "#1877f2",
+      href: "https://www.instagram.com/fulful.tmg/",
+      label: "Instagram",
+      icon: FaInstagram,
+      color: "#E4405F",
       delay: 0.3,
     },
     {
@@ -101,24 +122,24 @@ const Contact = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
       </motion.div>
 
-      {[...Array(20)].map((_, i) => (
+      {particles.map((p, i) => (
         <motion.div
-          key={i}
+          key={`particle-${i}`}
           className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/30"
           animate={{
-            x: ["0%", `${Math.random() * 100}%`],
-            y: ["0%", `${Math.random() * 100}%`],
-            scale: [1, Math.random() + 0.5, 1],
+            x: ["0%", p.endX],
+            y: ["0%", p.endY],
+            scale: [1, p.scaleMid, 1],
             opacity: [0, 1, 0],
           }}
           transition={{
-            duration: Math.random() * 5 + 5,
+            duration: p.duration,
             repeat: Infinity,
             ease: "linear",
           }}
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: p.left,
+            top: p.top,
           }}
         />
       ))}

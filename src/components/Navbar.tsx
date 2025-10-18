@@ -1,7 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+
 import styles from "@/app/styles/UnderlineAnimation.module.css";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
@@ -11,10 +12,10 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/#about", label: "About" },
-    { href: "/#projects", label: "Projects" },
-    { href: "/#experience", label: "Experience" },
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#portfolios", label: "Projects" },
+    { href: "#experience", label: "Experience" },
   ];
 
   useEffect(() => {
@@ -83,13 +84,18 @@ const Navbar = () => {
                     ? "font-semibold"
                     : ""
                 }`}
+                aria-current={
+                  activeSection === link.href.replace("#", "")
+                    ? "page"
+                    : undefined
+                }
               >
                 {link.label}
               </Link>
             ))}
 
             <Link href="/contact" className="ml-2">
-              <Button className="rounded-lg bg-[#d9c5a7] px-4 py-2 text-sm hover:bg-[#d9c5a7]/80">
+              <Button className="rounded-xl bg-[#d9c5a7] px-4 py-2 text-sm hover:bg-[#d9c5a7]/80">
                 Let's Talk
               </Button>
             </Link>
@@ -98,13 +104,19 @@ const Navbar = () => {
           <button
             className="p-2 text-[#d9c5a7] sm:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? "✕" : "☰"}
           </button>
         </div>
 
         {isMobileMenuOpen && (
-          <div className="mt-2 flex flex-col items-center justify-center rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg sm:hidden">
+          <div
+            id="mobile-menu"
+            className="mt-2 flex flex-col items-center justify-center rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg sm:hidden"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -115,8 +127,8 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact">
-              <Button className="rounded-full bg-[#d9c5a7] hover:bg-[#d9c5a7]/80">
+            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button className="rounded-xl bg-[#d9c5a7] hover:bg-[#d9c5a7]/80">
                 Let's Talk
               </Button>
             </Link>

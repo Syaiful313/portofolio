@@ -1,9 +1,18 @@
-export const experiences = [
+export type Experience = {
+  id: number;
+  title: string;
+  company: string;
+  period: string;
+  description: string[];
+  technologies: string[];
+};
+
+export const experiences: Experience[] = [
   {
     id: 1,
     title: "Fullstack Web Developer",
     company: "Freelance Project - Pengadaan Barang Web App",
-    period: "Feb 2024 – Apr 2024",
+    period: "Feb 2025 – Apr 2025",
     description: [
       "Merancang dan membangun aplikasi pengadaan barang berbasis web dengan fitur pengajuan, persetujuan, dan pelacakan status barang.",
       "Menggunakan Next.js, TypeScript, dan Tailwind CSS di frontend serta Express.js, Prisma, dan PostgreSQL di backend.",
@@ -23,7 +32,7 @@ export const experiences = [
     title: "Fullstack Web Developer",
     company:
       "Volunteer Project - PAC LDII Traji Attendance & Education Platform",
-    period: "Sep 2024 – Sekarang",
+    period: "Agust 2025 – Sep 2025",
     description: [
       "Mengembangkan platform absensi dan edukasi internal untuk organisasi PAC LDII Traji (Pimpinan Anak Cabang Lembaga Dakwah Islam Indonesia).",
       "Membangun sistem absensi berbasis QR Code dengan validasi waktu dan lokasi serta rekap otomatis ke dashboard admin.",

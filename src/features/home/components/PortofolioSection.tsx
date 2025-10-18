@@ -16,11 +16,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Portfolio() {
+export default function PortfolioSection() {
   const [filter, setFilter] = useState("all");
-  const [isVisible, setIsVisible] = useState(false);
   const [particles, setParticles] = useState<
-    Array<{ left: number; top: number }>
+    Array<{
+      left: number;
+      top: number;
+      xTo: number;
+      yTo: number;
+      scale: number;
+      duration: number;
+    }>
   >([]);
   const { scrollYProgress } = useScroll();
 
@@ -31,20 +37,12 @@ export default function Portfolio() {
     const newParticles = Array.from({ length: 20 }, () => ({
       left: Math.random() * 100,
       top: Math.random() * 100,
+      xTo: Math.random() * 60 + 20,
+      yTo: Math.random() * 60 + 20,
+      scale: Math.random() * 0.6 + 0.7,
+      duration: Math.random() * 4 + 6,
     }));
     setParticles(newParticles);
-
-    const handleScroll = () => {
-      const element = document.getElementById("projects");
-      if (element) {
-        const position = element.getBoundingClientRect();
-        setIsVisible(position.top < window.innerHeight && position.bottom >= 0);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const filteredProjects =
@@ -54,31 +52,31 @@ export default function Portfolio() {
 
   return (
     <section
-      id="projects"
-      className="relative mx-4 overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 py-32 text-[#d9c5a7] md:mx-0"
+      id="portfolios"
+      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-32 text-[#d9c5a7] md:px-0 scroll-mt-24"
     >
       {/* Animated Background */}
       <motion.div
-        className="absolute inset-0 opacity-5"
+        className="pointer-events-none absolute inset-0 opacity-5"
         style={{ y: backgroundY }}
       >
-        <div className="bg-grid-pattern absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
+        <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black" />
       </motion.div>
 
       {/* Floating Particles */}
       {particles.map((particle, i) => (
         <motion.div
           key={i}
-          className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
+          className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
           animate={{
-            x: ["0%", `${Math.random() * 100}%`],
-            y: ["0%", `${Math.random() * 100}%`],
-            scale: [1, Math.random() + 0.5, 1],
+            x: ["0%", `${particle.xTo}%`],
+            y: ["0%", `${particle.yTo}%`],
+            scale: [1, particle.scale, 1],
             opacity: [0, 1, 0],
           }}
           transition={{
-            duration: Math.random() * 5 + 5,
+            duration: particle.duration,
             repeat: Infinity,
             ease: "linear",
           }}
@@ -118,12 +116,13 @@ export default function Portfolio() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Card className="h-full overflow-hidden border-none shadow-md shadow-[#d9c5a7] transition-all hover:shadow-lg hover:shadow-[#d9c5a7]">
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
                     height={600}
                     width={800}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="h-full w-full object-cover transition-transform duration-500"
                   />
                 </div>

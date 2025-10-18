@@ -1,50 +1,69 @@
 "use client";
+
 import { skills } from "@/utils/skills";
 import { socialLinks } from "@/utils/sosialLink";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+type Viewport = "mobile" | "tablet" | "desktop";
+type Particle = {
+  left: number;
+  top: number;
+  xTo: number;
+  yTo: number;
+  scale: number;
+  duration: number;
+};
+
+const skillItemVariants = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: { opacity: 1, scale: 1 },
+};
+
+const socialItemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [particles, setParticles] = useState<
-    Array<{ left: number; top: number }>
-  >([]);
+  const [viewport, setViewport] = useState<Viewport>("desktop");
+  const [particles, setParticles] = useState<Particle[]>([]);
   const { scrollYProgress } = useScroll();
+
+  const isMobile = viewport === "mobile";
+  const isTablet = viewport === "tablet";
 
   const backgroundY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", isMobile ? "50%" : "100%"],
+    ["0%", isMobile ? "40%" : isTablet ? "70%" : "100%"],
   );
 
   const textY = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", isMobile ? "25%" : "50%"],
+    ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
   );
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const resolveViewport = (width: number): Viewport => {
+      if (width < 768) return "mobile";
+      if (width < 1024) return "tablet";
+      return "desktop";
     };
 
-    // Generate particles only on client-side
-    const particleCount = window.innerWidth < 768 ? 10 : 20;
-    const newParticles = Array.from({ length: particleCount }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-    }));
-    setParticles(newParticles);
+    const updateViewport = () => {
+      setViewport(resolveViewport(window.innerWidth));
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-          } else {
-            setIsVisible(false);
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -56,54 +75,103 @@ const AboutSection = () => {
       observer.observe(element);
     }
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
 
     return () => {
       if (element) {
         observer.unobserve(element);
       }
-      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener("resize", updateViewport);
     };
   }, []);
 
+  useEffect(() => {
+    const particleCount =
+      viewport === "mobile" ? 8 : viewport === "tablet" ? 14 : 20;
+    const baseDuration =
+      viewport === "mobile" ? 3 : viewport === "tablet" ? 4 : 6;
+    const driftRange =
+      viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 4;
+    const newParticles = Array.from({ length: particleCount }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      xTo: Math.random() * 60 + 20,
+      yTo: Math.random() * 60 + 20,
+      scale: Math.random() * 0.6 + 0.7,
+      duration: Math.random() * driftRange + baseDuration,
+    }));
+    setParticles(newParticles);
+  }, [viewport]);
+
   const getAnimationConfig = () => {
-    return {
-      duration: isMobile ? 0.5 : 0.8,
-      damping: isMobile ? 15 : 10,
-      stiffness: isMobile ? 100 : 50,
-    };
+    switch (viewport) {
+      case "mobile":
+        return { duration: 0.4, damping: 18, stiffness: 120 };
+      case "tablet":
+        return { duration: 0.6, damping: 14, stiffness: 80 };
+      default:
+        return { duration: 0.8, damping: 10, stiffness: 50 };
+    }
   };
 
   const config = getAnimationConfig();
+  const horizontalOffset = isMobile ? 20 : isTablet ? 35 : 50;
+  const verticalOffset = isMobile ? 10 : isTablet ? 16 : 20;
+  const skillStagger = isMobile ? 0.05 : isTablet ? 0.08 : 0.12;
+  const socialStagger = isMobile ? 0.08 : isTablet ? 0.1 : 0.14;
+
+  const skillContainerVariants = useMemo(
+    () => ({
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: skillStagger,
+        },
+      },
+    }),
+    [skillStagger],
+  );
+
+  const socialContainerVariants = useMemo(
+    () => ({
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: socialStagger,
+        },
+      },
+    }),
+    [socialStagger],
+  );
 
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black"
+      className="relative overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black scroll-mt-24"
     >
       <div className="container mx-auto">
         <motion.div
-          className="absolute inset-0 opacity-5"
+          className="pointer-events-none absolute inset-0 opacity-5"
           style={{ y: backgroundY }}
         >
-          <div className="bg-grid-pattern absolute inset-0" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
+          <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black to-transparent" />
         </motion.div>
 
         {/* Floating Particles */}
         {particles.map((particle, i) => (
           <motion.div
             key={i}
-            className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
+            className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
             animate={{
-              x: ["0%", `${Math.random() * 100}%`],
-              y: ["0%", `${Math.random() * 100}%`],
-              scale: [1, Math.random() + 0.5, 1],
+              x: ["0%", `${particle.xTo}%`],
+              y: ["0%", `${particle.yTo}%`],
+              scale: [1, particle.scale, 1],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * (isMobile ? 3 : 5) + (isMobile ? 3 : 5),
+              duration: particle.duration,
               repeat: Infinity,
               ease: "linear",
             }}
@@ -119,17 +187,17 @@ const AboutSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: isVisible ? 1 : 0 }}
             transition={{ duration: config.duration }}
-            className="my-24 grid grid-cols-1 items-center gap-8 md:my-56 md:grid-cols-2 md:gap-12"
+            className="relative z-10 my-24 grid grid-cols-1 items-center gap-8 md:my-56 md:grid-cols-2 md:gap-12"
           >
             <motion.div
               className="space-y-6 text-center md:text-left"
               style={{ y: textY }}
             >
               <motion.div
-                initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
+                initial={{ opacity: 0, x: -horizontalOffset }}
                 animate={{
                   opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : isMobile ? -20 : -50,
+                  x: isVisible ? 0 : -horizontalOffset,
                 }}
                 transition={{
                   duration: config.duration,
@@ -166,32 +234,18 @@ const AboutSection = () => {
 
               <motion.div
                 className="mt-6 flex flex-wrap justify-center gap-2 md:mt-8 md:justify-start md:gap-3"
-                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  y: isVisible ? 0 : isMobile ? 10 : 20,
-                }}
-                transition={{
-                  duration: config.duration,
-                  delay: isMobile ? 0.2 : 0.4,
-                  type: "spring",
-                  damping: config.damping,
-                }}
+                variants={skillContainerVariants}
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
               >
-                {skills.map((skill, index) => (
+                {skills.map((skill) => (
                   <motion.span
                     key={skill}
                     className="rounded-full border border-[#c4b5a0]/20 bg-[#c4b5a0]/10 px-3 py-1 text-xs text-[#d9c5a7] transition-all duration-300 hover:bg-[#c4b5a0]/20 md:px-4 md:py-2 md:text-sm"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{
-                      opacity: isVisible ? 1 : 0,
-                      scale: isVisible ? 1 : 0.8,
-                    }}
+                    variants={skillItemVariants}
                     transition={{
-                      duration: isMobile ? 0.3 : 0.5,
-                      delay:
-                        (isMobile ? 0.3 : 0.6) +
-                        index * (isMobile ? 0.05 : 0.1),
+                      duration: isMobile ? 0.25 : isTablet ? 0.35 : 0.45,
+                      ease: "easeOut",
                     }}
                   >
                     {skill}
@@ -202,14 +256,14 @@ const AboutSection = () => {
 
             <motion.div
               className="space-y-6 text-center md:space-y-8 md:text-left"
-              initial={{ opacity: 0, x: isMobile ? 20 : 50 }}
+              initial={{ opacity: 0, x: horizontalOffset }}
               animate={{
                 opacity: isVisible ? 1 : 0,
-                x: isVisible ? 0 : isMobile ? 20 : 50,
+                x: isVisible ? 0 : horizontalOffset,
               }}
               transition={{
                 duration: config.duration,
-                delay: isMobile ? 0.15 : 0.3,
+                delay: isMobile ? 0.15 : isTablet ? 0.25 : 0.3,
                 type: "spring",
                 damping: config.damping,
                 stiffness: config.stiffness,
@@ -237,20 +291,19 @@ const AboutSection = () => {
                 </p>
               </div>
 
-              <div className="mt-6 flex flex-wrap justify-center gap-4 md:mt-8 md:justify-start md:gap-6">
-                {socialLinks.map((link, index) => (
+              <motion.div
+                className="mt-6 flex flex-wrap justify-center gap-4 md:mt-8 md:justify-start md:gap-6"
+                variants={socialContainerVariants}
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+              >
+                {socialLinks.map((link) => (
                   <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
-                    animate={{
-                      opacity: isVisible ? 1 : 0,
-                      y: isVisible ? 0 : isMobile ? 10 : 20,
-                    }}
+                    key={link.href}
+                    variants={socialItemVariants}
                     transition={{
-                      duration: isMobile ? 0.3 : 0.5,
-                      delay: link.delay * (isMobile ? 0.7 : 1),
-                      type: "spring",
-                      damping: isMobile ? 20 : 10,
+                      duration: isMobile ? 0.25 : isTablet ? 0.35 : 0.45,
+                      ease: "easeOut",
                     }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
@@ -258,11 +311,12 @@ const AboutSection = () => {
                     <Link
                       href={link.href}
                       target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={link.name}
                       className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-zinc-800/50 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-700/50 hover:shadow-lg hover:shadow-[#c4b5a0]/10 md:h-14 md:w-14"
                     >
                       <link.icon
-                        size={isMobile ? 22 : 26}
+                        size={isMobile ? 20 : isTablet ? 24 : 26}
                         className="text-[#d9c5a0] transition-colors duration-300 group-hover:text-white"
                       />
                       <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-lg border border-white/10 bg-zinc-800/90 px-2 py-1 text-xs text-white opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 md:px-3 md:py-1.5">
@@ -272,7 +326,7 @@ const AboutSection = () => {
                     </Link>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
