@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -59,6 +60,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <Toaster position="top-right" />
         <GoogleAnalytics gaId="G-WXKZ979N81" />
       </body>
     </html>

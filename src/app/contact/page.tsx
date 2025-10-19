@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
+import { toast } from "sonner";
 import { FaInstagram, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Contact = () => {
@@ -66,11 +67,35 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      alert("Message sent successfully!");
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg =
+          err?.error ||
+          err?.detail?.message ||
+          err?.detail?.raw ||
+          "Failed to send";
+        throw new Error(msg);
+      }
+      const ok = await res.json().catch(() => ({}));
+      toast.success("Message sent successfully", {
+        description: ok?.id
+          ? `I will respond within 1–2 business days.`
+          : "Thank you for reaching out. I will respond within 1–2 business days.",
+      });
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      alert("Failed to send message. Please try again.");
+      const msg =
+        error instanceof Error
+          ? error.message
+          : "Please try again in a moment.";
+      toast.error("Unable to send your message", {
+        description: `${msg}\nYou can also email me directly at mthitz313@gmail.com.`,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -262,6 +287,15 @@ const Contact = () => {
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
+                <p className="mt-3 text-center text-sm text-[#d9c5a7]/80">
+                  Or email me directly at{" "}
+                  <a
+                    href="mailto:mthitz313@gmail.com"
+                    className="underline decoration-[#c4b5a0] underline-offset-4 hover:opacity-80"
+                  >
+                    mthitz313@gmail.com
+                  </a>
+                </p>
               </motion.div>
             </form>
 
@@ -287,7 +321,7 @@ const Contact = () => {
                   >
                     <Button
                       variant="outline"
-                      className="w-full rounded-xl border-[#333] bg-[#2a2a2a] text-[#d9c5a7] transition-all duration-300 hover:border-[#c4b5a0] hover:bg-[#c4b5a0]/20 "
+                      className="w-full rounded-xl border-[#333] bg-[#2a2a2a] text-[#d9c5a7] transition-all duration-300 hover:border-[#c4b5a0] hover:bg-[#c4b5a0]/20"
                     >
                       <social.icon
                         size={20}
