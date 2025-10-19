@@ -187,10 +187,10 @@ const AboutSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: isVisible ? 1 : 0 }}
             transition={{ duration: config.duration }}
-            className="relative z-10 my-24 grid grid-cols-1 items-center gap-8 md:my-56 md:grid-cols-2 md:gap-12"
+            className="relative z-10 my-24 grid grid-cols-1 items-center gap-8 lg:my-56 lg:grid-cols-2 lg:gap-12"
           >
             <motion.div
-              className="space-y-6 text-center md:text-left"
+              className="space-y-6 text-center lg:text-left"
               style={{ y: textY }}
             >
               <motion.div
@@ -207,12 +207,12 @@ const AboutSection = () => {
                   stiffness: config.stiffness,
                 }}
               >
-                <h2 className="font-serif text-3xl leading-tight text-[#c4b5a0] sm:text-5xl md:text-6xl">
+                <h2 className="font-serif text-3xl leading-tight text-[#c4b5a0] sm:text-5xl md:text-5xl lg:text-6xl">
                   A website that leaves
                   <span className="relative mt-2 block italic text-[#d9c5a7]">
                     a lasting impression!
                     <motion.svg
-                      className="absolute -bottom-3 left-1/2 h-2 w-32 -translate-x-1/2 transform text-[#c4b5a0]/30 md:left-0 md:translate-x-0"
+                      className="absolute -bottom-3 left-1/2 h-2 w-32 -translate-x-1/2 transform text-[#c4b5a0]/30 lg:left-0 lg:translate-x-0"
                       viewBox="0 0 100 8"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: isVisible ? 1 : 0 }}
@@ -233,7 +233,7 @@ const AboutSection = () => {
               </motion.div>
 
               <motion.div
-                className="mt-6 flex flex-wrap justify-center gap-2 md:mt-8 md:justify-start md:gap-3"
+                className="mt-6 flex flex-wrap justify-center gap-2 lg:mt-8 lg:justify-start lg:gap-3"
                 variants={skillContainerVariants}
                 initial="hidden"
                 animate={isVisible ? "visible" : "hidden"}
@@ -241,7 +241,7 @@ const AboutSection = () => {
                 {skills.map((skill) => (
                   <motion.span
                     key={skill}
-                    className="rounded-full border border-[#c4b5a0]/20 bg-[#c4b5a0]/10 px-3 py-1 text-xs text-[#d9c5a7] transition-all duration-300 hover:bg-[#c4b5a0]/20 md:px-4 md:py-2 md:text-sm"
+                    className="rounded-full border border-[#c4b5a0]/20 bg-[#c4b5a0]/10 px-3 py-1 text-xs text-[#d9c5a7] transition-all duration-300 hover:bg-[#c4b5a0]/20 lg:px-4 lg:py-2 lg:text-sm"
                     variants={skillItemVariants}
                     transition={{
                       duration: isMobile ? 0.25 : isTablet ? 0.35 : 0.45,
@@ -255,7 +255,7 @@ const AboutSection = () => {
             </motion.div>
 
             <motion.div
-              className="space-y-6 text-center md:space-y-8 md:text-left"
+              className="space-y-6 text-center lg:space-y-8 lg:text-left"
               initial={{ opacity: 0, x: horizontalOffset }}
               animate={{
                 opacity: isVisible ? 1 : 0,
@@ -270,7 +270,7 @@ const AboutSection = () => {
               }}
             >
               <div className="relative">
-                <p className="text-base leading-relaxed text-[#d9c5a7] md:text-xl">
+                <p className="text-base leading-relaxed text-[#d9c5a7] md:text-lg lg:text-xl">
                   Hey! I'm{" "}
                   <span className="relative inline-block font-serif font-bold">
                     Muhammad Syaiful Mu'min
@@ -292,7 +292,7 @@ const AboutSection = () => {
               </div>
 
               <motion.div
-                className="mt-6 flex flex-wrap justify-center gap-4 md:mt-8 md:justify-start md:gap-6"
+                className="mt-6 flex flex-wrap justify-center gap-4 lg:mt-8 lg:justify-start lg:gap-6"
                 variants={socialContainerVariants}
                 initial="hidden"
                 animate={isVisible ? "visible" : "hidden"}
@@ -313,13 +313,13 @@ const AboutSection = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={link.name}
-                      className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-zinc-800/50 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-700/50 hover:shadow-lg hover:shadow-[#c4b5a0]/10 md:h-14 md:w-14"
+                      className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-zinc-800/50 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-700/50 hover:shadow-lg hover:shadow-[#c4b5a0]/10 lg:h-14 lg:w-14"
                     >
                       <link.icon
                         size={isMobile ? 20 : isTablet ? 24 : 26}
                         className="text-[#d9c5a0] transition-colors duration-300 group-hover:text-white"
                       />
-                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-lg border border-white/10 bg-zinc-800/90 px-2 py-1 text-xs text-white opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 md:px-3 md:py-1.5">
+                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-lg border border-white/10 bg-zinc-800/90 px-2 py-1 text-xs text-white opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 lg:px-3 lg:py-1.5">
                         {link.name}
                         <span className="absolute -top-1 left-1/2 -translate-x-1/2 border-4 border-transparent border-b-zinc-800/90" />
                       </span>

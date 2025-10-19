@@ -53,7 +53,7 @@ export default function PortfolioSection() {
   return (
     <section
       id="portfolios"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-32 text-[#d9c5a7] md:px-0 scroll-mt-24"
+      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-32 text-[#d9c5a7] md:px-6 lg:px-0 scroll-mt-24"
     >
       {/* Animated Background */}
       <motion.div
@@ -95,7 +95,7 @@ export default function PortfolioSection() {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
+          <h2 className="mb-4 font-serif text-3xl font-bold md:text-3xl lg:text-4xl">
             My Portfolio
           </h2>
           <div className="mx-auto mb-8 h-1 w-20 bg-[#d9c5a7]"></div>
@@ -106,7 +106,7 @@ export default function PortfolioSection() {
           </p>
         </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 lg:grid-cols-3">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -122,7 +122,7 @@ export default function PortfolioSection() {
                     alt={project.title}
                     height={600}
                     width={800}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 33vw, 100vw"
                     className="h-full w-full object-cover transition-transform duration-500"
                   />
                 </div>

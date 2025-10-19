@@ -132,7 +132,7 @@ export default function ExperienceSection() {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-1/2 hidden h-full w-1 -translate-x-1/2 transform bg-[#d9c5a7]/30 md:block"></div>
+          <div className="absolute left-1/2 hidden h-full w-1 -translate-x-1/2 transform bg-[#d9c5a7]/30 lg:block"></div>
 
           <div className="space-y-6 sm:space-y-10 md:space-y-16">
             {experiences.map((exp, index) => (
@@ -147,10 +147,10 @@ export default function ExperienceSection() {
                 }}
                 className="relative"
               >
-                <div className="absolute left-1/2 top-0 z-10 hidden h-4 w-4 -translate-x-1/2 transform rounded-full bg-[#d9c5a7] shadow-[0_0_12px_rgba(217,197,167,0.45)] md:block" />
+                <div className="absolute left-1/2 top-0 z-10 hidden h-4 w-4 -translate-x-1/2 transform rounded-full bg-[#d9c5a7] shadow-[0_0_12px_rgba(217,197,167,0.45)] lg:block" />
 
-                <div className="relative gap-8 md:grid md:grid-cols-2">
-                  <div className="hidden md:block">
+                <div className="relative gap-8 lg:grid lg:grid-cols-2">
+                  <div className="hidden lg:block">
                     {index % 2 === 1 && (
                       <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
                         <CardContent className="p-6">
@@ -196,7 +196,7 @@ export default function ExperienceSection() {
                     )}
                   </div>
 
-                  <div className="col-start-2 hidden md:block">
+                  <div className="col-start-2 hidden lg:block">
                     {index % 2 === 0 && (
                       <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
                         <CardContent className="p-6">
@@ -240,7 +240,7 @@ export default function ExperienceSection() {
                     )}
                   </div>
 
-                  <div className="block w-full md:hidden">
+                  <div className="block w-full lg:hidden">
                     <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
                       <CardHeader className="space-y-3">
                         <CardTitle className="text-xl font-semibold">

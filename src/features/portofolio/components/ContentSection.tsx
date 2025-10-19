@@ -7,12 +7,12 @@ const ContentSection = ({ project }: { project: Project }) => {
     <section>
       <div className="container mx-auto max-w-6xl px-4 py-16">
         {/* Category and Live URL Section */}
-        <div className="mb-12 flex flex-col items-start justify-between border-b border-[#d9c5a7]/20 pb-8 md:flex-row md:items-center">
+        <div className="mb-12 flex flex-col items-start justify-between border-b border-[#d9c5a7]/20 pb-8 lg:flex-row lg:items-center">
           <div>
             <span className="mb-2 inline-block rounded-full bg-[#d9c5a7]/10 px-4 py-2 text-sm font-medium uppercase tracking-wider text-[#d9c5a7]/80">
               {project.category}
             </span>
-            <h2 className="text-2xl font-bold md:text-3xl">Project Details</h2>
+            <h2 className="text-2xl font-bold md:text-2xl lg:text-3xl">Project Details</h2>
           </div>
 
           {project.liveUrl !== "#" && (
@@ -20,7 +20,7 @@ const ContentSection = ({ project }: { project: Project }) => {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-4 flex items-center gap-2 rounded-lg bg-[#d9c5a7] px-6 py-3 font-medium text-[#1a1a1a] transition-all duration-300 hover:bg-[#d9c5a7]/90 hover:shadow-lg md:mt-0"
+              className="group mt-4 hidden items-center gap-2 rounded-lg bg-[#d9c5a7] px-6 py-3 font-medium text-[#1a1a1a] transition-all duration-300 hover:bg-[#d9c5a7]/90 hover:shadow-lg lg:mt-0 lg:inline-flex"
             >
               <span>View Live Demo</span>
               <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -126,7 +126,7 @@ const ContentSection = ({ project }: { project: Project }) => {
 
         {/* Live URL at bottom for mobile */}
         {project.liveUrl !== "#" && (
-          <div className="mt-12 block md:hidden">
+          <div className="mt-12 block lg:hidden">
             <Link
               href={project.liveUrl}
               target="_blank"

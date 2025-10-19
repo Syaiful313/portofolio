@@ -55,7 +55,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed left-1/2 top-0 z-[1000] w-full max-w-[90%] -translate-x-1/2 transform transition-all duration-300 md:max-w-3xl ${isScrolled ? "shadow-lg" : ""} ${
+        className={`fixed left-1/2 top-0 z-[1000] w-full max-w-[92%] -translate-x-1/2 transform transition-all duration-300 md:max-w-2xl lg:max-w-3xl ${isScrolled ? "shadow-lg" : ""} ${
           isNavbarVisible
             ? "translate-y-5 opacity-100"
             : "-translate-y-full opacity-0"
@@ -69,12 +69,12 @@ const Navbar = () => {
           }`}
         >
           <Link href="/">
-            <h1 className="cursor-pointer px-5 font-serif font-semibold text-[#d9c5a7] transition-transform hover:scale-105 sm:text-2xl md:px-10">
+            <h1 className="cursor-pointer px-5 font-serif font-semibold text-[#d9c5a7] transition-transform hover:scale-105 md:px-6 lg:px-10 md:text-xl lg:text-2xl">
               Fulful.
             </h1>
           </Link>
 
-          <div className="hidden items-center space-x-6 px-14 font-serif sm:flex">
+          <div className="hidden items-center px-8 font-serif md:flex md:space-x-4 lg:space-x-6 lg:px-14">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -95,14 +95,14 @@ const Navbar = () => {
             ))}
 
             <Link href="/contact" className="ml-2">
-              <Button className="rounded-xl bg-[#d9c5a7] px-4 py-2 text-sm hover:bg-[#d9c5a7]/80">
+              <Button className="rounded-xl bg-[#d9c5a7] md:px-3 md:py-1.5 md:text-xs lg:px-4 lg:py-2 lg:text-sm hover:bg-[#d9c5a7]/80">
                 Let's Talk
               </Button>
             </Link>
           </div>
 
           <button
-            className="p-2 text-[#d9c5a7] sm:hidden"
+            className="p-2 text-[#d9c5a7] md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
@@ -115,7 +115,7 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div
             id="mobile-menu"
-            className="mt-2 flex flex-col items-center justify-center rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg sm:hidden"
+            className="mt-2 flex flex-col items-center justify-center rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg md:hidden"
           >
             {navLinks.map((link) => (
               <Link
@@ -138,7 +138,7 @@ const Navbar = () => {
 
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[999] bg-black/20 sm:hidden"
+          className="fixed inset-0 z-[999] bg-black/20 md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
