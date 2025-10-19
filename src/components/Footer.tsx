@@ -2,7 +2,7 @@
 import { socialLinks } from "@/utils/sosialLink";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FaArrowUp,
   FaCode,
@@ -15,11 +15,18 @@ import CountUp from "./CountUp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [isEmailCopied, setIsEmailCopied] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState("services");
   const [showNotification, setShowNotification] = useState(false);
   const [email, setEmail] = useState("");
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const subscribeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const scrollFrameRef = useRef<number | null>(null);
 
   const services = [
     {
@@ -37,32 +44,94 @@ const Footer = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  const showCopyFeedback = (
+    feedback: { type: "success" | "error"; message: string },
+    duration = 2000,
+  ) => {
+    if (copyTimeoutRef.current) {
+      clearTimeout(copyTimeoutRef.current);
+    }
+    setCopyFeedback(feedback);
+    copyTimeoutRef.current = setTimeout(() => {
+      setCopyFeedback(null);
+    }, duration);
+  };
+
   const handleEmailClick = async () => {
+    if (!navigator?.clipboard?.writeText) {
+      showCopyFeedback({
+        type: "error",
+        message: "Clipboard tidak tersedia. Silakan salin manual.",
+      });
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText("mthitz313@gmail.com");
-      setIsEmailCopied(true);
-      setTimeout(() => setIsEmailCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy email:", err);
+      showCopyFeedback({
+        type: "success",
+        message: "Email berhasil disalin!",
+      });
+    } catch {
+      showCopyFeedback(
+        {
+          type: "error",
+          message: "Gagal menyalin email. Silakan salin manual.",
+        },
+        3000,
+      );
     }
   };
 
   const handleSubscribe = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (email) {
+      if (subscribeTimeoutRef.current) {
+        clearTimeout(subscribeTimeoutRef.current);
+      }
       setShowNotification(true);
       setEmail("");
-      setTimeout(() => setShowNotification(false), 3000);
+      subscribeTimeoutRef.current = setTimeout(
+        () => setShowNotification(false),
+        3000,
+      );
     }
   };
 
   useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+      if (subscribeTimeoutRef.current) {
+        clearTimeout(subscribeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.pageYOffset > 300);
+      if (scrollFrameRef.current !== null) {
+        return;
+      }
+
+      scrollFrameRef.current = window.requestAnimationFrame(() => {
+        const shouldShow = window.pageYOffset > 300;
+        setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
+        scrollFrameRef.current = null;
+      });
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollFrameRef.current !== null) {
+        window.cancelAnimationFrame(scrollFrameRef.current);
+        scrollFrameRef.current = null;
+      }
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -204,7 +273,12 @@ const Footer = () => {
           </div>
 
           <div className="space-y-8 lg:col-span-4">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Services
               </h3>
@@ -231,9 +305,14 @@ const Footer = () => {
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Quick Links
               </h3>
@@ -256,7 +335,7 @@ const Footer = () => {
                   </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
 
           <div className="space-y-8 lg:col-span-4">
@@ -303,7 +382,12 @@ const Footer = () => {
               </motion.div>
             </div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Contact
               </h3>
@@ -311,6 +395,10 @@ const Footer = () => {
                 <motion.button
                   onClick={handleEmailClick}
                   className="group flex w-full items-center gap-3 text-gray-400 transition-colors duration-300 hover:text-[#d9c5a7]"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
                   whileHover={{ x: 5 }}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
@@ -318,21 +406,29 @@ const Footer = () => {
                   </div>
                   <span>mthitz313@gmail.com</span>
                   <AnimatePresence>
-                    {isEmailCopied && (
+                    {copyFeedback && (
                       <motion.span
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="ml-2 rounded bg-[#d9c5a7]/10 px-2 py-1 text-sm text-[#d9c5a7]"
+                        className={`ml-2 rounded px-2 py-1 text-sm ${
+                          copyFeedback.type === "success"
+                            ? "bg-[#d9c5a7]/10 text-[#d9c5a7]"
+                            : "bg-red-500/10 text-red-400"
+                        }`}
                       >
-                        Copied!
+                        {copyFeedback.message}
                       </motion.span>
                     )}
                   </AnimatePresence>
                 </motion.button>
 
                 <motion.div
-                  className="group flex w-full items-center gap-3 text-gray-400"
+                  className="group flex w-full items-center gap-3 rounded-xl text-gray-400"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
                   whileHover={{ x: 5 }}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
@@ -341,7 +437,7 @@ const Footer = () => {
                   <span>Temanggung, Jawa Tengah, Indonesia</span>
                 </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
