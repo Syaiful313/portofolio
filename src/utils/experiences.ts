@@ -35,7 +35,7 @@ export const experiences: Experience[] = [
     period: "Agust 2025 – Sep 2025",
     description: [
       "Mengembangkan platform absensi dan edukasi internal untuk organisasi PAC LDII Traji (Pimpinan Anak Cabang Lembaga Dakwah Islam Indonesia).",
-      "Membangun sistem absensi berbasis QR Code dengan validasi waktu dan lokasi serta rekap otomatis ke dashboard admin.",
+      "Membangun sistem absensi serta rekap otomatis ke dashboard admin.",
       "Mendesain fitur manajemen kelas, materi, dan kehadiran siswa menggunakan Prisma ORM dan PostgreSQL dengan relasi kompleks.",
       "Mengimplementasikan autentikasi JWT dan sistem role (admin, pengajar, siswa) serta integrasi API untuk laporan kehadiran mingguan.",
       "Menyiapkan integrasi mobile app companion menggunakan Flutter untuk mendukung akses pengguna lapangan.",
