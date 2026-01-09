@@ -61,8 +61,8 @@ export default function RootLayout({
         {children}
         <Footer />
         <Toaster position="top-right" />
-        <GoogleAnalytics gaId="G-WXKZ979N81" />
       </body>
+      <GoogleAnalytics gaId="G-WXKZ979N81" />
     </html>
   );
 }
