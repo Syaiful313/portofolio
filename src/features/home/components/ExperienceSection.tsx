@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
-export default function ExperienceSection() {
+const ExperienceSection = () => {
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [particles, setParticles] = useState<
     Array<{
@@ -78,7 +78,7 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="relative overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black py-24 text-[#d9c5a7] sm:py-28 scroll-mt-24"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black py-24 text-[#d9c5a7] sm:py-28"
     >
       <div className="container relative mx-auto px-4 md:px-8">
         {/* Animated Background */}
@@ -290,4 +290,6 @@ export default function ExperienceSection() {
       </div>
     </section>
   );
-}
+};
+
+export default ExperienceSection;

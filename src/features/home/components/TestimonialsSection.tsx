@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
-export default function Testimonials() {
+const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const [viewport, setViewport] = useState<Viewport>("desktop");
@@ -177,4 +177,6 @@ export default function Testimonials() {
       </div>
     </section>
   );
-}
+};
+
+export default Testimonials;

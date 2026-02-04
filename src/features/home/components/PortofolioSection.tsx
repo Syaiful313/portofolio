@@ -16,7 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function PortfolioSection() {
+const PortfolioSection = () => {
   const [filter, setFilter] = useState("all");
   const [particles, setParticles] = useState<
     Array<{
@@ -53,7 +53,7 @@ export default function PortfolioSection() {
   return (
     <section
       id="portfolios"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-32 text-[#d9c5a7] md:px-6 lg:px-0 scroll-mt-24"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-32 text-[#d9c5a7] md:px-6 lg:px-0"
     >
       {/* Animated Background */}
       <motion.div
@@ -162,4 +162,6 @@ export default function PortfolioSection() {
       </div>
     </section>
   );
-}
+};
+
+export default PortfolioSection;
