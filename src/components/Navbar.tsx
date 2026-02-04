@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "@/app/styles/UnderlineAnimation.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
@@ -69,7 +68,7 @@ const Navbar = () => {
           }`}
         >
           <Link href="/">
-            <h1 className="cursor-pointer px-5 font-serif font-semibold text-[#d9c5a7] transition-transform hover:scale-105 md:px-6 lg:px-10 md:text-xl lg:text-2xl">
+            <h1 className="cursor-pointer px-5 font-serif font-semibold text-[#d9c5a7] transition-transform hover:scale-105 md:px-6 md:text-xl lg:px-10 lg:text-2xl">
               Fulful.
             </h1>
           </Link>
@@ -79,7 +78,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`${styles.link} group relative flex items-center text-[#d9c5a7] transition-all duration-200 hover:opacity-80 ${
+                className={`link-underline-anim group relative flex items-center text-[#d9c5a7] transition-all duration-200 hover:opacity-80 ${
                   activeSection === link.href.replace("#", "")
                     ? "font-semibold"
                     : ""
@@ -95,7 +94,7 @@ const Navbar = () => {
             ))}
 
             <Link href="/contact" className="ml-2">
-              <Button className="rounded-xl bg-[#d9c5a7] md:px-3 md:py-1.5 md:text-xs lg:px-4 lg:py-2 lg:text-sm hover:bg-[#d9c5a7]/80">
+              <Button className="rounded-xl bg-[#d9c5a7] hover:bg-[#d9c5a7]/80 md:px-3 md:py-1.5 md:text-xs lg:px-4 lg:py-2 lg:text-sm">
                 Let's Talk
               </Button>
             </Link>
