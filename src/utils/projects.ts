@@ -20,7 +20,7 @@ export const projects: Project[] = [
     id: 1,
     title: "Company Profile Website",
     description:
-      "Website company profile dengan navigasi yang optimal dan CMS terintegrasi untuk mengelola konten.",
+      "A company profile website with optimized navigation and an integrated CMS for content management.",
     image: "/CompanyProfile.png",
     category: "frontend",
     technologies: [
@@ -34,19 +34,19 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Syaiful313/Company-Profile",
     details: {
       situation:
-        "Perusahaan membutuhkan website untuk menampilkan profil, layanan, dan blog mereka dengan pengelolaan konten yang mudah.",
-      task: "Membuat website responsif dengan navigasi yang lancar serta integrasi dengan CMS agar konten bisa dikelola dengan fleksibel.",
+        "The company needed a website to showcase their profile, services, and blog with easy content management.",
+      task: "Build a responsive website with smooth navigation and CMS integration so content can be managed flexibly.",
       action:
-        "Menggunakan Next.js dan Tailwind CSS untuk frontend, Contentful sebagai CMS, serta melakukan optimasi deployment di Vercel.",
+        "Used Next.js and Tailwind CSS for the frontend, Contentful as the CMS, and optimized deployment on Vercel.",
       result:
-        "Website berhasil dikembangkan dan mempermudah tim perusahaan dalam mengelola konten, meningkatkan keterlibatan pengguna.",
+        "Delivered the website and enabled the team to manage content easily, improving user engagement.",
     },
   },
   {
     id: 2,
-    title: "Blog CMS dengan Contentful",
+    title: "CMS Blog with Contentful",
     description:
-      "Sistem blog berbasis CMS yang memungkinkan pengelolaan konten secara dinamis.",
+      "A CMS-based blog system that enables dynamic content management.",
     image: "/BlogCms.png",
     category: "frontend",
     technologies: [
@@ -60,19 +60,19 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Syaiful313/blog-cms",
     details: {
       situation:
-        "Diperlukan sistem blog yang fleksibel dengan kemampuan mengelola konten tanpa harus mengedit kode.",
-      task: "Membangun platform blog yang terintegrasi dengan Contentful agar konten dapat dikelola secara dinamis.",
+        "A flexible blog system was needed to manage content without editing code.",
+      task: "Build a blog platform integrated with Contentful so content can be managed dynamically.",
       action:
-        "Menggunakan Next.js dengan TypeScript untuk frontend, menghubungkan Contentful sebagai CMS, serta mengoptimalkan tampilan dengan Tailwind CSS.",
+        "Used Next.js with TypeScript for the frontend, connected Contentful as the CMS, and optimized the UI with Tailwind CSS.",
       result:
-        "Platform berhasil dikembangkan dengan antarmuka yang mudah digunakan, memungkinkan penulis untuk mengelola artikel secara efisien.",
+        "Shipped a user-friendly interface that lets writers manage articles efficiently.",
     },
   },
   {
     id: 3,
-    title: "Blog Platform dengan Supabase",
+    title: "Blog Platform with Supabase",
     description:
-      "Platform blog sederhana dengan fitur autentikasi, CRUD post, dan manajemen pengguna.",
+      "A simple blog platform with authentication, post CRUD, and user management.",
     image: "/bloghub.png",
     category: "fullstack",
     technologies: [
@@ -87,19 +87,19 @@ export const projects: Project[] = [
     githubUrl: "#",
     details: {
       situation:
-        "Membutuhkan platform blog untuk menulis dan mengelola artikel dengan fitur login dan manajemen pengguna.",
-      task: "Membangun blog dengan sistem autentikasi, penyimpanan konten di database, dan tampilan yang modern serta responsif.",
+        "A blog platform was needed to write and manage articles with login and user management.",
+      task: "Build a blog with authentication, database-backed content storage, and a modern responsive UI.",
       action:
-        "Menggunakan Next.js dengan TypeScript untuk frontend, Supabase sebagai backend dengan PostgreSQL, serta Prisma untuk ORM.",
+        "Used Next.js with TypeScript for the frontend, Supabase (PostgreSQL) for the backend, and Prisma as the ORM.",
       result:
-        "Blog berhasil dibuat dengan fitur lengkap dan berjalan lancar, mempermudah pengguna dalam menulis dan mengelola konten.",
+        "Delivered a full-featured blog that runs smoothly and makes it easy for users to write and manage content.",
     },
   },
   {
     id: 4,
-    title: "Tiket App dengan Sistem Transaksi",
+    title: "Ticketing App with Transaction System",
     description:
-      "Aplikasi pemesanan tiket dengan status transaksi dinamis, sistem pembayaran, dan penggunaan poin.",
+      "A ticket booking app with dynamic transaction statuses, payments, and points usage.",
     image: "/WebTicket.png",
     category: "fullstack",
     technologies: [
@@ -114,12 +114,12 @@ export const projects: Project[] = [
     githubUrl: "#",
     details: {
       situation:
-        "Dibutuhkan sistem pemesanan tiket yang memiliki transaksi otomatis dengan status yang dapat berubah berdasarkan pembayaran dan waktu.",
-      task: "Membangun aplikasi dengan fitur pembelian tiket, validasi pembayaran, pengembalian poin, serta update status real-time.",
+        "A ticket booking system was needed with automated transactions whose status changes based on payment and time.",
+      task: "Build an app with ticket purchasing, payment validation, point refunds, and real-time status updates.",
       action:
-        "Menggunakan Next.js untuk frontend, Express.js untuk backend, Prisma dan PostgreSQL untuk manajemen data, serta Stripe untuk pembayaran online.",
+        "Used Next.js for the frontend, Express.js for the backend, Prisma and PostgreSQL for data management, and Stripe for online payments.",
       result:
-        "Sistem berhasil dikembangkan dengan fitur yang berfungsi optimal, memudahkan pengguna dalam membeli tiket dan memastikan pembayaran berjalan aman.",
+        "Built a reliable system that simplifies ticket purchases and ensures secure payment processing.",
     },
   },
 
@@ -127,7 +127,7 @@ export const projects: Project[] = [
     id: 5,
     title: "HotCoffee Blog",
     description:
-      "Platform blog minimalis dan modern yang dirancang untuk para penggemar kopi, menawarkan konten yang menarik dan fitur berlangganan.",
+      "A minimalist, modern blog platform designed for coffee enthusiasts, offering engaging content and subscription features.",
     image: "/blogbackendless.png",
     category: "frontend",
     technologies: [
@@ -154,7 +154,7 @@ export const projects: Project[] = [
     id: 6,
     title: "Socio Space",
     description:
-      "Situs web profil perusahaan untuk ruang kerja bersama, menampilkan layanan, pilihan ruang kerja, dan blog terintegrasi untuk keterlibatan komunitas.",
+      "A company profile website for a co-working space, showcasing services, workspace options, and an integrated blog to drive community engagement.",
     image: "/companyprofilebackendless.png",
     category: "frontend",
     technologies: [

@@ -11,13 +11,13 @@ export const experiences: Experience[] = [
   {
     id: 1,
     title: "Fullstack Web Developer",
-    company: "Freelance Project - Pengadaan Barang Web App",
+    company: "Freelance Project - Procurement Web App",
     period: "Feb 2025 – Apr 2025",
     description: [
-      "Merancang dan membangun aplikasi pengadaan barang berbasis web dengan fitur pengajuan, persetujuan, dan pelacakan status barang.",
-      "Menggunakan Next.js, TypeScript, dan Tailwind CSS di frontend serta Express.js, Prisma, dan PostgreSQL di backend.",
-      "Menerapkan autentikasi JWT dan role-based access control untuk admin, manajer, dan user.",
-      "Membuat dashboard dengan ringkasan status pengajuan, validasi form, dan notifikasi status pengajuan real-time.",
+      "Designed and built a web-based procurement application with request submission, approvals, and item status tracking.",
+      "Used Next.js, TypeScript, and Tailwind CSS on the frontend, and Express.js, Prisma, and PostgreSQL on the backend.",
+      "Implemented JWT authentication and role-based access control for admins, managers, and users.",
+      "Built a dashboard with request status summaries, form validation, and real-time status notifications.",
     ],
     technologies: [
       "Next.js",
@@ -32,13 +32,13 @@ export const experiences: Experience[] = [
     title: "Fullstack Web Developer",
     company:
       "Volunteer Project - PAC LDII Traji Attendance & Education Platform",
-    period: "Agust 2025 – Sep 2025",
+    period: "Aug 2025 – Sep 2025",
     description: [
-      "Mengembangkan platform absensi dan edukasi internal untuk organisasi PAC LDII Traji (Pimpinan Anak Cabang Lembaga Dakwah Islam Indonesia).",
-      "Membangun sistem absensi serta rekap otomatis ke dashboard admin.",
-      "Mendesain fitur manajemen kelas, materi, dan kehadiran siswa menggunakan Prisma ORM dan PostgreSQL dengan relasi kompleks.",
-      "Mengimplementasikan autentikasi JWT dan sistem role (admin, pengajar, siswa) serta integrasi API untuk laporan kehadiran mingguan.",
-      "Menyiapkan integrasi mobile app companion menggunakan Flutter untuk mendukung akses pengguna lapangan.",
+      "Developed an internal attendance and education platform for PAC LDII Traji (Pimpinan Anak Cabang Lembaga Dakwah Islam Indonesia).",
+      "Built an attendance system with automatic recaps in the admin dashboard.",
+      "Designed class, materials, and student attendance management using Prisma ORM and PostgreSQL with complex relations.",
+      "Implemented JWT authentication and a role system (admin, instructor, student), plus API integration for weekly attendance reports.",
+      "Prepared integration for a companion mobile app using Flutter to support access for field users.",
     ],
     technologies: [
       "Next.js",
@@ -52,14 +52,14 @@ export const experiences: Experience[] = [
   },
   {
     id: 3,
-    title: "Development System Intern",
+    title: "Systems Development Intern",
     company: "Scuto Indonesia",
-    period: "Sep 2025 – Sekarang",
+    period: "Sep 2025 – Present",
     description: [
-      "Membantu pengembangan sistem internal Scuto Indonesia pada sisi frontend dan backend.",
-      "Melakukan integrasi API dan database, debugging, serta dokumentasi pengembangan.",
-      "Berpartisipasi dalam kolaborasi tim untuk pengembangan aplikasi berbasis Next.js dan Node.js.",
-      "Menggunakan Git untuk version control dan workflow pengembangan.",
+      "Assisted in developing Scuto Indonesia's internal systems across both frontend and backend.",
+      "Handled API and database integration, debugging, and development documentation.",
+      "Collaborated with the team on building applications using Next.js and Node.js.",
+      "Used Git for version control and development workflows.",
     ],
     technologies: [
       "Next.js",
