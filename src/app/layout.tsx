@@ -23,21 +23,41 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://muhammad-syaiful.site"),
   title: {
-    default: "Muhammad Syaiful Mu'min | Portfolio",
+    default: "Muhammad Syaiful Mu'min | Portofolio",
     template: "%s | Muhammad Syaiful Mu'min",
   },
   description:
-    "Portfolio full-stack web developer: Next.js, TypeScript, Tailwind, Express, Prisma, PostgreSQL.",
+    "Saya Muhammad Syaiful Mu'min, Full-Stack Web Developer. Jelajahi portofolio saya dan temukan project web modern yang dibangun dengan teknologi terkini.",
+  keywords: [
+    "portofolio",
+    "web developer",
+    "full-stack developer",
+    "Muhammad Syaiful Mu'min",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+  ],
+  authors: [
+    { name: "Muhammad Syaiful Mu'min", url: "https://muhammad-syaiful.site" },
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://muhammad-syaiful.site",
+  },
   openGraph: {
     type: "website",
     url: "https://muhammad-syaiful.site",
-    siteName: "Portfolio – Muhammad Syaiful Mu'min",
+    siteName: "Portofolio – Muhammad Syaiful Mu'min",
     images: [
       {
         url: "/og/og-cover.png",
         width: 1200,
         height: 630,
-        alt: "Portfolio – Muhammad Syaiful Mu'min",
+        alt: "Portofolio – Muhammad Syaiful Mu'min",
       },
     ],
     locale: "id_ID",
