@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://muhammad-syaiful.site
+
+# Sitemaps
+Sitemap: https://muhammad-syaiful.site/sitemap.xml
