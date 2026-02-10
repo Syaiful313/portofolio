@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { BreadcrumbSchema, CollectionPageSchema } from "@/components/JsonLd";
 import HomePage from "@/features/home";
 
 const HOME_URL = "https://muhammad-syaiful.site";
 
 const title = "Full-Stack Web Developer Indonesia";
 const description =
-  "Portofolio Muhammad Syaiful Mu'min, full-stack web developer Next.js & TypeScript yang membangun aplikasi modern dengan performa tinggi.";
+  "Portofolio Muhammad Syaiful Mu'min, full-stack web developer di Indonesia. Ahli membangun aplikasi web modern dengan Next.js, React, dan TypeScript berperforma tinggi.";
 
 export const metadata: Metadata = {
   title,
@@ -14,9 +15,13 @@ export const metadata: Metadata = {
   keywords: [
     "Muhammad Syaiful Mu'min",
     "Full-Stack Web Developer",
+    "web developer Indonesia",
+    "jasa pembuatan website",
     "Next.js",
+    "React",
     "TypeScript",
-    "Portfolio",
+    "Tailwind CSS",
+    "portofolio web developer",
     "Software Engineer Indonesia",
   ],
   openGraph: {
@@ -43,7 +48,13 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  return <HomePage />;
+  return (
+    <>
+      <BreadcrumbSchema items={[{ name: "Beranda", url: HOME_URL }]} />
+      <CollectionPageSchema />
+      <HomePage />
+    </>
+  );
 };
 
 export default page;

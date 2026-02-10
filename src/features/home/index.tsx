@@ -9,7 +9,7 @@ import TestimonialsSection from "./components/TestimonialsSection";
 
 const HomePage = () => {
   return (
-    <>
+    <main>
       <HeroSection />
       <MarqueeLogos />
       <AboutSection />
@@ -18,7 +18,7 @@ const HomePage = () => {
       <TestimonialsSection />
       <MarqueeText />
       <ContactSection />
-    </>
+    </main>
   );
 };
 

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 const CONTACT_URL = "https://muhammad-syaiful.site/contact";
-const title = "Hubungi Muhammad Syaiful Mu'min";
+const title = "Hubungi Saya – Kolaborasi & Proyek Web";
 const description =
-  "Hubungi Muhammad Syaiful Mu'min untuk kolaborasi atau proyek full-stack Next.js, TypeScript, dan Tailwind.";
+  "Hubungi Muhammad Syaiful Mu'min untuk kolaborasi, proyek freelance, atau konsultasi pembuatan website. Full-stack developer Next.js, TypeScript, dan Tailwind CSS.";
 
 export const metadata: Metadata = {
   title,

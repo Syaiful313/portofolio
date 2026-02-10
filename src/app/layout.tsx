@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PersonSchema, WebSiteSchema } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/next";
@@ -34,10 +35,14 @@ export const metadata: Metadata = {
     "web developer",
     "full-stack developer",
     "Muhammad Syaiful Mu'min",
+    "web developer Indonesia",
+    "jasa pembuatan website",
     "Next.js",
     "React",
     "TypeScript",
     "Tailwind CSS",
+    "Node.js",
+    "freelance developer",
   ],
   authors: [
     { name: "Muhammad Syaiful Mu'min", url: "https://muhammad-syaiful.site" },
@@ -76,6 +81,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="scroll-smooth">
+      <head>
+        <PersonSchema />
+        <WebSiteSchema />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

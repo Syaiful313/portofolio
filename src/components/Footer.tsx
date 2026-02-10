@@ -316,25 +316,27 @@ const Footer = () => {
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Quick Links
               </h3>
-              <ul className="space-y-3">
-                {links.map((link, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="group flex items-center gap-2 text-gray-400 transition-colors duration-300 hover:text-[#d9c5a7]"
+              <nav aria-label="Footer navigation">
+                <ul className="space-y-3">
+                  {links.map((link, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
                     >
-                      <span className="h-0.5 w-2 bg-[#d9c5a7]/50 transition-all duration-300 group-hover:w-4" />
-                      {link.name}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
+                      <Link
+                        href={link.href}
+                        className="group flex items-center gap-2 text-gray-400 transition-colors duration-300 hover:text-[#d9c5a7]"
+                      >
+                        <span className="h-0.5 w-2 bg-[#d9c5a7]/50 transition-all duration-300 group-hover:w-4" />
+                        {link.name}
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
             </motion.div>
           </div>
 

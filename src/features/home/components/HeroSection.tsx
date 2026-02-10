@@ -185,7 +185,7 @@ const HomeSection = () => {
                 I am Full-Stack Web Developer
               </motion.p>
 
-              <motion.article
+              <motion.div
                 initial={{ opacity: 0, x: horizontalOffset }}
                 animate={{
                   opacity: isVisible ? 1 : 0,
@@ -209,7 +209,7 @@ const HomeSection = () => {
                 <p className="mt-4 text-sm italic text-[#cbbfa8] sm:text-base">
                   "Bringing your vision to life through code."
                 </p>
-              </motion.article>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: verticalOffset }}

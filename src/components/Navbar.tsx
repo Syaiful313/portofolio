@@ -68,9 +68,9 @@ const Navbar = () => {
           }`}
         >
           <Link href="/">
-            <h1 className="cursor-pointer px-5 font-serif font-semibold text-[#d9c5a7] transition-transform hover:scale-105 md:px-6 md:text-xl lg:px-10 lg:text-2xl">
+            <span className="cursor-pointer px-5 font-serif text-lg font-semibold text-[#d9c5a7] transition-transform hover:scale-105 md:px-6 md:text-xl lg:px-10 lg:text-2xl">
               Fulful.
-            </h1>
+            </span>
           </Link>
 
           <div className="hidden items-center px-8 font-serif md:flex md:space-x-4 lg:space-x-6 lg:px-14">
