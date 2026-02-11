@@ -1,6 +1,9 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Muhammad Syaiful Mu'min - Portofolio",
+  "short_name": "Syaiful Portofolio",
+  "description": "Portofolio Muhammad Syaiful Mu'min, Full-Stack Web Developer Indonesia",
+  "start_url": "/",
+  "lang": "id",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

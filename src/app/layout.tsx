@@ -81,6 +81,10 @@ export default function RootLayout({
   return (
     <html lang="id" className="scroll-smooth">
       <head>
+        <meta name="geo.region" content="ID-JT" />
+        <meta name="geo.placename" content="Temanggung, Jawa Tengah" />
+        <meta name="geo.position" content="-7.3167;110.1750" />
+        <meta name="ICBM" content="-7.3167, 110.1750" />
         <PersonSchema />
         <WebSiteSchema />
       </head>
