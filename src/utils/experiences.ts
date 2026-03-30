@@ -54,7 +54,27 @@ export const experiences: Experience[] = [
     id: 3,
     title: "Systems Development Intern",
     company: "Scuto Indonesia",
-    period: "Sep 2025 – Present",
+    period: "Sep 2025 – Maret 2026",
+    description: [
+      "Assisted in developing Scuto Indonesia's internal systems across both frontend and backend.",
+      "Handled API and database integration, debugging, and development documentation.",
+      "Collaborated with the team on building applications using Next.js and Node.js.",
+      "Used Git for version control and development workflows.",
+    ],
+    technologies: [
+      "Next.js",
+      "Node.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "PostgreSQL",
+      "Git",
+    ],
+  },
+  {
+    id: 4,
+    title: "Systems Development",
+    company: "Scuto Indonesia",
+    period: "Maret 2026 – Present",
     description: [
       "Assisted in developing Scuto Indonesia's internal systems across both frontend and backend.",
       "Handled API and database integration, debugging, and development documentation.",
