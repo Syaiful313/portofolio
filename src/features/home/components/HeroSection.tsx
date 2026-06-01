@@ -1,19 +1,19 @@
 "use client";
 
 import BlurText from "@/components/BlurText";
+import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useViewport } from "@/hooks/useViewport";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const HomeSection = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [viewport, setViewport] = useState<"mobile" | "tablet" | "desktop">(
-    "desktop",
-  );
-  const [particles, setParticles] = useState<
-    Array<{ left: number; top: number }>
-  >([]);
+  const viewport = useViewport();
   const { scrollYProgress } = useScroll();
+  const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
+    desktopBaseDuration: 5,
+  });
 
   const isMobile = viewport === "mobile";
   const isTablet = viewport === "tablet";
@@ -30,16 +30,6 @@ const HomeSection = () => {
   );
 
   useEffect(() => {
-    const resolveViewport = (width: number) => {
-      if (width < 768) return "mobile";
-      if (width < 1024) return "tablet";
-      return "desktop";
-    };
-
-    const updateViewport = () => {
-      setViewport(resolveViewport(window.innerWidth));
-    };
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -58,28 +48,18 @@ const HomeSection = () => {
       observer.observe(element);
     }
 
-    updateViewport();
-    window.addEventListener("resize", updateViewport);
-
     return () => {
       if (element) {
         observer.unobserve(element);
       }
-      window.removeEventListener("resize", updateViewport);
     };
   }, []);
 
-  useEffect(() => {
-    const particleCount =
-      viewport === "mobile" ? 8 : viewport === "tablet" ? 14 : 20;
-    const newParticles = Array.from({ length: particleCount }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-    }));
-    setParticles(newParticles);
-  }, [viewport]);
-
   const getAnimationConfig = () => {
+    if (shouldReduceMotion) {
+      return { duration: 0, damping: 18, stiffness: 120 };
+    }
+
     switch (viewport) {
       case "mobile":
         return { duration: 0.4, damping: 18, stiffness: 120 };
@@ -103,7 +83,7 @@ const HomeSection = () => {
         {/* Animated Background */}
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-5"
-          style={{ y: backgroundY }}
+          style={shouldReduceMotion ? undefined : { y: backgroundY }}
         >
           <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black" />
@@ -115,15 +95,13 @@ const HomeSection = () => {
             key={i}
             className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
             animate={{
-              x: ["0%", `${Math.random() * 100}%`],
-              y: ["0%", `${Math.random() * 100}%`],
-              scale: [1, Math.random() + 0.5, 1],
+              x: ["0%", `${particle.xTo}%`],
+              y: ["0%", `${particle.yTo}%`],
+              scale: [1, particle.scale, 1],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration:
-                Math.random() * (isMobile ? 2 : isTablet ? 3 : 4) +
-                (isMobile ? 3 : isTablet ? 4 : 5),
+              duration: particle.duration,
               repeat: Infinity,
               ease: "linear",
             }}
@@ -141,7 +119,10 @@ const HomeSection = () => {
             transition={{ duration: config.duration }}
             className="relative z-10 my-24 flex flex-col items-center justify-center text-center md:my-56"
           >
-            <motion.div style={{ y: textY }} className="space-y-6">
+            <motion.div
+              style={shouldReduceMotion ? undefined : { y: textY }}
+              className="space-y-6"
+            >
               <motion.header
                 className="flex justify-center"
                 initial={{ opacity: 0, x: -horizontalOffset }}

@@ -10,45 +10,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useViewport } from "@/hooks/useViewport";
 import { projects } from "@/utils/projects";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 const PortfolioSection = () => {
-  const [filter, setFilter] = useState("all");
-  const [particles, setParticles] = useState<
-    Array<{
-      left: number;
-      top: number;
-      xTo: number;
-      yTo: number;
-      scale: number;
-      duration: number;
-    }>
-  >([]);
+  const viewport = useViewport();
+  const { particles, shouldReduceMotion } = useFloatingParticles(viewport);
   const { scrollYProgress } = useScroll();
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  useEffect(() => {
-    // Generate particles only on client-side
-    const newParticles = Array.from({ length: 20 }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      xTo: Math.random() * 60 + 20,
-      yTo: Math.random() * 60 + 20,
-      scale: Math.random() * 0.6 + 0.7,
-      duration: Math.random() * 4 + 6,
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  const filteredProjects =
-    filter === "all"
-      ? projects
-      : projects.filter((project) => project.category === filter);
 
   return (
     <section
@@ -58,7 +32,7 @@ const PortfolioSection = () => {
       {/* Animated Background */}
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-5"
-        style={{ y: backgroundY }}
+        style={shouldReduceMotion ? undefined : { y: backgroundY }}
       >
         <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black" />
@@ -107,13 +81,16 @@ const PortfolioSection = () => {
         </motion.div>
 
         <div className="grid gap-8 lg:grid-cols-3">
-          {filteredProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.5,
+                delay: shouldReduceMotion ? 0 : index * 0.1,
+              }}
             >
               <Card className="h-full overflow-hidden border-none shadow-md shadow-[#d9c5a7] transition-all hover:shadow-lg hover:shadow-[#d9c5a7]">
                 <div className="relative h-64 overflow-hidden">

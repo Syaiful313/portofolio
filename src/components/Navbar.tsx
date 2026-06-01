@@ -1,53 +1,72 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = useRef(0);
+  const tickingRef = useRef(false);
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#portfolios", label: "Projects" },
     { href: "#experience", label: "Experience" },
-  ];
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollThreshold = 100;
+      if (tickingRef.current) return;
 
-      if (currentScrollY > lastScrollY) {
-        if (currentScrollY > scrollThreshold) {
-          setIsNavbarVisible(false);
-        }
-      } else {
-        setIsNavbarVisible(true);
-      }
+      tickingRef.current = true;
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const scrollThreshold = 100;
+        const isScrollingDown = currentScrollY > lastScrollYRef.current;
 
-      setLastScrollY(currentScrollY);
-      setIsScrolled(currentScrollY > 20);
-
-      const sections = navLinks.map((link) => link.href.replace("#", ""));
-      sections.forEach((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-          }
-        }
+        setIsNavbarVisible(!(isScrollingDown && currentScrollY > scrollThreshold));
+        setIsScrolled(currentScrollY > 20);
+        lastScrollYRef.current = currentScrollY;
+        tickingRef.current = false;
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
+
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.getElementById(link.href.replace("#", "")))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries.find((entry) => entry.isIntersecting);
+        if (visibleEntry?.target.id) {
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+      observer.disconnect();
+    };
+  }, [navLinks]);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
