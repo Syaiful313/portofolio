@@ -1,4 +1,4 @@
-import { motion, Transition } from "framer-motion";
+import { motion, Transition, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 
 type BlurTextProps = {
@@ -49,6 +49,7 @@ const BlurText: React.FC<BlurTextProps> = ({
   const elements = animateBy === "words" ? text.split(" ") : text.split("");
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -87,9 +88,12 @@ const BlurText: React.FC<BlurTextProps> = ({
 
   const fromSnapshot = animationFrom ?? defaultFrom;
   const toSnapshots = animationTo ?? defaultTo;
+  const finalSnapshot = toSnapshots[toSnapshots.length - 1] ?? fromSnapshot;
 
   const stepCount = toSnapshots.length + 1;
-  const totalDuration = stepDuration * (stepCount - 1);
+  const totalDuration = shouldReduceMotion
+    ? 0
+    : stepDuration * (stepCount - 1);
   const times = Array.from({ length: stepCount }, (_, i) =>
     stepCount === 1 ? 0 : i / (stepCount - 1)
   );
@@ -102,22 +106,30 @@ const BlurText: React.FC<BlurTextProps> = ({
         const spanTransition: Transition = {
           duration: totalDuration,
           times,
-          delay: (index * delay) / 1000,
+          delay: shouldReduceMotion ? 0 : (index * delay) / 1000,
         };
         (spanTransition as any).ease = easing;
 
         return (
           <motion.span
             key={index}
-            initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
+            initial={shouldReduceMotion ? finalSnapshot : fromSnapshot}
+            animate={
+              shouldReduceMotion
+                ? finalSnapshot
+                : inView
+                  ? animateKeyframes
+                  : fromSnapshot
+            }
             transition={spanTransition}
             onAnimationComplete={
               index === elements.length - 1 ? onAnimationComplete : undefined
             }
             style={{
               display: "inline-block",
-              willChange: "transform, filter, opacity",
+              willChange: shouldReduceMotion
+                ? undefined
+                : "transform, filter, opacity",
             }}
           >
             {segment === " " ? "\u00A0" : segment}
