@@ -109,33 +109,31 @@ const ExperienceSection = () => {
                     {index % 2 === 1 && (
                       <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
                         <CardContent className="p-6">
-                          <CardTitle className="mb-1 text-right font-serif text-xl font-semibold">
+                          <CardTitle className="mb-1 font-serif text-xl font-semibold">
                             {exp.title}
                           </CardTitle>
-                          <div className="mb-2 flex items-center justify-end">
-                            <span className="mr-2 text-foreground/70">
+                          <div className="mb-2 flex items-center">
+                            <Briefcase className="mr-2 h-4 w-4 text-primary" />
+                            <span className="text-foreground/70">
                               {exp.company}
                             </span>
-                            <Briefcase className="h-4 w-4 text-primary" />
                           </div>
-                          <div className="mb-4 flex items-center justify-end">
-                            <span className="mr-2 text-foreground/70">
+                          <div className="mb-4 flex items-center">
+                            <Calendar className="mr-2 h-4 w-4 text-primary" />
+                            <span className="text-foreground/70">
                               {exp.period}
                             </span>
-                            <Calendar className="h-4 w-4 text-primary" />
                           </div>
-                          <h4 className="mb-2 text-right font-semibold">
+                          <h4 className="mb-2 font-semibold">
                             Key Responsibilities:
                           </h4>
-                          <ul className="mb-4 list-disc space-y-2 text-right text-foreground/80 [direction:rtl]">
+                          <ul className="mb-4 list-disc space-y-2 pl-5 text-foreground/80">
                             {exp.description.map((item, i) => (
-                              <li key={i} className="[direction:ltr]">
-                                {item}
-                              </li>
+                              <li key={i}>{item}</li>
                             ))}
                           </ul>
 
-                          <div className="flex flex-wrap justify-end gap-2">
+                          <div className="flex flex-wrap gap-2">
                             {exp.technologies.map((tech, techIndex) => (
                               <Badge
                                 key={techIndex}
