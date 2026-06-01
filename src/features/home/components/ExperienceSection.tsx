@@ -1,81 +1,20 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useFloatingParticles } from "@/hooks/useFloatingParticles";
-import { useViewport } from "@/hooks/useViewport";
 import { experiences } from "@/utils/experiences";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, Calendar } from "lucide-react";
+import ExperienceMotionLayer from "./experience/ExperienceMotionLayer";
+import ExperienceReveal from "./experience/ExperienceReveal";
 
 const ExperienceSection = () => {
-  const viewport = useViewport();
-  const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
-    mobileBaseDuration: 3.5,
-    tabletBaseDuration: 4.5,
-  });
-  const { scrollYProgress } = useScroll();
-
-  const isMobile = viewport === "mobile";
-  const isTablet = viewport === "tablet";
-
-  const backgroundY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", isMobile ? "40%" : isTablet ? "70%" : "100%"],
-  );
-  const textY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
-  );
-
   return (
     <section
       id="experience"
       className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black py-24 text-[#d9c5a7] sm:py-28"
     >
       <div className="container relative mx-auto px-4 md:px-8">
-        {/* Animated Background */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 opacity-5"
-          style={shouldReduceMotion ? undefined : { y: backgroundY }}
-        >
-          <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black to-transparent" />
-        </motion.div>
+        <ExperienceMotionLayer />
 
-        {/* Floating Particles */}
-        {particles.map((particle, i) => (
-          <motion.div
-            key={i}
-            className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
-            animate={{
-              x: ["0%", `${particle.xTo}%`],
-              y: ["0%", `${particle.yTo}%`],
-              scale: [1, particle.scale, 1],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-            }}
-          />
-        ))}
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-          className="mb-12 text-center sm:mb-16"
-          style={shouldReduceMotion ? undefined : { y: textY }}
-        >
+        <ExperienceReveal className="mb-12 text-center sm:mb-16" parallax>
           <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
             Work Experience
           </h2>
@@ -84,22 +23,16 @@ const ExperienceSection = () => {
             My professional journey in web development, showcasing my growth and
             the diverse projects I've contributed to throughout my career.
           </p>
-        </motion.div>
+        </ExperienceReveal>
 
         <div className="relative">
           <div className="absolute left-1/2 hidden h-full w-1 -translate-x-1/2 transform bg-[#d9c5a7]/30 lg:block"></div>
 
           <div className="space-y-6 sm:space-y-10 md:space-y-16">
             {experiences.map((exp, index) => (
-              <motion.div
+              <ExperienceReveal
                 key={exp.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 0.5,
-                  delay: shouldReduceMotion || isMobile ? 0 : index * 0.1,
-                }}
+                delay={index * 0.1}
                 className="relative"
               >
                 <div className="absolute left-1/2 top-0 z-10 hidden h-4 w-4 -translate-x-1/2 transform rounded-full bg-[#d9c5a7] shadow-[0_0_12px_rgba(217,197,167,0.45)] lg:block" />
@@ -236,7 +169,7 @@ const ExperienceSection = () => {
                     </Card>
                   </div>
                 </div>
-              </motion.div>
+              </ExperienceReveal>
             ))}
           </div>
         </div>
