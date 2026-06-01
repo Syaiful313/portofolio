@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useFloatingParticles } from "@/hooks/useFloatingParticles";
 import { useViewport } from "@/hooks/useViewport";
-import { socialLinks } from "@/utils/sosialLink";
+import { socialLinks } from "@/utils/socialLinks";
 import Link from "next/link";
 import type { ChangeEvent, FormEvent } from "react";
 import { useEffect, useState } from "react";

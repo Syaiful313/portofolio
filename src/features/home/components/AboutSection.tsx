@@ -3,7 +3,7 @@
 import { useFloatingParticles } from "@/hooks/useFloatingParticles";
 import { useViewport } from "@/hooks/useViewport";
 import { skills } from "@/utils/skills";
-import { socialLinks } from "@/utils/sosialLink";
+import { socialLinks } from "@/utils/socialLinks";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";

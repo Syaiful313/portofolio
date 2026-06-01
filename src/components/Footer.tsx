@@ -1,5 +1,5 @@
 "use client";
-import { socialLinks } from "@/utils/sosialLink";
+import { socialLinks } from "@/utils/socialLinks";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
