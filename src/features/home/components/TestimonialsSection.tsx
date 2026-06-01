@@ -2,49 +2,44 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useViewport } from "@/hooks/useViewport";
 import { testimonials } from "@/utils/testimonials";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useEffect, useState } from "react";
-
-type Viewport = "mobile" | "tablet" | "desktop";
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
-  const [viewport, setViewport] = useState<Viewport>("desktop");
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true);
+  const viewport = useViewport();
+  const shouldReduceMotion = useReducedMotion();
 
   const isMobile = viewport === "mobile";
   const isTablet = viewport === "tablet";
+  const shouldAutoplay = autoplay && isDocumentVisible && !shouldReduceMotion;
 
   useEffect(() => {
-    const resolveViewport = (width: number): Viewport => {
-      if (width < 768) return "mobile";
-      if (width < 1024) return "tablet";
-      return "desktop";
+    const handleVisibilityChange = () => {
+      setIsDocumentVisible(!document.hidden);
     };
 
-    const handleResize = () => {
-      setViewport(resolveViewport(window.innerWidth));
-    };
+    handleVisibilityChange();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    if (!shouldAutoplay) return;
 
-    if (autoplay) {
-      interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-      }, 5000);
-    }
+    const interval = window.setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, [autoplay]);
+  }, [shouldAutoplay]);
 
   const handlePrev = () => {
     setAutoplay(false);
@@ -90,7 +85,7 @@ const Testimonials = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className="mb-12 text-center sm:mb-16"
         >
           <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
@@ -132,7 +127,7 @@ const Testimonials = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
               >
                 <Card className="h-full border border-[#d9c5a7]/10 bg-black/40 shadow-lg shadow-black/30 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-[#d9c5a7]/30">
                   <CardContent className="flex h-full flex-col p-6 sm:p-7">
