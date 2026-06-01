@@ -1,12 +1,13 @@
 "use client";
 
 import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useInView } from "@/hooks/useInView";
 import { useViewport } from "@/hooks/useViewport";
 import { skills } from "@/utils/skills";
 import { socialLinks } from "@/utils/socialLinks";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const skillItemVariants = {
   hidden: { opacity: 0, scale: 0.85 },
@@ -19,7 +20,7 @@ const socialItemVariants = {
 };
 
 const AboutSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const isVisible = useInView("about", { once: true, threshold: 0.1 });
   const viewport = useViewport();
   const { particles, shouldReduceMotion } = useFloatingParticles(viewport);
   const { scrollYProgress } = useScroll();
@@ -38,32 +39,6 @@ const AboutSection = () => {
     [0, 1],
     ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
   );
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    const element = document.getElementById("about");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
   const getAnimationConfig = () => {
     if (shouldReduceMotion) {
       return { duration: 0, damping: 18, stiffness: 120 };

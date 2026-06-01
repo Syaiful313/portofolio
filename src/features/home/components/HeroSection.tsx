@@ -2,13 +2,16 @@
 
 import BlurText from "@/components/BlurText";
 import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useInView } from "@/hooks/useInView";
 import { useViewport } from "@/hooks/useViewport";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 const HomeSection = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const isVisible = useInView("home", {
+    initialInView: true,
+    threshold: 0.1,
+  });
   const viewport = useViewport();
   const { scrollYProgress } = useScroll();
   const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
@@ -28,33 +31,6 @@ const HomeSection = () => {
     [0, 1],
     ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
   );
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          } else {
-            setIsVisible(false);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    const element = document.getElementById("home");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
   const getAnimationConfig = () => {
     if (shouldReduceMotion) {
       return { duration: 0, damping: 18, stiffness: 120 };

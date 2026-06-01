@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useInView } from "@/hooks/useInView";
 import { useViewport } from "@/hooks/useViewport";
-import { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm";
 import SocialLinks from "./components/SocialLinks";
 
@@ -13,23 +13,7 @@ const ContactPage = () => {
   const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
     desktopBaseDuration: 5,
   });
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 },
-    );
-
-    const element = document.getElementById("contact");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const isVisible = useInView("contact", { threshold: 0.1 });
 
   return (
     <section
