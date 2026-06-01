@@ -12,7 +12,9 @@ const ContentSection = ({ project }: { project: Project }) => {
             <span className="mb-2 inline-block rounded-full bg-[#d9c5a7]/10 px-4 py-2 text-sm font-medium uppercase tracking-wider text-[#d9c5a7]/80">
               {project.category}
             </span>
-            <h2 className="text-2xl font-bold md:text-2xl lg:text-3xl">Project Details</h2>
+            <h2 className="text-2xl font-bold md:text-2xl lg:text-3xl">
+              Project Details
+            </h2>
           </div>
 
           {project.liveUrl !== "#" && (
@@ -71,8 +73,8 @@ const ContentSection = ({ project }: { project: Project }) => {
             {/* Situation */}
             <div className="group">
               <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg bg-blue-500/10 p-2">
-                  <Target className="h-5 w-5 text-blue-400" />
+                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
+                  <Target className="h-5 w-5 text-[#d9c5a7]" />
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">
                   Situation
@@ -86,8 +88,8 @@ const ContentSection = ({ project }: { project: Project }) => {
             {/* Task */}
             <div className="group">
               <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg bg-yellow-500/10 p-2">
-                  <Zap className="h-5 w-5 text-yellow-400" />
+                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
+                  <Zap className="h-5 w-5 text-[#d9c5a7]" />
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">Task</h4>
               </div>
@@ -99,8 +101,8 @@ const ContentSection = ({ project }: { project: Project }) => {
             {/* Action */}
             <div className="group">
               <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg bg-purple-500/10 p-2">
-                  <Code className="h-5 w-5 text-purple-400" />
+                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
+                  <Code className="h-5 w-5 text-[#d9c5a7]" />
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">Action</h4>
               </div>
@@ -112,8 +114,8 @@ const ContentSection = ({ project }: { project: Project }) => {
             {/* Result */}
             <div className="group">
               <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg bg-green-500/10 p-2">
-                  <CheckCircle className="h-5 w-5 text-green-400" />
+                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
+                  <CheckCircle className="h-5 w-5 text-[#d9c5a7]" />
                 </div>
                 <h4 className="text-lg font-semibold text-[#d9c5a7]">Result</h4>
               </div>
