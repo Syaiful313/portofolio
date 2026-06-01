@@ -7,6 +7,7 @@ const HOME_URL = "https://muhammad-syaiful.site";
 const title = "Full-Stack Web Developer Indonesia";
 const description =
   "Portofolio Muhammad Syaiful Mu'min, full-stack web developer di Indonesia. Ahli membangun aplikasi web modern dengan Next.js, React, dan TypeScript berperforma tinggi.";
+const ogImage = `${HOME_URL}/og/og-cover.png`;
 
 export const metadata: Metadata = {
   title,
@@ -29,13 +30,14 @@ export const metadata: Metadata = {
     url: HOME_URL,
     title,
     description,
-    siteName: "Portfolio – Muhammad Syaiful Mu'min",
+    siteName: "Portofolio - Muhammad Syaiful Mu'min",
+    locale: "id_ID",
     images: [
       {
-        url: `${HOME_URL}/og/og-cover.png`,
+        url: ogImage,
         width: 1200,
         height: 630,
-        alt: "Portfolio – Muhammad Syaiful Mu'min",
+        alt: "Portofolio - Muhammad Syaiful Mu'min",
       },
     ],
   },
@@ -43,11 +45,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: [`${HOME_URL}/og/og-cover.png`],
+    images: [ogImage],
   },
 };
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <BreadcrumbSchema items={[{ name: "Beranda", url: HOME_URL }]} />
@@ -57,4 +59,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

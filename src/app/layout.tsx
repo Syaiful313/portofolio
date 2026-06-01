@@ -56,13 +56,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://muhammad-syaiful.site",
-    siteName: "Portofolio – Muhammad Syaiful Mu'min",
+    siteName: "Portofolio - Muhammad Syaiful Mu'min",
     images: [
       {
         url: "/og/og-cover.png",
         width: 1200,
         height: 630,
-        alt: "Portofolio – Muhammad Syaiful Mu'min",
+        alt: "Portofolio - Muhammad Syaiful Mu'min",
       },
     ],
     locale: "id_ID",

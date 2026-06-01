@@ -6,7 +6,6 @@ import { projects } from "@/utils/projects";
 
 const BASE_URL = "https://muhammad-syaiful.site";
 
-// --- Tipe untuk generateMetadata (params: Promise)
 type MetadataProps = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({
@@ -23,7 +22,7 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${project.title} – Proyek ${project.category === "fullstack" ? "Full-Stack" : "Frontend"}`;
+  const title = `${project.title} - Proyek ${project.category === "fullstack" ? "Full-Stack" : "Frontend"}`;
   const description = `${project.description} Dibangun dengan ${project.technologies.slice(0, 3).join(", ")}. Lihat detail proyek oleh Muhammad Syaiful Mu'min.`;
   const url = `${BASE_URL}/portfolios/${project.id}`;
   const ogImage = project.image
@@ -46,7 +45,8 @@ export async function generateMetadata({
       url,
       title,
       description,
-      siteName: "Portofolio – Muhammad Syaiful Mu'min",
+      siteName: "Portofolio - Muhammad Syaiful Mu'min",
+      locale: "id_ID",
       images: [{ url: ogImage, width: 1200, height: 630, alt: project.title }],
     },
     twitter: {
@@ -58,7 +58,6 @@ export async function generateMetadata({
   };
 }
 
-// --- Tipe untuk PAGE component (params: Promise)
 type PageProps = { params: Promise<{ id: string }> };
 
 export default async function Portfolio({ params }: PageProps) {
@@ -81,7 +80,6 @@ export default async function Portfolio({ params }: PageProps) {
   );
 }
 
-// (opsional) SSG bila perlu:
 export async function generateStaticParams() {
   const ids = projects.map((p) => p.id.toString());
   return ids.map((id) => ({ id }));
