@@ -1,5 +1,3 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,65 +8,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useFloatingParticles } from "@/hooks/useFloatingParticles";
-import { useViewport } from "@/hooks/useViewport";
 import { projects } from "@/utils/projects";
-import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import PortfolioMotionLayer from "./portfolio/PortfolioMotionLayer";
+import PortfolioReveal from "./portfolio/PortfolioReveal";
 
 const PortfolioSection = () => {
-  const viewport = useViewport();
-  const { particles, shouldReduceMotion } = useFloatingParticles(viewport);
-  const { scrollYProgress } = useScroll();
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   return (
     <section
       id="portfolios"
       className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-32 text-[#d9c5a7] md:px-6 lg:px-0"
     >
-      {/* Animated Background */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-5"
-        style={shouldReduceMotion ? undefined : { y: backgroundY }}
-      >
-        <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-      </motion.div>
-
-      {/* Floating Particles */}
-      {particles.map((particle, i) => (
-        <motion.div
-          key={i}
-          className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
-          animate={{
-            x: ["0%", `${particle.xTo}%`],
-            y: ["0%", `${particle.yTo}%`],
-            scale: [1, particle.scale, 1],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            left: `${particle.left}%`,
-            top: `${particle.top}%`,
-          }}
-        />
-      ))}
+      <PortfolioMotionLayer />
 
       <div className="container relative mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
-        >
+        <PortfolioReveal className="mb-16 text-center">
           <h2 className="mb-4 font-serif text-3xl font-bold md:text-3xl lg:text-4xl">
             My Portfolio
           </h2>
@@ -78,20 +33,11 @@ const PortfolioSection = () => {
             development. Each project demonstrates my problem-solving approach
             and technical skills.
           </p>
-        </motion.div>
+        </PortfolioReveal>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.5,
-                delay: shouldReduceMotion ? 0 : index * 0.1,
-              }}
-            >
+            <PortfolioReveal key={project.id} delay={index * 0.1}>
               <Card className="h-full overflow-hidden border-none shadow-md shadow-[#d9c5a7] transition-all hover:shadow-lg hover:shadow-[#d9c5a7]">
                 <div className="relative h-64 overflow-hidden">
                   <Image
@@ -133,7 +79,7 @@ const PortfolioSection = () => {
                   </Link>
                 </CardFooter>
               </Card>
-            </motion.div>
+            </PortfolioReveal>
           ))}
         </div>
       </div>
