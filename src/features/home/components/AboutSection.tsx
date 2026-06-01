@@ -1,20 +1,12 @@
 "use client";
 
+import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useViewport } from "@/hooks/useViewport";
 import { skills } from "@/utils/skills";
 import { socialLinks } from "@/utils/sosialLink";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-
-type Viewport = "mobile" | "tablet" | "desktop";
-type Particle = {
-  left: number;
-  top: number;
-  xTo: number;
-  yTo: number;
-  scale: number;
-  duration: number;
-};
 
 const skillItemVariants = {
   hidden: { opacity: 0, scale: 0.85 },
@@ -28,8 +20,8 @@ const socialItemVariants = {
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [viewport, setViewport] = useState<Viewport>("desktop");
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const viewport = useViewport();
+  const { particles, shouldReduceMotion } = useFloatingParticles(viewport);
   const { scrollYProgress } = useScroll();
 
   const isMobile = viewport === "mobile";
@@ -48,16 +40,6 @@ const AboutSection = () => {
   );
 
   useEffect(() => {
-    const resolveViewport = (width: number): Viewport => {
-      if (width < 768) return "mobile";
-      if (width < 1024) return "tablet";
-      return "desktop";
-    };
-
-    const updateViewport = () => {
-      setViewport(resolveViewport(window.innerWidth));
-    };
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -75,36 +57,18 @@ const AboutSection = () => {
       observer.observe(element);
     }
 
-    updateViewport();
-    window.addEventListener("resize", updateViewport);
-
     return () => {
       if (element) {
         observer.unobserve(element);
       }
-      window.removeEventListener("resize", updateViewport);
     };
   }, []);
 
-  useEffect(() => {
-    const particleCount =
-      viewport === "mobile" ? 8 : viewport === "tablet" ? 14 : 20;
-    const baseDuration =
-      viewport === "mobile" ? 3 : viewport === "tablet" ? 4 : 6;
-    const driftRange =
-      viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 4;
-    const newParticles = Array.from({ length: particleCount }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      xTo: Math.random() * 60 + 20,
-      yTo: Math.random() * 60 + 20,
-      scale: Math.random() * 0.6 + 0.7,
-      duration: Math.random() * driftRange + baseDuration,
-    }));
-    setParticles(newParticles);
-  }, [viewport]);
-
   const getAnimationConfig = () => {
+    if (shouldReduceMotion) {
+      return { duration: 0, damping: 18, stiffness: 120 };
+    }
+
     switch (viewport) {
       case "mobile":
         return { duration: 0.4, damping: 18, stiffness: 120 };
@@ -117,9 +81,20 @@ const AboutSection = () => {
 
   const config = getAnimationConfig();
   const horizontalOffset = isMobile ? 20 : isTablet ? 35 : 50;
-  const verticalOffset = isMobile ? 10 : isTablet ? 16 : 20;
-  const skillStagger = isMobile ? 0.05 : isTablet ? 0.08 : 0.12;
-  const socialStagger = isMobile ? 0.08 : isTablet ? 0.1 : 0.14;
+  const skillStagger = shouldReduceMotion
+    ? 0
+    : isMobile
+      ? 0.05
+      : isTablet
+        ? 0.08
+        : 0.12;
+  const socialStagger = shouldReduceMotion
+    ? 0
+    : isMobile
+      ? 0.08
+      : isTablet
+        ? 0.1
+        : 0.14;
 
   const skillContainerVariants = useMemo(
     () => ({
@@ -153,7 +128,7 @@ const AboutSection = () => {
       <div className="container mx-auto">
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-5"
-          style={{ y: backgroundY }}
+          style={shouldReduceMotion ? undefined : { y: backgroundY }}
         >
           <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black to-transparent" />
@@ -191,7 +166,7 @@ const AboutSection = () => {
           >
             <motion.div
               className="space-y-6 text-center lg:text-left"
-              style={{ y: textY }}
+              style={shouldReduceMotion ? undefined : { y: textY }}
             >
               <motion.div
                 initial={{ opacity: 0, x: -horizontalOffset }}
@@ -217,8 +192,8 @@ const AboutSection = () => {
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: isVisible ? 1 : 0 }}
                       transition={{
-                        duration: isMobile ? 1 : 1.5,
-                        delay: isMobile ? 0.3 : 0.5,
+                        duration: shouldReduceMotion ? 0 : isMobile ? 1 : 1.5,
+                        delay: shouldReduceMotion ? 0 : isMobile ? 0.3 : 0.5,
                       }}
                     >
                       <motion.path
@@ -244,7 +219,13 @@ const AboutSection = () => {
                     className="rounded-full border border-[#c4b5a0]/20 bg-[#c4b5a0]/10 px-3 py-1 text-xs text-[#d9c5a7] transition-all duration-300 hover:bg-[#c4b5a0]/20 lg:px-4 lg:py-2 lg:text-sm"
                     variants={skillItemVariants}
                     transition={{
-                      duration: isMobile ? 0.25 : isTablet ? 0.35 : 0.45,
+                      duration: shouldReduceMotion
+                        ? 0
+                        : isMobile
+                          ? 0.25
+                          : isTablet
+                            ? 0.35
+                            : 0.45,
                       ease: "easeOut",
                     }}
                   >
@@ -263,7 +244,13 @@ const AboutSection = () => {
               }}
               transition={{
                 duration: config.duration,
-                delay: isMobile ? 0.15 : isTablet ? 0.25 : 0.3,
+                delay: shouldReduceMotion
+                  ? 0
+                  : isMobile
+                    ? 0.15
+                    : isTablet
+                      ? 0.25
+                      : 0.3,
                 type: "spring",
                 damping: config.damping,
                 stiffness: config.stiffness,
@@ -279,8 +266,8 @@ const AboutSection = () => {
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: isVisible ? 1 : 0 }}
                       transition={{
-                        duration: isMobile ? 0.6 : 1,
-                        delay: isMobile ? 0.4 : 0.8,
+                        duration: shouldReduceMotion ? 0 : isMobile ? 0.6 : 1,
+                        delay: shouldReduceMotion ? 0 : isMobile ? 0.4 : 0.8,
                       }}
                     />
                   </span>
@@ -302,11 +289,17 @@ const AboutSection = () => {
                     key={link.href}
                     variants={socialItemVariants}
                     transition={{
-                      duration: isMobile ? 0.25 : isTablet ? 0.35 : 0.45,
+                      duration: shouldReduceMotion
+                        ? 0
+                        : isMobile
+                          ? 0.25
+                          : isTablet
+                            ? 0.35
+                            : 0.45,
                       ease: "easeOut",
                     }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
                   >
                     <Link
                       href={link.href}

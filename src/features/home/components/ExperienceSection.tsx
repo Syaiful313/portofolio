@@ -2,25 +2,18 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useFloatingParticles } from "@/hooks/useFloatingParticles";
+import { useViewport } from "@/hooks/useViewport";
 import { experiences } from "@/utils/experiences";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, Calendar } from "lucide-react";
-import { useEffect, useState } from "react";
-
-type Viewport = "mobile" | "tablet" | "desktop";
 
 const ExperienceSection = () => {
-  const [viewport, setViewport] = useState<Viewport>("desktop");
-  const [particles, setParticles] = useState<
-    Array<{
-      left: number;
-      top: number;
-      xTo: number;
-      yTo: number;
-      scale: number;
-      duration: number;
-    }>
-  >([]);
+  const viewport = useViewport();
+  const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
+    mobileBaseDuration: 3.5,
+    tabletBaseDuration: 4.5,
+  });
   const { scrollYProgress } = useScroll();
 
   const isMobile = viewport === "mobile";
@@ -37,44 +30,6 @@ const ExperienceSection = () => {
     ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
   );
 
-  useEffect(() => {
-    const resolveViewport = (width: number): Viewport => {
-      if (width < 768) return "mobile";
-      if (width < 1024) return "tablet";
-      return "desktop";
-    };
-
-    const updateViewport = () => {
-      setViewport(resolveViewport(window.innerWidth));
-    };
-
-    updateViewport();
-    window.addEventListener("resize", updateViewport);
-
-    return () => {
-      window.removeEventListener("resize", updateViewport);
-    };
-  }, []);
-
-  useEffect(() => {
-    const particleCount =
-      viewport === "mobile" ? 8 : viewport === "tablet" ? 14 : 20;
-    const baseDuration =
-      viewport === "mobile" ? 3.5 : viewport === "tablet" ? 4.5 : 6;
-    const driftRange =
-      viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 4;
-
-    const newParticles = Array.from({ length: particleCount }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      xTo: Math.random() * 60 + 20,
-      yTo: Math.random() * 60 + 20,
-      scale: Math.random() * 0.6 + 0.7,
-      duration: Math.random() * driftRange + baseDuration,
-    }));
-    setParticles(newParticles);
-  }, [viewport]);
-
   return (
     <section
       id="experience"
@@ -84,7 +39,7 @@ const ExperienceSection = () => {
         {/* Animated Background */}
         <motion.div
           className="pointer-events-none absolute inset-0 opacity-5"
-          style={{ y: backgroundY }}
+          style={shouldReduceMotion ? undefined : { y: backgroundY }}
         >
           <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black to-transparent" />
@@ -117,9 +72,9 @@ const ExperienceSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className="mb-12 text-center sm:mb-16"
-          style={{ y: textY }}
+          style={shouldReduceMotion ? undefined : { y: textY }}
         >
           <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
             Work Experience
@@ -142,8 +97,8 @@ const ExperienceSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.5,
-                  delay: isMobile ? 0 : index * 0.1,
+                  duration: shouldReduceMotion ? 0 : 0.5,
+                  delay: shouldReduceMotion || isMobile ? 0 : index * 0.1,
                 }}
                 className="relative"
               >
