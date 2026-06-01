@@ -1,7 +1,8 @@
 "use client";
 import { socialLinks } from "@/utils/socialLinks";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import type { FormEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import {
   FaArrowUp,
@@ -15,6 +16,7 @@ import CountUp from "./CountUp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const shouldReduceMotion = useReducedMotion();
   const [copyFeedback, setCopyFeedback] = useState<{
     type: "success" | "error";
     message: string;
@@ -83,7 +85,7 @@ const Footer = () => {
     }
   };
 
-  const handleSubscribe = (e: { preventDefault: () => void }) => {
+  const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (email) {
       if (subscribeTimeoutRef.current) {
@@ -122,7 +124,7 @@ const Footer = () => {
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
@@ -135,7 +137,10 @@ const Footer = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+    });
   };
 
   return (
@@ -152,11 +157,15 @@ const Footer = () => {
         >
           <motion.div
             className="h-full w-full bg-transparent"
-            animate={{
-              backgroundPosition: ["0px 0px", "50px 50px"],
-            }}
+            animate={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    backgroundPosition: ["0px 0px", "50px 50px"],
+                  }
+            }
             transition={{
-              duration: 20,
+              duration: shouldReduceMotion ? 0 : 20,
               repeat: Infinity,
               ease: "linear",
             }}
@@ -171,12 +180,16 @@ const Footer = () => {
           background:
             "linear-gradient(to right, transparent, #d9c5a7, transparent)",
         }}
-        animate={{
-          opacity: [0.2, 0.5, 0.2],
-          scale: [1, 1.2, 1],
-        }}
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                opacity: [0.2, 0.5, 0.2],
+                scale: [1, 1.2, 1],
+              }
+        }
         transition={{
-          duration: 3,
+          duration: shouldReduceMotion ? 0 : 3,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -189,7 +202,7 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
             >
               <h2 className="mb-4 text-3xl font-bold text-[#d9c5a7]">
                 Muhammad Syaiful Mu'min
@@ -202,7 +215,7 @@ const Footer = () => {
               <div className="grid grid-cols-3 gap-4 border-b border-t border-gray-800 py-6">
                 <motion.div
                   className="text-center"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
                 >
                   <CountUp
                     from={0}
@@ -216,7 +229,7 @@ const Footer = () => {
                 </motion.div>
                 <motion.div
                   className="text-center"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
                 >
                   <CountUp
                     from={0}
@@ -230,7 +243,7 @@ const Footer = () => {
                 </motion.div>
                 <motion.div
                   className="text-center"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
                 >
                   <CountUp
                     from={0}
@@ -250,20 +263,23 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.5,
+                delay: shouldReduceMotion ? 0 : 0.2,
+              }}
             >
-              {socialLinks.map((social, index) => (
+              {socialLinks.map((social) => (
                 <motion.a
-                  key={index}
+                  key={social.href}
                   href={social.href}
                   className="group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-[#d9c5a7]/10"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
                 >
                   <motion.div
                     className="absolute inset-0 bg-[#d9c5a7]"
                     initial={{ y: "100%" }}
-                    whileHover={{ y: 0 }}
+                    whileHover={shouldReduceMotion ? undefined : { y: 0 }}
                     transition={{ type: "tween" }}
                   />
                   <social.icon className="relative z-10 h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
@@ -277,7 +293,7 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
             >
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Services
@@ -290,8 +306,8 @@ const Footer = () => {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ x: 10 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : index * 0.1 }}
+                    whileHover={shouldReduceMotion ? undefined : { x: 10 }}
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
                       <service.icon className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
@@ -311,7 +327,10 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.5,
+                delay: shouldReduceMotion ? 0 : 0.1,
+              }}
             >
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Quick Links
@@ -324,7 +343,9 @@ const Footer = () => {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
+                      transition={{
+                        delay: shouldReduceMotion ? 0 : index * 0.1,
+                      }}
                     >
                       <Link
                         href={link.href}
@@ -346,7 +367,7 @@ const Footer = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
               >
                 <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                   Stay Updated
@@ -369,14 +390,14 @@ const Footer = () => {
                   <motion.button
                     type="submit"
                     className="group relative w-full overflow-hidden rounded-lg bg-[#d9c5a7] px-4 py-3 font-medium text-black"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                   >
                     <span className="relative z-10">Subscribe</span>
                     <motion.div
                       className="absolute inset-0 bg-black"
                       initial={{ scale: 0 }}
-                      whileHover={{ scale: 1 }}
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1 }}
                       transition={{ type: "tween" }}
                     />
                   </motion.button>
@@ -388,7 +409,10 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.5,
+                delay: shouldReduceMotion ? 0 : 0.2,
+              }}
             >
               <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
                 Contact
@@ -400,8 +424,8 @@ const Footer = () => {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
-                  whileHover={{ x: 5 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
+                  whileHover={shouldReduceMotion ? undefined : { x: 5 }}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
                     <FaEnvelope className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
@@ -430,8 +454,11 @@ const Footer = () => {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  whileHover={{ x: 5 }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.4,
+                    delay: shouldReduceMotion ? 0 : 0.1,
+                  }}
+                  whileHover={shouldReduceMotion ? undefined : { x: 5 }}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
                     <FaMapMarkerAlt className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
@@ -462,7 +489,7 @@ const Footer = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-gray-400">
@@ -470,16 +497,20 @@ const Footer = () => {
             </p>
             <motion.p
               className="flex items-center gap-2 text-sm text-gray-400"
-              whileHover={{ scale: 1.05 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
             >
               Crafted with
               <motion.span
-                animate={{
-                  scale: [1, 1.2, 1],
-                  color: ["#d9c5a7", "#ff6b6b", "#d9c5a7"],
-                }}
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        scale: [1, 1.2, 1],
+                        color: ["#d9c5a7", "#ff6b6b", "#d9c5a7"],
+                      }
+                }
                 transition={{
-                  duration: 2,
+                  duration: shouldReduceMotion ? 0 : 2,
                   repeat: Infinity,
                   repeatType: "reverse",
                 }}
@@ -498,10 +529,11 @@ const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             onClick={scrollToTop}
             className="fixed bottom-8 right-8 flex h-12 w-12 items-center justify-center rounded-full bg-[#d9c5a7] text-black shadow-lg transition-colors duration-300 hover:bg-[#c4b5a0]"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
           >
             <FaArrowUp />
           </motion.button>

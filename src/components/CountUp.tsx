@@ -1,5 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
+import {
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
 interface CountUpProps {
   to: number;
   from?: number;
@@ -26,10 +31,14 @@ export default function CountUp({
   onEnd,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const motionValue = useMotionValue(direction === "down" ? to : from);
+  const shouldReduceMotion = useReducedMotion();
+  const motionValue = useMotionValue(
+    shouldReduceMotion ? to : direction === "down" ? to : from,
+  );
+  const springDuration = Math.max(duration, 0.01);
 
-  const damping = 20 + 40 * (1 / duration);
-  const stiffness = 100 * (1 / duration);
+  const damping = 20 + 40 * (1 / springDuration);
+  const stiffness = 100 * (1 / springDuration);
 
   const springValue = useSpring(motionValue, {
     damping,
@@ -40,11 +49,21 @@ export default function CountUp({
 
   useEffect(() => {
     if (ref.current) {
-      ref.current.textContent = String(direction === "down" ? to : from);
+      ref.current.textContent = String(
+        shouldReduceMotion ? to : direction === "down" ? to : from,
+      );
     }
-  }, [from, to, direction]);
+  }, [from, to, direction, shouldReduceMotion]);
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      motionValue.set(to);
+      if (typeof onEnd === "function") {
+        onEnd();
+      }
+      return;
+    }
+
     if (isInView && startWhen) {
       if (typeof onStart === "function") {
         onStart();
@@ -79,6 +98,7 @@ export default function CountUp({
     onStart,
     onEnd,
     duration,
+    shouldReduceMotion,
   ]);
 
   useEffect(() => {
