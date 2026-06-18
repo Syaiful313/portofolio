@@ -1,98 +1,54 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useFloatingParticles } from "@/hooks/useFloatingParticles";
-import { useInView } from "@/hooks/useInView";
-import { useViewport } from "@/hooks/useViewport";
+import { motion, useReducedMotion } from "framer-motion";
 import ContactForm from "./components/ContactForm";
 import SocialLinks from "./components/SocialLinks";
 
 const ContactPage = () => {
-  const viewport = useViewport();
-  const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
-    desktopBaseDuration: 5,
-  });
-  const isVisible = useInView("contact", { threshold: 0.1 });
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="contact"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 px-4 py-24 md:py-28"
-    >
-      <motion.div
-        className="absolute inset-0 opacity-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-      >
-        <div className="bg-grid-pattern absolute inset-0 opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent" />
-      </motion.div>
+    <main className="scroll-mt-24">
+      <section className="section-shell py-20 sm:py-24">
+        <div className="section-divider pb-10" />
 
-      {particles.map((p, i) => (
-        <motion.div
-          key={`particle-${i}`}
-          className="absolute h-1 w-1 rounded-full bg-[#c4b5a0]/30"
-          animate={{
-            x: ["0%", `${p.xTo}%`],
-            y: ["0%", `${p.yTo}%`],
-            scale: [1, p.scale, 1],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-          }}
-        />
-      ))}
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{
-          opacity: isVisible ? 1 : 0,
-          y: isVisible || shouldReduceMotion ? 0 : 50,
-        }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
-        className="w-full max-w-3xl"
-      >
-        <Card className="mx-auto border-none bg-[#1a1a1a]/90 py-8 shadow-xl backdrop-blur md:py-0">
-          <CardHeader className="space-y-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                x: isVisible || shouldReduceMotion ? 0 : -50,
-              }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.8,
-                delay: shouldReduceMotion ? 0 : 0.2,
-              }}
-            >
-              <CardTitle className="font-serif text-3xl font-semibold text-[#c4b5a0] md:text-6xl">
-                Contact
-              </CardTitle>
-              <p className="text-lg text-[#d9c5a7]/80">Let's get in touch</p>
-            </motion.div>
-          </CardHeader>
-          <CardContent>
-            <ContactForm
-              isVisible={isVisible}
-              shouldReduceMotion={shouldReduceMotion}
-            />
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
+            className="space-y-4"
+          >
+            <p className="curly-label">{`{ Contact }`}</p>
+            <h1 className="max-w-2xl text-4xl leading-[0.95] tracking-[-0.05em] sm:text-5xl lg:text-7xl">
+              Let&apos;s build something precise.
+            </h1>
+            <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
+              Ceritakan kebutuhan project, deadline, dan target pengguna. Saya
+              akan jawab dengan arah yang jelas dan realistis.
+            </p>
             <SocialLinks
-              isVisible={isVisible}
-              shouldReduceMotion={shouldReduceMotion}
+              isVisible={true}
+              shouldReduceMotion={Boolean(shouldReduceMotion)}
             />
-          </CardContent>
-        </Card>
-      </motion.div>
-    </section>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: 0.05 }}
+            className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6 sm:p-8"
+          >
+            <ContactForm
+              isVisible={true}
+              shouldReduceMotion={Boolean(shouldReduceMotion)}
+            />
+          </motion.div>
+        </div>
+      </section>
+    </main>
   );
 };
 

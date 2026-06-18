@@ -1,7 +1,7 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -15,29 +15,27 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex min-h-[80vh] flex-col items-center justify-center px-4 py-32 text-center">
-      <h1 className="mb-4 text-6xl font-bold text-[#d9c5a7]">500</h1>
-      <h2 className="mb-2 text-xl font-semibold text-white">
-        Terjadi Kesalahan
-      </h2>
-      <p className="mb-8 max-w-md text-gray-400">
-        Maaf, terjadi kesalahan pada server. Silakan coba lagi atau kembali ke
-        halaman utama.
-      </p>
-      <div className="flex gap-4">
-        <Button
-          onClick={reset}
-          className="rounded-xl bg-[#d9c5a7] text-black hover:bg-[#d9c5a7]/80"
-        >
-          Coba Lagi
-        </Button>
-        <Button
-          onClick={() => (window.location.href = "/")}
-          variant="outline"
-          className="rounded-xl border-[#d9c5a7] text-[#d9c5a7] hover:bg-[#d9c5a7]/10"
-        >
-          Kembali ke Beranda
-        </Button>
+    <main className="section-shell flex min-h-[80vh] items-center justify-center py-24 text-center">
+      <div className="w-full max-w-2xl space-y-6">
+        <p className="curly-label">{`{ Error }`}</p>
+        <h1 className="text-[clamp(4rem,14vw,9rem)] leading-[0.9] tracking-[-0.06em] text-[color:var(--color-pulse-green)]">
+          500
+        </h1>
+        <h2 className="text-2xl leading-[1.05] tracking-[-0.03em] sm:text-3xl">
+          Terjadi kesalahan saat memuat halaman.
+        </h2>
+        <p className="mx-auto max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
+          Saya sudah mencatat error-nya. Silakan coba lagi, atau kembali ke
+          beranda untuk melanjutkan navigasi.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button type="button" onClick={reset} className="pill-link">
+            Coba lagi
+          </button>
+          <Link href="/" className="pill-link">
+            Kembali ke beranda
+          </Link>
+        </div>
       </div>
     </main>
   );

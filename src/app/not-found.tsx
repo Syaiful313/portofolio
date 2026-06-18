@@ -1,22 +1,26 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[80vh] flex-col items-center justify-center px-4 py-32 text-center">
-      <h1 className="mb-4 text-6xl font-bold text-[#d9c5a7]">404</h1>
-      <h2 className="mb-2 text-xl font-semibold text-white">
-        Halaman Tidak Ditemukan
-      </h2>
-      <p className="mb-8 max-w-md text-gray-400">
-        Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.
-      </p>
-      <Button
-        asChild
-        className="rounded-xl bg-[#d9c5a7] text-black hover:bg-[#d9c5a7]/80"
-      >
-        <Link href="/">Kembali ke Beranda</Link>
-      </Button>
+    <main className="section-shell flex min-h-[80vh] items-center justify-center py-24 text-center">
+      <div className="w-full max-w-2xl space-y-6">
+        <p className="curly-label">{`{ Not found }`}</p>
+        <h1 className="text-[clamp(4rem,14vw,9rem)] leading-[0.9] tracking-[-0.06em] text-[color:var(--color-ember-orange)]">
+          404
+        </h1>
+        <h2 className="text-2xl leading-[1.05] tracking-[-0.03em] sm:text-3xl">
+          Halaman yang kamu cari tidak tersedia.
+        </h2>
+        <p className="mx-auto max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
+          Mungkin URL-nya berubah, atau halaman tersebut memang sudah tidak
+          ada. Kembali ke beranda untuk melanjutkan.
+        </p>
+        <div className="flex justify-center">
+          <Link href="/" className="pill-link">
+            Kembali ke beranda
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }

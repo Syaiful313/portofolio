@@ -1,145 +1,71 @@
+import { Badge } from "@/components/ui/badge";
 import type { Project } from "@/utils/projects";
-import { CheckCircle, Code, ExternalLink, Target, Zap } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Code2, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const ContentSection = ({ project }: { project: Project }) => {
   return (
-    <section>
-      <div className="container mx-auto max-w-6xl px-4 py-16">
-        {/* Category and Live URL Section */}
-        <div className="mb-12 flex flex-col items-start justify-between border-b border-[#d9c5a7]/20 pb-8 lg:flex-row lg:items-center">
-          <div>
-            <span className="mb-2 inline-block rounded-full bg-[#d9c5a7]/10 px-4 py-2 text-sm font-medium uppercase tracking-wider text-[#d9c5a7]/80">
+    <section className="section-shell pb-20">
+      <div className="section-divider pb-10" />
+
+      <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div className="space-y-6">
+          <div className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6">
+            <p className="section-eyebrow">{`{ Category }`}</p>
+            <h2 className="mt-3 text-2xl leading-[1.05] tracking-[-0.03em]">
               {project.category}
-            </span>
-            <h2 className="text-2xl font-bold md:text-2xl lg:text-3xl">
-              Project Details
             </h2>
           </div>
 
-          {project.liveUrl !== "#" && (
-            <Link
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-4 hidden items-center gap-2 rounded-lg bg-[#d9c5a7] px-6 py-3 font-medium text-[#1a1a1a] transition-all duration-300 hover:bg-[#d9c5a7]/90 hover:shadow-lg lg:mt-0 lg:inline-flex"
-            >
-              <span>View Live Demo</span>
-              <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          )}
-        </div>
-
-        <div className="grid gap-12 lg:grid-cols-2">
-          {/* Technologies Section */}
-          <div className="space-y-6">
+          <div className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6">
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-[#d9c5a7]/10 p-2">
-                <Code className="h-6 w-6" />
-              </div>
-              <h3 className="text-2xl font-semibold">Technologies Used</h3>
+              <Code2 className="h-5 w-5 text-[color:var(--color-pulse-green)]" />
+              <h3 className="text-xl tracking-[-0.03em]">Technologies</h3>
             </div>
-
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {project.technologies.map((tech: string, index: number) => (
-                <div
-                  key={index}
-                  className="group rounded-lg border border-[#d9c5a7]/20 bg-[#d9c5a7]/5 p-3 text-center transition-all duration-300 hover:border-[#d9c5a7]/40 hover:bg-[#d9c5a7]/10 hover:shadow-md"
-                >
-                  <span className="text-sm font-medium text-[#d9c5a7]/90 group-hover:text-[#d9c5a7]">
-                    {tech}
-                  </span>
-                </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <Badge key={tech} variant="outline">
+                  {tech}
+                </Badge>
               ))}
             </div>
+          </div>
 
-            {/* GitHub Link */}
+          <div className="flex flex-wrap gap-3">
+            {project.liveUrl !== "#" && (
+              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="pill-link">
+                Live demo <ExternalLink aria-hidden="true" />
+              </Link>
+            )}
             {project.githubUrl !== "#" && (
-              <Link
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[#d9c5a7]/70 transition-colors hover:text-[#d9c5a7]"
-              >
-                <Code className="h-4 w-4" />
-                <span>View Source Code</span>
-                <ExternalLink className="h-3 w-3" />
+              <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="pill-link">
+                Source code <ArrowUpRight aria-hidden="true" />
               </Link>
             )}
           </div>
-
-          {/* Project Details Section */}
-          <div className="space-y-8">
-            {/* Situation */}
-            <div className="group">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
-                  <Target className="h-5 w-5 text-[#d9c5a7]" />
-                </div>
-                <h4 className="text-lg font-semibold text-[#d9c5a7]">
-                  Situation
-                </h4>
-              </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
-                {project.details.situation}
-              </p>
-            </div>
-
-            {/* Task */}
-            <div className="group">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
-                  <Zap className="h-5 w-5 text-[#d9c5a7]" />
-                </div>
-                <h4 className="text-lg font-semibold text-[#d9c5a7]">Task</h4>
-              </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
-                {project.details.task}
-              </p>
-            </div>
-
-            {/* Action */}
-            <div className="group">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
-                  <Code className="h-5 w-5 text-[#d9c5a7]" />
-                </div>
-                <h4 className="text-lg font-semibold text-[#d9c5a7]">Action</h4>
-              </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
-                {project.details.action}
-              </p>
-            </div>
-
-            {/* Result */}
-            <div className="group">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="rounded-lg border border-[#d9c5a7]/15 bg-[#d9c5a7]/10 p-2">
-                  <CheckCircle className="h-5 w-5 text-[#d9c5a7]" />
-                </div>
-                <h4 className="text-lg font-semibold text-[#d9c5a7]">Result</h4>
-              </div>
-              <p className="leading-relaxed text-[#d9c5a7]/80 transition-colors group-hover:text-[#d9c5a7]/90">
-                {project.details.result}
-              </p>
-            </div>
-          </div>
         </div>
 
-        {/* Live URL at bottom for mobile */}
-        {project.liveUrl !== "#" && (
-          <div className="mt-12 block lg:hidden">
-            <Link
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex w-full items-center justify-center gap-2 rounded-lg border border-[#d9c5a7]/30 bg-transparent px-6 py-4 font-medium text-[#d9c5a7] transition-all duration-300 hover:border-[#d9c5a7] hover:bg-[#d9c5a7]/5"
+        <div className="space-y-4">
+          {[
+            ["Situation", project.details.situation],
+            ["Task", project.details.task],
+            ["Action", project.details.action],
+            ["Result", project.details.result],
+          ].map(([label, value]) => (
+            <article
+              key={label}
+              className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6"
             >
-              <span>View Live Demo</span>
-              <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-        )}
+              <div className="mb-3 flex items-center gap-3">
+                <CheckCircle2 className="h-5 w-5 text-[color:var(--color-pulse-green)]" />
+                <h3 className="text-lg tracking-[-0.03em]">{label}</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-[color:var(--color-ash-gray)] sm:text-base">
+                {value}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

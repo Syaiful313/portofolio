@@ -1,544 +1,92 @@
 "use client";
+
 import { socialLinks } from "@/utils/socialLinks";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import type { FormEvent } from "react";
-import { useEffect, useRef, useState } from "react";
-import {
-  FaArrowUp,
-  FaCode,
-  FaEnvelope,
-  FaHeart,
-  FaMapMarkerAlt,
-  FaRocket,
-} from "react-icons/fa";
-import CountUp from "./CountUp";
+import { FaArrowUp } from "react-icons/fa";
+
+const footerLinks = [
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#portfolios" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Contact", href: "/#contact" },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const shouldReduceMotion = useReducedMotion();
-  const [copyFeedback, setCopyFeedback] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
-  const [email, setEmail] = useState("");
-  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const subscribeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
-  const scrollFrameRef = useRef<number | null>(null);
-
-  const services = [
-    {
-      icon: FaCode,
-      name: "Web Development",
-      desc: "Custom websites and applications",
-    },
-    { icon: FaRocket, name: "Performance", desc: "Speed optimization and SEO" },
-  ];
-
-  const links = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Portfolio", href: "#portfolios" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  const showCopyFeedback = (
-    feedback: { type: "success" | "error"; message: string },
-    duration = 2000,
-  ) => {
-    if (copyTimeoutRef.current) {
-      clearTimeout(copyTimeoutRef.current);
-    }
-    setCopyFeedback(feedback);
-    copyTimeoutRef.current = setTimeout(() => {
-      setCopyFeedback(null);
-    }, duration);
-  };
-
-  const handleEmailClick = async () => {
-    if (!navigator?.clipboard?.writeText) {
-      showCopyFeedback({
-        type: "error",
-        message: "Clipboard tidak tersedia. Silakan salin manual.",
-      });
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText("mthitz313@gmail.com");
-      showCopyFeedback({
-        type: "success",
-        message: "Email berhasil disalin!",
-      });
-    } catch {
-      showCopyFeedback(
-        {
-          type: "error",
-          message: "Gagal menyalin email. Silakan salin manual.",
-        },
-        3000,
-      );
-    }
-  };
-
-  const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (email) {
-      if (subscribeTimeoutRef.current) {
-        clearTimeout(subscribeTimeoutRef.current);
-      }
-      setShowNotification(true);
-      setEmail("");
-      subscribeTimeoutRef.current = setTimeout(
-        () => setShowNotification(false),
-        3000,
-      );
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (copyTimeoutRef.current) {
-        clearTimeout(copyTimeoutRef.current);
-      }
-      if (subscribeTimeoutRef.current) {
-        clearTimeout(subscribeTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (scrollFrameRef.current !== null) {
-        return;
-      }
-
-      scrollFrameRef.current = window.requestAnimationFrame(() => {
-        const shouldShow = window.pageYOffset > 300;
-        setIsVisible((prev) => (prev !== shouldShow ? shouldShow : prev));
-        scrollFrameRef.current = null;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollFrameRef.current !== null) {
-        window.cancelAnimationFrame(scrollFrameRef.current);
-        scrollFrameRef.current = null;
-      }
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-    });
-  };
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-t from-black to-[#111111] pb-8 pt-20 text-white">
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, #d9c5a7 1px, transparent 1px)",
-            backgroundSize: "50px 50px",
-            backgroundPosition: "0 0",
-          }}
-        >
-          <motion.div
-            className="h-full w-full bg-transparent"
-            animate={
-              shouldReduceMotion
-                ? undefined
-                : {
-                    backgroundPosition: ["0px 0px", "50px 50px"],
-                  }
-            }
-            transition={{
-              duration: shouldReduceMotion ? 0 : 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d9c5a7] to-transparent opacity-50" />
-      <motion.div
-        className="absolute left-0 right-0 top-0 h-px"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, #d9c5a7, transparent)",
-        }}
-        animate={
-          shouldReduceMotion
-            ? undefined
-            : {
-                opacity: [0.2, 0.5, 0.2],
-                scale: [1, 1.2, 1],
-              }
-        }
-        transition={{
-          duration: shouldReduceMotion ? 0 : 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      <div className="container mx-auto max-w-7xl px-4">
-        <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
-          <div className="space-y-8 lg:col-span-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-            >
-              <h2 className="mb-4 text-3xl font-bold text-[#d9c5a7]">
-                Muhammad Syaiful Mu'min
-              </h2>
-              <p className="mb-6 leading-relaxed text-gray-400">
-                Transforming ideas into exceptional digital experiences.
-                Specializing in modern web development and creative solutions.
-              </p>
-
-              <div className="grid grid-cols-3 gap-4 border-b border-t border-gray-800 py-6">
-                <motion.div
-                  className="text-center"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
-                >
-                  <CountUp
-                    from={0}
-                    to={1}
-                    separator=","
-                    direction="up"
-                    duration={1}
-                    className="count-up-text block text-2xl font-bold text-[#d9c5a7]"
-                  />
-                  <span className="text-sm text-gray-400">Years Exp.</span>
-                </motion.div>
-                <motion.div
-                  className="text-center"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
-                >
-                  <CountUp
-                    from={0}
-                    to={5}
-                    separator=","
-                    direction="up"
-                    duration={1}
-                    className="count-up-text block text-2xl font-bold text-[#d9c5a7]"
-                  />
-                  <span className="text-sm text-gray-400">Projects</span>
-                </motion.div>
-                <motion.div
-                  className="text-center"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
-                >
-                  <CountUp
-                    from={0}
-                    to={10}
-                    separator=","
-                    direction="up"
-                    duration={1}
-                    className="count-up-text block text-2xl font-bold text-[#d9c5a7]"
-                  />
-                  <span className="text-sm text-gray-400">Clients</span>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.5,
-                delay: shouldReduceMotion ? 0 : 0.2,
-              }}
-            >
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.href}
-                  href={social.href}
-                  className="group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-[#d9c5a7]/10"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
-                  whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-[#d9c5a7]"
-                    initial={{ y: "100%" }}
-                    whileHover={shouldReduceMotion ? undefined : { y: 0 }}
-                    transition={{ type: "tween" }}
-                  />
-                  <social.icon className="relative z-10 h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
-                </motion.a>
-              ))}
-            </motion.div>
-          </div>
-
-          <div className="space-y-8 lg:col-span-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-            >
-              <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
-                Services
-              </h3>
-              <div className="space-y-4">
-                {services.map((service, index) => (
-                  <motion.div
-                    key={index}
-                    className="group flex items-start gap-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: shouldReduceMotion ? 0 : index * 0.1 }}
-                    whileHover={shouldReduceMotion ? undefined : { x: 10 }}
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
-                      <service.icon className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-[#d9c5a7]">
-                        {service.name}
-                      </h4>
-                      <p className="text-sm text-gray-400">{service.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.5,
-                delay: shouldReduceMotion ? 0 : 0.1,
-              }}
-            >
-              <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
-                Quick Links
-              </h3>
-              <nav aria-label="Footer navigation">
-                <ul className="space-y-3">
-                  {links.map((link, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        delay: shouldReduceMotion ? 0 : index * 0.1,
-                      }}
-                    >
-                      <Link
-                        href={link.href}
-                        className="group flex items-center gap-2 text-gray-400 transition-colors duration-300 hover:text-[#d9c5a7]"
-                      >
-                        <span className="h-0.5 w-2 bg-[#d9c5a7]/50 transition-all duration-300 group-hover:w-4" />
-                        {link.name}
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
-              </nav>
-            </motion.div>
-          </div>
-
-          <div className="space-y-8 lg:col-span-4">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-              >
-                <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
-                  Stay Updated
-                </h3>
-                <p className="mb-6 text-gray-400">
-                  Subscribe to our newsletter for the latest updates and
-                  insights.
-                </p>
-                <form onSubmit={handleSubscribe} className="space-y-4">
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
-                      className="w-full rounded-lg bg-[#d9c5a7]/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#d9c5a7]/50"
-                      required
-                    />
-                  </div>
-                  <motion.button
-                    type="submit"
-                    className="group relative w-full overflow-hidden rounded-lg bg-[#d9c5a7] px-4 py-3 font-medium text-black"
-                    whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
-                    whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                  >
-                    <span className="relative z-10">Subscribe</span>
-                    <motion.div
-                      className="absolute inset-0 bg-black"
-                      initial={{ scale: 0 }}
-                      whileHover={shouldReduceMotion ? undefined : { scale: 1 }}
-                      transition={{ type: "tween" }}
-                    />
-                  </motion.button>
-                </form>
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.5,
-                delay: shouldReduceMotion ? 0 : 0.2,
-              }}
-            >
-              <h3 className="mb-6 text-xl font-semibold text-[#d9c5a7]">
-                Contact
-              </h3>
-              <div className="space-y-4">
-                <motion.button
-                  onClick={handleEmailClick}
-                  className="group flex w-full items-center gap-3 text-gray-400 transition-colors duration-300 hover:text-[#d9c5a7]"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
-                  whileHover={shouldReduceMotion ? undefined : { x: 5 }}
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
-                    <FaEnvelope className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
-                  </div>
-                  <span>mthitz313@gmail.com</span>
-                  <AnimatePresence>
-                    {copyFeedback && (
-                      <motion.span
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className={`ml-2 rounded px-2 py-1 text-sm ${
-                          copyFeedback.type === "success"
-                            ? "bg-[#d9c5a7]/10 text-[#d9c5a7]"
-                            : "bg-red-500/10 text-red-400"
-                        }`}
-                      >
-                        {copyFeedback.message}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </motion.button>
-
-                <motion.div
-                  className="group flex w-full items-center gap-3 rounded-xl text-gray-400"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: shouldReduceMotion ? 0 : 0.4,
-                    delay: shouldReduceMotion ? 0 : 0.1,
-                  }}
-                  whileHover={shouldReduceMotion ? undefined : { x: 5 }}
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded bg-[#d9c5a7]/10 transition-colors duration-300 group-hover:bg-[#d9c5a7]">
-                    <FaMapMarkerAlt className="h-5 w-5 text-[#d9c5a7] transition-colors duration-300 group-hover:text-black" />
-                  </div>
-                  <span>Temanggung, Jawa Tengah, Indonesia</span>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        <AnimatePresence>
-          {showNotification && (
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              className="fixed bottom-8 left-1/2 flex -translate-x-1/2 transform items-center gap-2 rounded-lg bg-[#d9c5a7] px-6 py-3 text-black shadow-lg"
-            >
-              <FaRocket className="h-5 w-5" />
-              <span>Thanks for subscribing!</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <motion.div
-          className="mt-8 border-t border-gray-800 pt-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-        >
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm text-gray-400">
-              &copy; {currentYear} Muhammad Syaiful. All rights reserved.
+    <footer className="section-divider">
+      <div className="section-shell py-10 sm:py-12">
+        <div className="grid gap-8 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
+          <div className="space-y-4">
+            <p className="section-eyebrow">{`{ Contact }`}</p>
+            <h2 className="max-w-md text-2xl leading-tight tracking-[-0.03em] sm:text-3xl">
+              Open for freelance work, collaboration, and product builds.
+            </h2>
+            <p className="max-w-xl text-sm leading-relaxed text-[color:var(--color-ash-gray)] sm:text-base">
+              Saya membantu membangun website modern yang cepat, rapi, dan
+              terasa premium di setiap detail.
             </p>
-            <motion.p
-              className="flex items-center gap-2 text-sm text-gray-400"
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
-            >
-              Crafted with
-              <motion.span
-                animate={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        scale: [1, 1.2, 1],
-                        color: ["#d9c5a7", "#ff6b6b", "#d9c5a7"],
-                      }
-                }
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 2,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              >
-                <FaHeart className="inline" />
-              </motion.span>
-              in Indonesia
-            </motion.p>
+            <Link href="/contact" className="pill-link mt-2">
+              Contact me
+            </Link>
           </div>
-        </motion.div>
-      </div>
 
-      <AnimatePresence>
-        {isVisible && (
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 flex h-12 w-12 items-center justify-center rounded-full bg-[#d9c5a7] text-black shadow-lg transition-colors duration-300 hover:bg-[#c4b5a0]"
-            whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
-            whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
+          <div className="space-y-4">
+            <p className="section-eyebrow">{`{ Navigation }`}</p>
+            <div className="flex flex-col gap-2">
+              {footerLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-[color:var(--color-cream-glow)] transition-colors hover:text-[color:var(--color-pulse-green)]"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <p className="section-eyebrow">{`{ Social }`}</p>
+            <div className="flex flex-col gap-2">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+
+                return (
+                  <Link
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-[color:var(--color-cream-glow)] transition-colors hover:text-[color:var(--color-pulse-green)]"
+                  >
+                    <Icon aria-hidden="true" />
+                    {social.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-4 border-t border-[color:var(--color-olive-stone)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-[color:var(--color-ash-gray)]">
+            © {currentYear} Muhammad Syaiful Mu&apos;min. Built on a flat dark
+            canvas.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="pill-link w-fit"
           >
-            <FaArrowUp />
-          </motion.button>
-        )}
-      </AnimatePresence>
+            <FaArrowUp aria-hidden="true" />
+            Back to top
+          </button>
+        </div>
+      </div>
     </footer>
   );
 };

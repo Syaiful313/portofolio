@@ -2,35 +2,171 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: black;
+@layer base {
+  :root {
+    --color-void-black: #0e100f;
+    --color-cream-glow: #fffce1;
+    --color-olive-stone: #42433d;
+    --color-ash-gray: #7c7c6f;
+    --color-pulse-green: #0ae448;
+    --color-lime-flash: #abff84;
+    --color-candy-pink: #fec5fb;
+    --color-ember-orange: #ff8709;
+    --color-electric-violet: #9d95ff;
+    --color-signal-blue: #00bae2;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-void-black);
+  }
+
+  body {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--color-void-black);
+    color: var(--color-cream-glow);
+    font-family: var(--font-geist-sans), "Inter Tight", "Manrope", sans-serif;
+    letter-spacing: -0.01em;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(10, 228, 72, 0.1), transparent 26%),
+      radial-gradient(circle at 88% 8%, rgba(157, 149, 255, 0.08), transparent 22%),
+      radial-gradient(circle at 65% 82%, rgba(0, 186, 226, 0.07), transparent 24%),
+      radial-gradient(circle at 50% 50%, rgba(255, 252, 225, 0.03), transparent 42%);
+  }
+
+  body::after {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.15;
+    background-image:
+      linear-gradient(rgba(255, 252, 225, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 252, 225, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 95%);
+  }
+
+  ::selection {
+    background: rgba(10, 228, 72, 0.35);
+    color: var(--color-cream-glow);
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer utilities {
+  .section-shell {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-shell {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-shell {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .section-divider {
+    border-top: 1px solid var(--color-olive-stone);
+  }
+
+  .section-eyebrow {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--color-ash-gray);
+  }
+
+  .pill-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-cream-glow);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-cream-glow);
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .pill-link:hover {
+    background-color: var(--color-cream-glow);
+    color: var(--color-void-black);
+  }
+
+  .pill-link-inverse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--color-void-black);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-void-black);
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .pill-link-inverse:hover {
+    background-color: var(--color-void-black);
+    color: var(--color-cream-glow);
+  }
+
+  .curly-label {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-cream-glow);
+  }
+
+  @media (min-width: 640px) {
+    .curly-label {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
 }
 
-/* Animated underline for links (global utility class) */
-.link-underline-anim {
-  text-decoration: none;
-  position: relative;
-}
-
-.link-underline-anim::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #d9c5a7;
-  transition: width 0.3s ease;
-}
-
-.link-underline-anim:hover::after {
-  width: 100%;
-}
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -41,82 +177,20 @@ html {
 }
 
 .animate-marquee {
-  animation: marquee 20s linear infinite;
+  animation: marquee 22s linear infinite;
 }
 
-@keyframes enhancedFadeIn {
-  0% {
+@keyframes reveal-up {
+  from {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    filter: blur(5px);
+    transform: translateY(20px);
   }
-  50% {
-    opacity: 0.5;
-    transform: translateY(10px) scale(1);
-    filter: blur(2px);
-  }
-  100% {
+  to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: translateY(0);
   }
 }
 
-.animate-enhancedFadeIn {
-  opacity: 0;
-  animation: enhancedFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.animate-enhancedFadeIn.delay-1 {
-  animation-delay: 0.4s;
-}
-.animate-enhancedFadeIn.delay-2 {
-  animation-delay: 0.8s;
-}
-.animate-enhancedFadeIn.delay-3 {
-  animation-delay: 1.2s;
-}
-.animate-enhancedFadeIn.delay-4 {
-  animation-delay: 1.6s;
-}
-.animate-enhancedFadeIn.delay-5 {
-  animation-delay: 2s;
-}
-
-.bg-grid-pattern {
-  background-image:
-    linear-gradient(to right, #ffffff 1px, transparent 1px),
-    linear-gradient(to bottom, #ffffff 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-@layer base {
-  .theme {
-    --animate-meteor: meteor 5s linear infinite;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@theme inline {
-  @keyframes meteor {
-    0% {
-      transform: rotate(var(--angle)) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(var(--angle)) translateX(-500px);
-      opacity: 0;
-    }
-  }
+.animate-reveal-up {
+  animation: reveal-up 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
