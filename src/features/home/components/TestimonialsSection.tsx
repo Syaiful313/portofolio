@@ -1,171 +1,50 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { useViewport } from "@/hooks/useViewport";
 import { testimonials } from "@/utils/testimonials";
-import { motion, useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Quote } from "lucide-react";
 
-const Testimonials = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [autoplay, setAutoplay] = useState(true);
-  const [isDocumentVisible, setIsDocumentVisible] = useState(true);
-  const viewport = useViewport();
-  const shouldReduceMotion = useReducedMotion();
-
-  const isMobile = viewport === "mobile";
-  const isTablet = viewport === "tablet";
-  const shouldAutoplay = autoplay && isDocumentVisible && !shouldReduceMotion;
-
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      setIsDocumentVisible(!document.hidden);
-    };
-
-    handleVisibilityChange();
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
-
-  useEffect(() => {
-    if (!shouldAutoplay) return;
-
-    const interval = window.setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [shouldAutoplay]);
-
-  const handlePrev = () => {
-    setAutoplay(false);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1,
-    );
-  };
-
-  const handleNext = () => {
-    setAutoplay(false);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
-
-  const visibleTestimonials = (() => {
-    if (isMobile) {
-      return [testimonials[currentIndex]];
-    }
-    if (isTablet) {
-      return [
-        testimonials[currentIndex],
-        testimonials[(currentIndex + 1) % testimonials.length],
-      ];
-    }
-    return [
-      testimonials[currentIndex],
-      testimonials[(currentIndex + 1) % testimonials.length],
-      testimonials[(currentIndex + 2) % testimonials.length],
-    ];
-  })();
-
+const TestimonialsSection = () => {
   return (
-    <section
-      id="testimonials"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900 py-20 text-[#d9c5a7] sm:py-28"
-    >
-      <div className="pointer-events-none absolute inset-0 opacity-5">
-        <div className="bg-grid-pattern absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-      </div>
+    <section id="testimonials" className="scroll-mt-24">
+      <div className="section-shell py-20 sm:py-24">
+        <div className="section-divider pb-10" />
 
-      <div className="container relative mx-auto px-6 md:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-          className="mb-12 text-center sm:mb-16"
-        >
-          <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-            Client Testimonials
-          </h2>
-          <div className="mx-auto mb-6 h-1 w-20 bg-[#d9c5a7] sm:mb-8"></div>
-          <p className="mx-auto max-w-2xl text-sm text-[#d9c5a7]/80 sm:text-base">
-            Don't just take my word for it. Here's what my clients have to say
-            about working with me on their web development projects.
-          </p>
-        </motion.div>
-
-        <div className="relative">
-          <div className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handlePrev}
-              className="h-11 w-11 rounded-full border-[#d9c5a7]/40 text-[#d9c5a7] shadow-md shadow-black/20 hover:bg-[#d9c5a7]/10"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handleNext}
-              className="h-11 w-11 rounded-full border-[#d9c5a7]/40 text-[#d9c5a7] shadow-md shadow-black/20 hover:bg-[#d9c5a7]/10"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
-            </Button>
+        <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <div className="space-y-4">
+            <p className="curly-label">{`{ Testimonials }`}</p>
+            <h2 className="text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+              Reputasi yang saya bangun datang dari komunikasi yang jelas dan
+              hasil yang konsisten.
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
+              Testimoni di bawah ini menunjukkan bagaimana saya bekerja: rapi,
+              responsif, dan fokus menyelesaikan masalah nyata.
+            </p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleTestimonials.map((testimonial, index) => (
-              <motion.div
-                key={`${testimonial.id}-${index}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+          <div className="grid gap-4 md:grid-cols-2">
+            {testimonials.slice(0, 4).map((testimonial, index) => (
+              <article
+                key={testimonial.id}
+                className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-5"
               >
-                <Card className="h-full border border-[#d9c5a7]/10 bg-black/40 shadow-lg shadow-black/30 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-[#d9c5a7]/30">
-                  <CardContent className="flex h-full flex-col p-6 sm:p-7">
-                    <Quote className="mb-4 h-8 w-8 text-[#d9c5a7]/40 sm:h-10 sm:w-10" />
-                    <p className="mb-6 flex-grow text-sm italic text-[#d9c5a7]/85 sm:text-base">
-                      "{testimonial.quote}"
-                    </p>
-                    <div className="flex items-center">
-                      <div>
-                        <h4 className="font-semibold text-[#d9c5a7]">
-                          {testimonial.name}
-                        </h4>
-                        <p className="text-xs text-[#d9c5a7]/70 sm:text-sm">
-                          {testimonial.position}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setAutoplay(false);
-                  setCurrentIndex(index);
-                }}
-                className={`mx-1 h-2.5 w-2.5 rounded-full transition-colors ${
-                  index === currentIndex
-                    ? "bg-[#d9c5a7]"
-                    : "bg-[#d9c5a7]/30 hover:bg-[#d9c5a7]/50"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+                <Quote
+                  className="h-6 w-6 text-[color:var(--color-pulse-green)]"
+                  aria-hidden="true"
+                />
+                <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-cream-glow)] sm:text-base">
+                  {testimonial.quote}
+                </p>
+                <div className="mt-5 border-t border-[color:var(--color-olive-stone)] pt-4">
+                  <p className="text-sm font-medium tracking-[-0.02em]">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-ash-gray)]">
+                    {testimonial.position}
+                  </p>
+                  <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-[color:var(--color-ash-gray)]">
+                    0{index + 1}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         </div>
@@ -174,4 +53,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default TestimonialsSection;

@@ -1,5 +1,3 @@
-import MarqueeLogos from "@/components/MarqueeLogos";
-import MarqueeText from "@/components/MarqueeSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import ExperienceSection from "./components/ExperienceSection";
@@ -11,12 +9,10 @@ const HomePage = () => {
   return (
     <main>
       <HeroSection />
-      <MarqueeLogos />
       <AboutSection />
       <PortfolioSection />
       <ExperienceSection />
       <TestimonialsSection />
-      <MarqueeText />
       <ContactSection />
     </main>
   );

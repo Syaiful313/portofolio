@@ -1,175 +1,74 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { experiences } from "@/utils/experiences";
 import { Briefcase, Calendar } from "lucide-react";
-import ExperienceMotionLayer from "./experience/ExperienceMotionLayer";
-import ExperienceReveal from "./experience/ExperienceReveal";
 
 const ExperienceSection = () => {
   return (
-    <section
-      id="experience"
-      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black py-24 text-[#d9c5a7] sm:py-28"
-    >
-      <div className="container relative mx-auto px-4 md:px-8">
-        <ExperienceMotionLayer />
+    <section id="experience" className="scroll-mt-24">
+      <div className="section-shell py-20 sm:py-24">
+        <div className="section-divider pb-10" />
 
-        <ExperienceReveal className="mb-12 text-center sm:mb-16" parallax>
-          <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-            Work Experience
-          </h2>
-          <div className="mx-auto mb-6 h-1 w-20 bg-[#d9c5a7] sm:mb-8" />
-          <p className="mx-auto max-w-2xl text-sm text-[#d9c5a7]/80 sm:text-base">
-            My professional journey in web development, showcasing my growth and
-            the diverse projects I've contributed to throughout my career.
-          </p>
-        </ExperienceReveal>
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <div className="space-y-4">
+            <p className="curly-label">{`{ Experience }`}</p>
+            <h2 className="text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+              Pengalaman saya dibentuk dari proyek freelance, volunteer, dan
+              kerja sistem internal.
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
+              Kombinasi itu bikin saya terbiasa melihat produk dari sisi
+              komunikasi bisnis, kualitas teknis, dan konsistensi implementasi.
+            </p>
+          </div>
 
-        <div className="relative">
-          <div className="absolute left-1/2 hidden h-full w-1 -translate-x-1/2 transform bg-[#d9c5a7]/30 lg:block"></div>
-
-          <div className="space-y-6 sm:space-y-10 md:space-y-16">
+          <div className="space-y-4">
             {experiences.map((exp, index) => (
-              <ExperienceReveal
+              <article
                 key={exp.id}
-                delay={index * 0.1}
-                className="relative"
+                className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6"
               >
-                <div className="absolute left-1/2 top-0 z-10 hidden h-4 w-4 -translate-x-1/2 transform rounded-full bg-[#d9c5a7] shadow-[0_0_12px_rgba(217,197,167,0.45)] lg:block" />
-
-                <div className="relative gap-8 lg:grid lg:grid-cols-2">
-                  <div className="hidden lg:block">
-                    {index % 2 === 1 && (
-                      <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
-                        <CardContent className="p-6">
-                          <CardTitle className="mb-1 font-serif text-xl font-semibold">
-                            {exp.title}
-                          </CardTitle>
-                          <div className="mb-2 flex items-center">
-                            <Briefcase className="mr-2 h-4 w-4 text-primary" />
-                            <span className="text-foreground/70">
-                              {exp.company}
-                            </span>
-                          </div>
-                          <div className="mb-4 flex items-center">
-                            <Calendar className="mr-2 h-4 w-4 text-primary" />
-                            <span className="text-foreground/70">
-                              {exp.period}
-                            </span>
-                          </div>
-                          <h4 className="mb-2 font-semibold">
-                            Key Responsibilities:
-                          </h4>
-                          <ul className="mb-4 list-disc space-y-2 pl-5 text-foreground/80">
-                            {exp.description.map((item, i) => (
-                              <li key={i}>{item}</li>
-                            ))}
-                          </ul>
-
-                          <div className="flex flex-wrap gap-2">
-                            {exp.technologies.map((tech, techIndex) => (
-                              <Badge
-                                key={techIndex}
-                                variant="outline"
-                                className="rounded-full border-[#d9c5a7]/40 px-3 py-1 text-xs text-[#d9c5a7]"
-                              >
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="space-y-3">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-[color:var(--color-ash-gray)]">
+                      {`0${index + 1}`}
+                    </p>
+                    <h3 className="text-2xl leading-[1.05] tracking-[-0.03em]">
+                      {exp.title}
+                    </h3>
+                    <div className="space-y-1 text-sm text-[color:var(--color-ash-gray)]">
+                      <p className="flex items-center gap-2">
+                        <Briefcase className="h-4 w-4" aria-hidden="true" />
+                        {exp.company}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" aria-hidden="true" />
+                        {exp.period}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="col-start-2 hidden lg:block">
-                    {index % 2 === 0 && (
-                      <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
-                        <CardContent className="p-6">
-                          <CardTitle className="mb-1 font-serif text-xl font-semibold">
-                            {exp.title}
-                          </CardTitle>
-                          <div className="mb-2 flex items-center">
-                            <Briefcase className="mr-2 h-4 w-4 text-primary" />
-                            <span className="text-foreground/70">
-                              {exp.company}
-                            </span>
-                          </div>
-                          <div className="mb-4 flex items-center">
-                            <Calendar className="mr-2 h-4 w-4 text-primary" />
-                            <span className="text-foreground/70">
-                              {exp.period}
-                            </span>
-                          </div>
-                          <h4 className="mb-2 font-semibold">
-                            Key Responsibilities:
-                          </h4>
-                          <ul className="mb-4 list-disc space-y-2 pl-5 text-foreground/80">
-                            {exp.description.map((item, i) => (
-                              <li key={i}>{item}</li>
-                            ))}
-                          </ul>
-
-                          <div className="flex flex-wrap gap-2">
-                            {exp.technologies.map((tech, techIndex) => (
-                              <Badge
-                                key={techIndex}
-                                variant="outline"
-                                className="rounded-full border-[#d9c5a7]/40 px-3 py-1 text-xs text-[#d9c5a7]"
-                              >
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    )}
-                  </div>
-
-                  <div className="block w-full lg:hidden">
-                    <Card className="border border-[#d9c5a7]/15 bg-black/40 shadow-lg shadow-black/25 backdrop-blur-sm transition-transform hover:-translate-y-1 hover:shadow-[#d9c5a7]/20">
-                      <CardHeader className="space-y-3">
-                        <CardTitle className="text-xl font-semibold">
-                          {exp.title}
-                        </CardTitle>
-                        <div className="flex flex-col items-start gap-1 text-sm text-[#d9c5a7]/80">
-                          <span className="flex items-center">
-                            <Briefcase className="mr-2 h-4 w-4 text-primary" />
-                            {exp.company}
-                          </span>
-                          <span className="flex items-center">
-                            <Calendar className="mr-2 h-4 w-4 text-primary" />
-                            {exp.period}
-                          </span>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                          <h4 className="text-sm font-semibold text-[#d9c5a7]">
-                            Key Responsibilities:
-                          </h4>
-                          <ul className="mb-2 list-disc space-y-2 pl-5 text-sm text-[#d9c5a7]/80">
-                            {exp.description.map((item, i) => (
-                              <li key={i}>{item}</li>
-                            ))}
-                          </ul>
-                          <div className="flex flex-wrap gap-2">
-                            {exp.technologies.map((tech, techIndex) => (
-                              <Badge
-                                key={techIndex}
-                                variant="outline"
-                                className="rounded-full border-[#d9c5a7]/40 px-3 py-1 text-xs text-[#d9c5a7]"
-                              >
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <Badge variant="outline">
+                    {index === experiences.length - 1 ? "Current" : "Past"}
+                  </Badge>
                 </div>
-              </ExperienceReveal>
+
+                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-[color:var(--color-cream-glow)] sm:text-base">
+                  {exp.description.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-[0.55em] h-1.5 w-1.5 rounded-full bg-[color:var(--color-pulse-green)]" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {exp.technologies.map((tech) => (
+                    <Badge key={tech} variant="secondary">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
         </div>

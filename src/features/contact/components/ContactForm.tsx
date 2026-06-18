@@ -104,7 +104,7 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
         transition={fieldTransition(0.3)}
         className="space-y-2"
       >
-        <label htmlFor="name" className="text-sm font-medium text-[#d9c5a7]">
+        <label htmlFor="name" className="text-sm font-medium text-[color:var(--color-cream-glow)]">
           Name
         </label>
         <Input
@@ -116,7 +116,7 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
           autoComplete="name"
           maxLength={FIELD_LIMITS.name}
           required
-          className="rounded-xl border-[#333] bg-[#2a2a2a] text-[#d9c5a7] placeholder:text-[#d9c5a7]/50 focus:border-[#c4b5a0] focus:ring-[#c4b5a0]"
+          className="bg-transparent"
         />
       </motion.div>
       <motion.div
@@ -125,7 +125,7 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
         transition={fieldTransition(0.4)}
         className="space-y-2"
       >
-        <label htmlFor="email" className="text-sm font-medium text-[#d9c5a7]">
+        <label htmlFor="email" className="text-sm font-medium text-[color:var(--color-cream-glow)]">
           Email
         </label>
         <Input
@@ -139,7 +139,7 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
           inputMode="email"
           maxLength={FIELD_LIMITS.email}
           required
-          className="rounded-xl border-[#333] bg-[#2a2a2a] text-[#d9c5a7] placeholder:text-[#d9c5a7]/50 focus:border-[#c4b5a0] focus:ring-[#c4b5a0]"
+          className="bg-transparent"
         />
       </motion.div>
       <motion.div
@@ -150,7 +150,7 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
       >
         <label
           htmlFor="message"
-          className="text-sm font-medium text-[#d9c5a7]"
+          className="text-sm font-medium text-[color:var(--color-cream-glow)]"
         >
           Message
         </label>
@@ -162,7 +162,7 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
           placeholder="Your message"
           maxLength={FIELD_LIMITS.message}
           required
-          className="min-h-[150px] rounded-xl border-[#333] bg-[#2a2a2a] text-[#d9c5a7] placeholder:text-[#d9c5a7]/50 focus:border-[#c4b5a0] focus:ring-[#c4b5a0]"
+          className="bg-transparent"
         />
       </motion.div>
       <motion.div
@@ -173,15 +173,15 @@ const ContactForm = ({ isVisible, shouldReduceMotion }: ContactFormProps) => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-[#c4b5a0] text-[#1a1a1a] transition-all duration-300 hover:bg-[#d9c5a7] hover:shadow-lg disabled:bg-[#c4b5a0]/50"
+          className="w-full"
         >
           {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
-        <p className="mt-3 text-center text-sm text-[#d9c5a7]/80">
+        <p className="mt-3 text-center text-sm text-[color:var(--color-ash-gray)]">
           Or email me directly at{" "}
           <a
             href="mailto:mthitz313@gmail.com"
-            className="underline decoration-[#c4b5a0] underline-offset-4 hover:opacity-80"
+            className="underline decoration-[color:var(--color-pulse-green)] underline-offset-4 hover:opacity-80"
           >
             mthitz313@gmail.com
           </a>

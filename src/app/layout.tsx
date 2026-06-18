@@ -89,7 +89,7 @@ export default function RootLayout({
         <WebSiteSchema />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-[color:var(--color-void-black)] text-[color:var(--color-cream-glow)] antialiased`}
       >
         <Navbar />
         {children}

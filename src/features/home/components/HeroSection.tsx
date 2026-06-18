@@ -1,202 +1,96 @@
 "use client";
 
-import BlurText from "@/components/BlurText";
-import { useFloatingParticles } from "@/hooks/useFloatingParticles";
-import { useInView } from "@/hooks/useInView";
-import { useViewport } from "@/hooks/useViewport";
-import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 
-const HomeSection = () => {
-  const isVisible = useInView("home", {
-    initialInView: true,
-    threshold: 0.1,
-  });
-  const viewport = useViewport();
-  const { scrollYProgress } = useScroll();
-  const { particles, shouldReduceMotion } = useFloatingParticles(viewport, {
-    desktopBaseDuration: 5,
-  });
-
-  const isMobile = viewport === "mobile";
-  const isTablet = viewport === "tablet";
-
-  const backgroundY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", isMobile ? "40%" : isTablet ? "70%" : "100%"],
-  );
-  const textY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
-  );
-  const getAnimationConfig = () => {
-    if (shouldReduceMotion) {
-      return { duration: 0, damping: 18, stiffness: 120 };
-    }
-
-    switch (viewport) {
-      case "mobile":
-        return { duration: 0.4, damping: 18, stiffness: 120 };
-      case "tablet":
-        return { duration: 0.6, damping: 14, stiffness: 80 };
-      default:
-        return { duration: 0.8, damping: 10, stiffness: 50 };
-    }
-  };
-
-  const config = getAnimationConfig();
-  const horizontalOffset = isMobile ? 20 : isTablet ? 35 : 50;
-  const verticalOffset = isMobile ? 10 : isTablet ? 16 : 20;
+const HeroSection = () => {
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-gradient-to-b from-black via-black to-zinc-900"
+      className="scroll-mt-24 overflow-hidden border-b border-[color:var(--color-olive-stone)]"
     >
-      <div className="container mx-auto">
-        {/* Animated Background */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 opacity-5"
-          style={shouldReduceMotion ? undefined : { y: backgroundY }}
-        >
-          <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-        </motion.div>
-
-        {/* Floating Particles */}
-        {particles.map((particle, i) => (
-          <motion.div
-            key={i}
-            className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
-            animate={{
-              x: ["0%", `${particle.xTo}%`],
-              y: ["0%", `${particle.yTo}%`],
-              scale: [1, particle.scale, 1],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-            }}
-          />
-        ))}
-
-        <div className="py-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isVisible ? 1 : 0 }}
-            transition={{ duration: config.duration }}
-            className="relative z-10 my-24 flex flex-col items-center justify-center text-center md:my-56"
+      <div className="section-shell grid min-h-[calc(100vh-112px)] items-center py-16 lg:grid-cols-[1.25fr_0.75fr] lg:gap-10 lg:py-20">
+        <div className="relative z-10 space-y-8">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+            className="curly-label"
           >
-            <motion.div
-              style={shouldReduceMotion ? undefined : { y: textY }}
-              className="space-y-6"
-            >
-              <motion.header
-                className="flex justify-center"
-                initial={{ opacity: 0, x: -horizontalOffset }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : -horizontalOffset,
-                }}
-                transition={{
-                  duration: config.duration,
-                  delay: 0.2,
-                  type: "spring",
-                  damping: config.damping,
-                  stiffness: config.stiffness,
-                }}
-              >
-                <h1 className="relative mx-auto text-center font-serif text-4xl leading-tight text-[#c4b5a0] sm:text-5xl md:text-6xl lg:text-7xl">
-                  <BlurText
-                    text="Muhammad Syaiful Mu'min"
-                    delay={500}
-                    animateBy="words"
-                    direction="top"
-                    className="inline-flex flex-wrap justify-center text-center"
-                  />
-                </h1>
-              </motion.header>
+            {`{ Full-stack web developer }`}
+          </motion.p>
 
-              <motion.p
-                initial={{ opacity: 0, y: verticalOffset }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  y: isVisible ? 0 : verticalOffset,
-                }}
-                transition={{
-                  duration: config.duration,
-                  delay: 0.4,
-                  type: "spring",
-                  damping: config.damping,
-                }}
-                className="text-xl font-light text-[#d9c5a7] sm:text-2xl md:text-3xl lg:text-4xl"
-              >
-                I am Full-Stack Web Developer
-              </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: 0.05 }}
+            className="max-w-4xl text-[clamp(3.4rem,11vw,9rem)] leading-[0.92] tracking-[-0.05em] text-[color:var(--color-cream-glow)]"
+          >
+            Building sharp, fast websites that feel{" "}
+            <span className="text-[color:var(--color-pulse-green)]">
+              intentional
+            </span>
+            .
+          </motion.h1>
 
-              <motion.div
-                initial={{ opacity: 0, x: horizontalOffset }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : horizontalOffset,
-                }}
-                transition={{
-                  duration: config.duration,
-                  delay: 0.3,
-                  type: "spring",
-                  damping: config.damping,
-                  stiffness: config.stiffness,
-                }}
-                className="mx-auto mt-6 max-w-2xl space-y-4 text-[#d9c5a7]"
-              >
-                <p className="text-base text-[#d9c5a7] sm:text-lg md:text-xl">
-                  I create stunning and highly functional websites that blend
-                  modern design with user-focused functionality. My mission is
-                  to turn ideas into digital realities with precision and
-                  creativity.
-                </p>
-                <p className="mt-4 text-sm italic text-[#cbbfa8] sm:text-base">
-                  "Bringing your vision to life through code."
-                </p>
-              </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.7 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.55, delay: 0.12 }}
+            className="max-w-2xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg"
+          >
+            Saya merancang dan membangun pengalaman web yang rapi, cepat, dan
+            mudah dipakai. Fokusnya ada pada tipografi, struktur, performa, dan
+            detail kecil yang membuat brand terasa lebih serius.
+          </motion.p>
 
-              <motion.div
-                initial={{ opacity: 0, y: verticalOffset }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  y: isVisible ? 0 : verticalOffset,
-                }}
-                transition={{
-                  duration: isMobile ? 0.3 : isTablet ? 0.4 : 0.5,
-                  delay: 0.6,
-                  type: "spring",
-                  damping: isMobile ? 20 : isTablet ? 16 : 10,
-                }}
-                className="mx-auto mt-10 w-full max-w-[14rem] sm:w-auto"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href="#portfolios"
-                  className="block w-full rounded-full bg-[#d9c5a7] px-5 py-2.5 text-xs font-medium text-black shadow-md transition-colors hover:bg-[#c8b397] focus:outline-none focus:ring-4 focus:ring-[#d9c5a7]/50 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
-                >
-                  Explore My Work
-                </Link>
-              </motion.div>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.55, delay: 0.18 }}
+            className="flex flex-wrap items-center gap-3"
+          >
+            <Link href="#portfolios" className="pill-link">
+              Explore projects
+            </Link>
+            <Link href="/contact" className="pill-link">
+              Start a project
+            </Link>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: 0.12 }}
+          className="relative mt-12 lg:mt-0"
+        >
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[28rem] rounded-[8px] border border-[color:var(--color-olive-stone)] bg-[linear-gradient(145deg,rgba(10,228,72,0.18),rgba(157,149,255,0.18)_52%,rgba(0,186,226,0.18))] p-4">
+            <div className="absolute inset-0 rounded-[8px] border border-[rgba(255,252,225,0.1)]" />
+            <div className="absolute left-4 top-4 rounded-full border border-[color:var(--color-cream-glow)] px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[color:var(--color-cream-glow)]">
+              Selected work
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 space-y-3 rounded-[8px] border border-[color:var(--color-olive-stone)] bg-[rgba(14,16,15,0.4)] p-4 backdrop-blur-sm">
+              <p className="text-sm uppercase tracking-[0.22em] text-[color:var(--color-ash-gray)]">
+                Approach
+              </p>
+              <p className="text-sm leading-relaxed text-[color:var(--color-cream-glow)]">
+                Editorial layouts, clean interaction states, and restrained
+                motion used to guide attention without noise.
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-export default HomeSection;
+export default HeroSection;

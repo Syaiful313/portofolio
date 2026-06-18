@@ -1,302 +1,101 @@
 "use client";
 
-import { useFloatingParticles } from "@/hooks/useFloatingParticles";
-import { useInView } from "@/hooks/useInView";
-import { useViewport } from "@/hooks/useViewport";
+import CountUp from "@/components/CountUp";
 import { skills } from "@/utils/skills";
 import { socialLinks } from "@/utils/socialLinks";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { useMemo } from "react";
 
-const skillItemVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1 },
-};
-
-const socialItemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
-};
+const stats = [
+  { label: "Years building", value: 3, suffix: "+" },
+  { label: "Projects shipped", value: 10, suffix: "+" },
+  { label: "Core stack", value: 6, suffix: "" },
+];
 
 const AboutSection = () => {
-  const isVisible = useInView("about", { once: true, threshold: 0.1 });
-  const viewport = useViewport();
-  const { particles, shouldReduceMotion } = useFloatingParticles(viewport);
-  const { scrollYProgress } = useScroll();
-
-  const isMobile = viewport === "mobile";
-  const isTablet = viewport === "tablet";
-
-  const backgroundY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", isMobile ? "40%" : isTablet ? "70%" : "100%"],
-  );
-
-  const textY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0%", isMobile ? "18%" : isTablet ? "35%" : "50%"],
-  );
-  const getAnimationConfig = () => {
-    if (shouldReduceMotion) {
-      return { duration: 0, damping: 18, stiffness: 120 };
-    }
-
-    switch (viewport) {
-      case "mobile":
-        return { duration: 0.4, damping: 18, stiffness: 120 };
-      case "tablet":
-        return { duration: 0.6, damping: 14, stiffness: 80 };
-      default:
-        return { duration: 0.8, damping: 10, stiffness: 50 };
-    }
-  };
-
-  const config = getAnimationConfig();
-  const horizontalOffset = isMobile ? 20 : isTablet ? 35 : 50;
-  const skillStagger = shouldReduceMotion
-    ? 0
-    : isMobile
-      ? 0.05
-      : isTablet
-        ? 0.08
-        : 0.12;
-  const socialStagger = shouldReduceMotion
-    ? 0
-    : isMobile
-      ? 0.08
-      : isTablet
-        ? 0.1
-        : 0.14;
-
-  const skillContainerVariants = useMemo(
-    () => ({
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: skillStagger,
-        },
-      },
-    }),
-    [skillStagger],
-  );
-
-  const socialContainerVariants = useMemo(
-    () => ({
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: socialStagger,
-        },
-      },
-    }),
-    [socialStagger],
-  );
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="about"
-      className="relative overflow-hidden bg-gradient-to-b from-zinc-900 via-black to-black scroll-mt-24"
-    >
-      <div className="container mx-auto">
-        <motion.div
-          className="pointer-events-none absolute inset-0 opacity-5"
-          style={shouldReduceMotion ? undefined : { y: backgroundY }}
-        >
-          <div className="bg-grid-pattern pointer-events-none absolute inset-0" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black to-transparent" />
-        </motion.div>
+    <section id="about" className="scroll-mt-24">
+      <div className="section-shell py-20 sm:py-24">
+        <div className="section-divider pb-10 pt-0" />
 
-        {/* Floating Particles */}
-        {particles.map((particle, i) => (
-          <motion.div
-            key={i}
-            className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c4b5a0]/20"
-            animate={{
-              x: ["0%", `${particle.xTo}%`],
-              y: ["0%", `${particle.yTo}%`],
-              scale: [1, particle.scale, 1],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-            }}
-          />
-        ))}
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <div className="space-y-6">
+            <p className="curly-label">{`{ Why work with me }`}</p>
+            <h2 className="max-w-xl text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+              Saya suka merapikan kompleksitas menjadi interface yang tenang
+              dan mudah dibaca.
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
+              Fokus kerja saya ada pada struktur yang jelas, detail visual yang
+              konsisten, dan performa yang tetap ringan. Hasil akhirnya harus
+              terasa premium tanpa terlihat berlebihan.
+            </p>
 
-        <div className="py-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isVisible ? 1 : 0 }}
-            transition={{ duration: config.duration }}
-            className="relative z-10 my-24 grid grid-cols-1 items-center gap-8 lg:my-56 lg:grid-cols-2 lg:gap-12"
-          >
-            <motion.div
-              className="space-y-6 text-center lg:text-left"
-              style={shouldReduceMotion ? undefined : { y: textY }}
-            >
-              <motion.div
-                initial={{ opacity: 0, x: -horizontalOffset }}
-                animate={{
-                  opacity: isVisible ? 1 : 0,
-                  x: isVisible ? 0 : -horizontalOffset,
-                }}
-                transition={{
-                  duration: config.duration,
-                  delay: 0.1,
-                  type: "spring",
-                  damping: config.damping,
-                  stiffness: config.stiffness,
-                }}
-              >
-                <h2 className="font-serif text-3xl leading-tight text-[#c4b5a0] sm:text-5xl md:text-5xl lg:text-6xl">
-                  A website that leaves
-                  <span className="relative mt-2 block italic text-[#d9c5a7]">
-                    a lasting impression!
-                    <motion.svg
-                      className="absolute -bottom-3 left-1/2 h-2 w-32 -translate-x-1/2 transform text-[#c4b5a0]/30 lg:left-0 lg:translate-x-0"
-                      viewBox="0 0 100 8"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: isVisible ? 1 : 0 }}
-                      transition={{
-                        duration: shouldReduceMotion ? 0 : isMobile ? 1 : 1.5,
-                        delay: shouldReduceMotion ? 0 : isMobile ? 0.3 : 0.5,
-                      }}
-                    >
-                      <motion.path
-                        d="M0 4 Q25 0, 50 4 T100 4"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      />
-                    </motion.svg>
-                  </span>
-                </h2>
-              </motion.div>
+            <div className="flex flex-wrap gap-3">
+              {skills.map((skill, index) => (
+                <motion.span
+                  key={skill}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0 : 0.35,
+                    delay: shouldReduceMotion ? 0 : index * 0.03,
+                  }}
+                  className="rounded-full border border-[color:var(--color-olive-stone)] px-3 py-1 text-sm text-[color:var(--color-cream-glow)]"
+                >
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
+          </div>
 
-              <motion.div
-                className="mt-6 flex flex-wrap justify-center gap-2 lg:mt-8 lg:justify-start lg:gap-3"
-                variants={skillContainerVariants}
-                initial="hidden"
-                animate={isVisible ? "visible" : "hidden"}
-              >
-                {skills.map((skill) => (
-                  <motion.span
-                    key={skill}
-                    className="rounded-full border border-[#c4b5a0]/20 bg-[#c4b5a0]/10 px-3 py-1 text-xs text-[#d9c5a7] transition-all duration-300 hover:bg-[#c4b5a0]/20 lg:px-4 lg:py-2 lg:text-sm"
-                    variants={skillItemVariants}
-                    transition={{
-                      duration: shouldReduceMotion
-                        ? 0
-                        : isMobile
-                          ? 0.25
-                          : isTablet
-                            ? 0.35
-                            : 0.45,
-                      ease: "easeOut",
-                    }}
+          <div className="space-y-8">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-4"
+                >
+                  <div className="text-3xl leading-none tracking-[-0.04em] text-[color:var(--color-cream-glow)]">
+                    <CountUp to={stat.value} duration={1.2} />
+                    {stat.suffix}
+                  </div>
+                  <p className="mt-2 text-sm text-[color:var(--color-ash-gray)]">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6">
+              <p className="section-eyebrow">{`{ Links }`}</p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {socialLinks.map((social) => (
+                  <Link
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pill-link"
                   >
-                    {skill}
-                  </motion.span>
+                    {social.name}
+                  </Link>
                 ))}
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              className="space-y-6 text-center lg:space-y-8 lg:text-left"
-              initial={{ opacity: 0, x: horizontalOffset }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                x: isVisible ? 0 : horizontalOffset,
-              }}
-              transition={{
-                duration: config.duration,
-                delay: shouldReduceMotion
-                  ? 0
-                  : isMobile
-                    ? 0.15
-                    : isTablet
-                      ? 0.25
-                      : 0.3,
-                type: "spring",
-                damping: config.damping,
-                stiffness: config.stiffness,
-              }}
-            >
-              <div className="relative">
-                <p className="text-base leading-relaxed text-[#d9c5a7] md:text-lg lg:text-xl">
-                  Hey! I'm{" "}
-                  <span className="relative inline-block font-serif font-bold">
-                    Muhammad Syaiful Mu'min
-                    <motion.span
-                      className="absolute -bottom-1 left-0 h-0.5 w-full bg-[#c4b5a0]/30"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: isVisible ? 1 : 0 }}
-                      transition={{
-                        duration: shouldReduceMotion ? 0 : isMobile ? 0.6 : 1,
-                        delay: shouldReduceMotion ? 0 : isMobile ? 0.4 : 0.8,
-                      }}
-                    />
-                  </span>
-                  . I'm a web developer focused on creating responsive and
-                  user-friendly digital experiences, with expertise in modern
-                  web technologies. I enjoy combining functional design with
-                  optimal performance to bring creative ideas to life.
-                </p>
               </div>
+            </div>
 
-              <motion.div
-                className="mt-6 flex flex-wrap justify-center gap-4 lg:mt-8 lg:justify-start lg:gap-6"
-                variants={socialContainerVariants}
-                initial="hidden"
-                animate={isVisible ? "visible" : "hidden"}
-              >
-                {socialLinks.map((link) => (
-                  <motion.div
-                    key={link.href}
-                    variants={socialItemVariants}
-                    transition={{
-                      duration: shouldReduceMotion
-                        ? 0
-                        : isMobile
-                          ? 0.25
-                          : isTablet
-                            ? 0.35
-                            : 0.45,
-                      ease: "easeOut",
-                    }}
-                    whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
-                    whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
-                  >
-                    <Link
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={link.name}
-                      className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-zinc-800/50 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-700/50 hover:shadow-lg hover:shadow-[#c4b5a0]/10 lg:h-14 lg:w-14"
-                    >
-                      <link.icon
-                        size={isMobile ? 20 : isTablet ? 24 : 26}
-                        className="text-[#d9c5a0] transition-colors duration-300 group-hover:text-white"
-                      />
-                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-lg border border-white/10 bg-zinc-800/90 px-2 py-1 text-xs text-white opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 lg:px-3 lg:py-1.5">
-                        {link.name}
-                        <span className="absolute -top-1 left-1/2 -translate-x-1/2 border-4 border-transparent border-b-zinc-800/90" />
-                      </span>
-                    </Link>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          </motion.div>
+            <div className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6">
+              <p className="section-eyebrow">{`{ Stack }`}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ash-gray)]">
+                Next.js, TypeScript, React, Tailwind CSS, Node.js, dan
+                PostgreSQL menjadi fondasi kerja saya untuk membangun produk web
+                yang stabil dan mudah dikembangkan.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

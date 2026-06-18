@@ -2,37 +2,26 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "./ui/button";
+
+const navLinks = [
+  { href: "/#home", label: "Home" },
+  { href: "/#about", label: "About" },
+  { href: "/#portfolios", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#contact", label: "Contact" },
+];
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const lastScrollYRef = useRef(0);
-  const tickingRef = useRef(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const navLinks = useMemo(() => [
-    { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#portfolios", label: "Projects" },
-    { href: "#experience", label: "Experience" },
-  ], []);
+  const visibleLinks = useMemo(() => navLinks, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (tickingRef.current) return;
-
-      tickingRef.current = true;
-      window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-        const scrollThreshold = 100;
-        const isScrollingDown = currentScrollY > lastScrollYRef.current;
-
-        setIsNavbarVisible(!(isScrollingDown && currentScrollY > scrollThreshold));
-        setIsScrolled(currentScrollY > 20);
-        lastScrollYRef.current = currentScrollY;
-        tickingRef.current = false;
-      });
+      setIsScrolled(window.scrollY > 16);
     };
 
     handleScroll();
@@ -41,13 +30,17 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const sections = navLinks
-      .map((link) => document.getElementById(link.href.replace("#", "")))
+    const sections = visibleLinks
+      .map((link) => document.getElementById(link.href.split("#")[1] ?? ""))
       .filter((section): section is HTMLElement => Boolean(section));
 
-    if (!sections.length) return;
+    if (!sections.length) {
+      setActiveSection("");
+      return;
+    }
 
-    const observer = new IntersectionObserver(
+    observerRef.current?.disconnect();
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         const visibleEntry = entries.find((entry) => entry.isIntersecting);
         if (visibleEntry?.target.id) {
@@ -55,112 +48,123 @@ const Navbar = () => {
         }
       },
       {
-        rootMargin: "-20% 0px -65% 0px",
-        threshold: 0,
-      }
+        threshold: 0.3,
+        rootMargin: "-18% 0px -58% 0px",
+      },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => observerRef.current?.observe(section));
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
-      observer.disconnect();
+      observerRef.current?.disconnect();
     };
-  }, [navLinks]);
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  }, [visibleLinks]);
 
   return (
-    <>
+    <header className="sticky top-0 z-[1000]">
+      <div className="w-full border-b border-[color:var(--color-olive-stone)] bg-[color:var(--color-pulse-green)] text-[color:var(--color-void-black)]">
+        <div className="section-shell flex items-center justify-center py-2 text-center text-[11px] font-semibold uppercase tracking-[0.22em] sm:text-xs">
+          Available for freelance work and product collaborations
+        </div>
+      </div>
+
       <nav
-        className={`fixed left-1/2 top-0 z-[1000] w-full max-w-[92%] -translate-x-1/2 transform transition-all duration-300 md:max-w-2xl lg:max-w-3xl ${isScrolled ? "shadow-lg" : ""} ${
-          isNavbarVisible
-            ? "translate-y-5 opacity-100"
-            : "-translate-y-full opacity-0"
+        className={`border-b border-[color:var(--color-olive-stone)] bg-[rgba(14,16,15,0.92)] backdrop-blur-sm ${
+          isScrolled ? "bg-[rgba(14,16,15,0.96)]" : ""
         }`}
       >
-        <div
-          className={`flex items-center justify-between rounded-xl p-2 ${
-            isScrolled
-              ? "border border-[#d9c5a7]/30 bg-[#d9c5a7]/25 backdrop-blur-lg"
-              : "border border-[#d9c5a7] bg-[#d9c5a7]/15 backdrop-blur-sm"
-          }`}
-        >
-          <Link href="/">
-            <span className="cursor-pointer px-5 font-serif text-lg font-semibold text-[#d9c5a7] transition-transform hover:scale-105 md:px-6 md:text-xl lg:px-10 lg:text-2xl">
-              Fulful.
+        <div className="section-shell flex items-center justify-between gap-4 py-4">
+          <Link
+            href="/"
+            className="group flex items-center gap-3 text-[color:var(--color-cream-glow)]"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-olive-stone)] text-xs font-semibold uppercase tracking-[0.18em] transition-colors group-hover:border-[color:var(--color-cream-glow)]">
+              MS
+            </span>
+            <span className="flex flex-col leading-none">
+              <span className="text-sm font-semibold tracking-[-0.02em] sm:text-base">
+                Muhammad Syaiful
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.24em] text-[color:var(--color-ash-gray)] sm:text-xs">
+                Full-stack developer
+              </span>
             </span>
           </Link>
 
-          <div className="hidden items-center px-8 font-serif md:flex md:space-x-4 lg:space-x-6 lg:px-14">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`link-underline-anim group relative flex items-center text-[#d9c5a7] transition-all duration-200 hover:opacity-80 ${
-                  activeSection === link.href.replace("#", "")
-                    ? "font-semibold"
-                    : ""
-                }`}
-                aria-current={
-                  activeSection === link.href.replace("#", "")
-                    ? "page"
-                    : undefined
-                }
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="hidden items-center gap-2 lg:flex">
+            {visibleLinks.map((link) => {
+              const isActive = activeSection === (link.href.split("#")[1] ?? "");
 
-            <Link href="/contact" className="ml-2">
-              <Button className="rounded-xl bg-[#d9c5a7] hover:bg-[#d9c5a7]/80 md:px-3 md:py-1.5 md:text-xs lg:px-4 lg:py-2 lg:text-sm">
-                Let's Talk
-              </Button>
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                    isActive
+                      ? "bg-[color:var(--color-cream-glow)] text-[color:var(--color-void-black)]"
+                      : "text-[color:var(--color-cream-glow)] hover:bg-[color:var(--color-olive-stone)]"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            <Link href="/contact" className="ml-2 pill-link">
+              Let&apos;s talk
             </Link>
           </div>
 
           <button
-            className="p-2 text-[#d9c5a7] md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileMenuOpen}
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-olive-stone)] text-[color:var(--color-cream-glow)] lg:hidden"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
+            onClick={() => setIsMenuOpen((current) => !current)}
           >
-            {isMobileMenuOpen ? "✕" : "☰"}
+            <span className="text-lg leading-none">{isMenuOpen ? "×" : "≡"}</span>
           </button>
         </div>
 
-        {isMobileMenuOpen && (
-          <div
-            id="mobile-menu"
-            className="mt-2 flex flex-col items-center justify-center rounded-xl border border-[#d9c5a7] bg-[#d9c5a7]/15 p-4 backdrop-blur-lg md:hidden"
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block rounded px-4 py-2 text-[#d9c5a7] transition-colors hover:bg-[#d9c5a7]/10"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button className="rounded-xl bg-[#d9c5a7] hover:bg-[#d9c5a7]/80">
-                Let's Talk
-              </Button>
+        <div
+          id="mobile-menu"
+          className={`border-t border-[color:var(--color-olive-stone)] lg:hidden ${
+            isMenuOpen ? "block" : "hidden"
+          }`}
+        >
+          <div className="section-shell flex flex-col gap-2 py-4">
+            {visibleLinks.map((link) => {
+              const isActive = activeSection === (link.href.split("#")[1] ?? "");
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`rounded-full px-4 py-3 text-sm transition-colors ${
+                    isActive
+                      ? "bg-[color:var(--color-cream-glow)] text-[color:var(--color-void-black)]"
+                      : "border border-[color:var(--color-olive-stone)] text-[color:var(--color-cream-glow)]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            <Link
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="pill-link mt-2 w-full"
+            >
+              Let&apos;s talk
             </Link>
           </div>
-        )}
+        </div>
       </nav>
-
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-[999] bg-black/20 md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-    </>
+    </header>
   );
 };
 

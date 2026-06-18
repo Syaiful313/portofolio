@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { socialLinks } from "@/utils/socialLinks";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -12,7 +11,7 @@ type SocialLinksProps = {
 
 const SocialLinks = ({ isVisible, shouldReduceMotion }: SocialLinksProps) => {
   return (
-    <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
       {socialLinks.map((social, index) => (
         <motion.div
           key={social.href}
@@ -33,20 +32,15 @@ const SocialLinks = ({ isVisible, shouldReduceMotion }: SocialLinksProps) => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={social.name}
-            className="group focus:outline-none focus:ring-2 focus:ring-[#c4b5a0] focus:ring-offset-2"
+            className="pill-link group w-full focus:outline-none focus-visible:ring-1 focus-visible:ring-[color:var(--color-cream-glow)]"
           >
-            <Button
-              variant="outline"
-              className="w-full rounded-xl border-[#333] bg-[#2a2a2a] text-[#d9c5a7] transition-all duration-300 hover:border-[#c4b5a0] hover:bg-[#c4b5a0]/20"
-            >
-              <social.icon
-                size={20}
-                className="mr-2 flex-shrink-0 text-[#c4b5a0]"
-              />
-              <span className="hidden text-sm font-medium text-[#c4b5a0] sm:block">
-                {social.name}
-              </span>
-            </Button>
+            <social.icon
+              size={20}
+              className="mr-2 flex-shrink-0 text-[color:var(--color-pulse-green)]"
+            />
+            <span className="hidden text-sm font-medium text-[color:var(--color-cream-glow)] sm:block">
+              {social.name}
+            </span>
           </Link>
         </motion.div>
       ))}
