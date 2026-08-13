@@ -70,33 +70,6 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: "Blog Platform with Supabase",
-    description:
-      "A simple blog platform with authentication, post CRUD, and user management.",
-    image: "/bloghub.png",
-    category: "fullstack",
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "Supabase",
-      "Prisma",
-      "PostgreSQL",
-      "Shadcn UI",
-    ],
-    liveUrl: "https://blog-jcwd-0510-fe.vercel.app/",
-    githubUrl: "#",
-    details: {
-      situation:
-        "A blog platform was needed to write and manage articles with login and user management.",
-      task: "Build a blog with authentication, database-backed content storage, and a modern responsive UI.",
-      action:
-        "Used Next.js with TypeScript for the frontend, Supabase (PostgreSQL) for the backend, and Prisma as the ORM.",
-      result:
-        "Delivered a full-featured blog that runs smoothly and makes it easy for users to write and manage content.",
-    },
-  },
-  {
-    id: 4,
     title: "Ticketing App with Transaction System",
     description:
       "A ticket booking app with dynamic transaction statuses, payments, and points usage.",
@@ -124,7 +97,7 @@ export const projects: Project[] = [
   },
 
   {
-    id: 5,
+    id: 4,
     title: "HotCoffee Blog",
     description:
       "A minimalist, modern blog platform designed for coffee enthusiasts, offering engaging content and subscription features.",
@@ -151,7 +124,7 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 6,
+    id: 5,
     title: "Socio Space",
     description:
       "A company profile website for a co-working space, showcasing services, workspace options, and an integrated blog to drive community engagement.",
