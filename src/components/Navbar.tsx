@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { href: "/#home", label: "Home" },
@@ -15,9 +15,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  const visibleLinks = useMemo(() => navLinks, []);
+  const visibleLinks = navLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,35 +28,25 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const sections = visibleLinks
-      .map((link) => document.getElementById(link.href.split("#")[1] ?? ""))
-      .filter((section): section is HTMLElement => Boolean(section));
+    const updateActiveSection = () => {
+      const currentSection = [...visibleLinks]
+        .reverse()
+        .find((link) => {
+          const section = document.getElementById(link.href.split("#")[1] ?? "");
+          return section && section.getBoundingClientRect().top <= 150;
+        });
 
-    if (!sections.length) {
-      setActiveSection("");
-      return;
-    }
-
-    observerRef.current?.disconnect();
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries.find((entry) => entry.isIntersecting);
-        if (visibleEntry?.target.id) {
-          setActiveSection(visibleEntry.target.id);
-        }
-      },
-      {
-        threshold: 0.3,
-        rootMargin: "-18% 0px -58% 0px",
-      },
-    );
-
-    sections.forEach((section) => observerRef.current?.observe(section));
-
-    return () => {
-      observerRef.current?.disconnect();
+      setActiveSection(currentSection?.href.split("#")[1] ?? "home");
     };
-  }, [visibleLinks]);
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-[1000]">
