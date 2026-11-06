@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema, CollectionPageSchema } from "@/components/JsonLd";
 import HomePage from "@/features/home";
+import { SITE_URL } from "@/lib/site";
 
-const HOME_URL = "https://muhammad-syaiful.site";
+const HOME_URL = SITE_URL;
 
 const title = "Full-Stack Web Developer Indonesia";
 const description =

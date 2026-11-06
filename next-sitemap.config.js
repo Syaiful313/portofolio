@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: "https://muhammad-syaiful.site",
+  siteUrl: process.env.SITE_URL || "https://muhammad-syaiful.site",
   generateRobotsTxt: true,
   changefreq: "monthly",
   priority: 0.7,
@@ -12,7 +12,9 @@ const config = {
         allow: "/",
       },
     ],
-    additionalSitemaps: ["https://muhammad-syaiful.site/sitemap.xml"],
+    additionalSitemaps: [
+      `${process.env.SITE_URL || "https://muhammad-syaiful.site"}/sitemap.xml`,
+    ],
   },
   transform: async (config, path) => {
     // Homepage mendapat priority tertinggi

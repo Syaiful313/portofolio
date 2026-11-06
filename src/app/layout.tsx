@@ -7,6 +7,7 @@ import { PersonSchema, WebSiteSchema } from "@/components/JsonLd";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,7 +23,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://muhammad-syaiful.site"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Muhammad Syaiful Mu'min | Portofolio",
     template: "%s | Muhammad Syaiful Mu'min",
@@ -44,18 +45,18 @@ export const metadata: Metadata = {
     "freelance developer",
   ],
   authors: [
-    { name: "Muhammad Syaiful Mu'min", url: "https://muhammad-syaiful.site" },
+    { name: "Muhammad Syaiful Mu'min", url: SITE_URL },
   ],
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: "https://muhammad-syaiful.site",
+    canonical: SITE_URL,
   },
   openGraph: {
     type: "website",
-    url: "https://muhammad-syaiful.site",
+    url: SITE_URL,
     siteName: "Portofolio - Muhammad Syaiful Mu'min",
     images: [
       {

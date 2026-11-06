@@ -1,6 +1,7 @@
 import { projects } from "@/utils/projects";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://muhammad-syaiful.site";
+const BASE_URL = SITE_URL;
 
 function PersonSchema() {
   const schema = {

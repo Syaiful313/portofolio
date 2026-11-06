@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import ContactPage from "@/features/contact";
+import { SITE_URL } from "@/lib/site";
 
-const CONTACT_URL = "https://muhammad-syaiful.site/contact";
+const CONTACT_URL = `${SITE_URL}/contact`;
 const title = "Hubungi Saya - Kolaborasi & Proyek Web";
 const description =
   "Hubungi Muhammad Syaiful Mu'min untuk kolaborasi, proyek freelance, atau konsultasi pembuatan website. Full-stack developer Next.js, TypeScript, dan Tailwind CSS.";
-const ogImage = "https://muhammad-syaiful.site/og/og-cover.png";
+const ogImage = `${SITE_URL}/og/og-cover.png`;
 
 export const metadata: Metadata = {
   title,

@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import { BreadcrumbSchema, ProjectSchema } from "@/components/JsonLd";
 import PortofolioDetailPage from "@/features/portofolio/PortofolioDetail";
 import { projects } from "@/utils/projects";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://muhammad-syaiful.site";
+const BASE_URL = SITE_URL;
 
 type MetadataProps = { params: Promise<{ id: string }> };
 

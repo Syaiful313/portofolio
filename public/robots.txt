@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://muhammad-syaiful.site
+Host: https://muhammad-syaiful.vercel.app
 
 # Sitemaps
-Sitemap: https://muhammad-syaiful.site/sitemap.xml
+Sitemap: https://muhammad-syaiful.vercel.app/sitemap.xml
