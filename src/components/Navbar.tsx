@@ -109,14 +109,11 @@ const Navbar = () => {
         <div className="section-shell flex items-center justify-between gap-4 py-4">
           <Link
             href="/"
-            className="group flex items-center gap-3 text-[color:var(--color-cream-glow)]"
+            className="text-[color:var(--color-cream-glow)]"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--color-olive-stone)] text-xs font-semibold uppercase tracking-[0.18em] transition-colors group-hover:border-[color:var(--color-cream-glow)]">
-              MS
-            </span>
             <span className="flex flex-col leading-none">
-              <span className="text-sm font-semibold tracking-[-0.02em] sm:text-base">
-                Muhammad Syaiful
+              <span className="text-xs font-semibold tracking-[-0.02em] sm:text-base">
+                Muhammad Syaiful Mu&apos;min
               </span>
               <span className="text-[11px] uppercase tracking-[0.24em] text-[color:var(--color-ash-gray)] sm:text-xs">
                 Full-stack developer
