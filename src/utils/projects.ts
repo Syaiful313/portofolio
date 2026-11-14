@@ -83,8 +83,8 @@ export const projects: Project[] = [
       "Stripe",
       "Shadcn UI",
     ],
-    liveUrl: "https://starticket.vercel.app/",
-    githubUrl: "#",
+    liveUrl: "#",
+    githubUrl: "https://github.com/Syaiful313/MP-0510-07-FE",
     details: {
       situation:
         "A ticket booking system was needed with automated transactions whose status changes based on payment and time.",
