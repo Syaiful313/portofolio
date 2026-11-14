@@ -14,6 +14,30 @@
     --color-ember-orange: #ff8709;
     --color-electric-violet: #9d95ff;
     --color-signal-blue: #00bae2;
+    --color-nav-surface: rgba(14, 16, 15, 0.92);
+    --color-nav-surface-scrolled: rgba(14, 16, 15, 0.96);
+    --color-hero-surface: rgba(14, 16, 15, 0.4);
+    color-scheme: dark;
+  }
+
+  .light {
+    --color-void-black: #fffdf5;
+    --color-cream-glow: #171914;
+    --color-olive-stone: #d5d5c9;
+    --color-ash-gray: #62645b;
+    --color-pulse-green: #08752c;
+    --color-lime-flash: #357b24;
+    --color-candy-pink: #a12c85;
+    --color-ember-orange: #a84d00;
+    --color-electric-violet: #5548ba;
+    --color-signal-blue: #006f89;
+    --color-nav-surface: rgba(255, 253, 245, 0.92);
+    --color-nav-surface-scrolled: rgba(255, 253, 245, 0.97);
+    --color-hero-surface: rgba(255, 253, 245, 0.84);
+    color-scheme: light;
+  }
+
+  .dark {
     color-scheme: dark;
   }
 
@@ -68,8 +92,8 @@
   }
 
   ::selection {
-    background: rgba(10, 228, 72, 0.35);
-    color: var(--color-cream-glow);
+    background: var(--color-pulse-green);
+    color: var(--color-void-black);
   }
 }
 
@@ -193,4 +217,25 @@
 
 .animate-reveal-up {
   animation: reveal-up 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes theme-wave-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-wave-x) var(--theme-wave-y));
+  }
+  to {
+    clip-path: circle(
+      var(--theme-wave-radius) at var(--theme-wave-x) var(--theme-wave-y)
+    );
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    animation: theme-wave-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 }

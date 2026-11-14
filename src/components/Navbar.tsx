@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
+import { useEffect, useState, type MouseEvent } from "react";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 const navLinks = [
   { href: "/#home", label: "Home" },
@@ -15,7 +18,11 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
   const visibleLinks = navLinks;
+
+  useEffect(() => setIsMounted(true), []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +33,41 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isDarkTheme = isMounted && resolvedTheme === "dark";
+  const themeLabel = isMounted
+    ? `Switch to ${isDarkTheme ? "light" : "dark"} mode`
+    : "Toggle color theme";
+
+  const toggleTheme = (event: MouseEvent<HTMLButtonElement>) => {
+    const targetTheme = resolvedTheme === "dark" ? "light" : "dark";
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    const nextTheme = targetTheme === systemTheme ? "system" : targetTheme;
+    const { startViewTransition } = document as Document & {
+      startViewTransition?: (update: () => void) => unknown;
+    };
+
+    if (
+      !startViewTransition ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setTheme(nextTheme);
+      return;
+    }
+
+    const { left, top, width, height } = event.currentTarget.getBoundingClientRect();
+    const x = left + width / 2;
+    const y = top + height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+    document.documentElement.style.setProperty("--theme-wave-x", `${x}px`);
+    document.documentElement.style.setProperty("--theme-wave-y", `${y}px`);
+    document.documentElement.style.setProperty("--theme-wave-radius", `${radius}px`);
+
+    startViewTransition.call(document, () => flushSync(() => setTheme(nextTheme)));
+  };
 
   useEffect(() => {
     const updateActiveSection = () => {
@@ -57,9 +99,12 @@ const Navbar = () => {
       </div>
 
       <nav
-        className={`border-b border-[color:var(--color-olive-stone)] bg-[rgba(14,16,15,0.92)] backdrop-blur-sm ${
-          isScrolled ? "bg-[rgba(14,16,15,0.96)]" : ""
-        }`}
+        className="border-b border-[color:var(--color-olive-stone)] backdrop-blur-sm"
+        style={{
+          backgroundColor: isScrolled
+            ? "var(--color-nav-surface-scrolled)"
+            : "var(--color-nav-surface)",
+        }}
       >
         <div className="section-shell flex items-center justify-between gap-4 py-4">
           <Link
@@ -102,7 +147,24 @@ const Navbar = () => {
             <Link href="/contact" className="ml-2 pill-link">
               Let&apos;s talk
             </Link>
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-olive-stone)] text-[color:var(--color-cream-glow)]"
+              aria-label={themeLabel}
+              onClick={toggleTheme}
+            >
+              {isDarkTheme ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}
+            </button>
           </div>
+
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--color-olive-stone)] text-[color:var(--color-cream-glow)] lg:hidden"
+            aria-label={themeLabel}
+            onClick={toggleTheme}
+          >
+            {isDarkTheme ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}
+          </button>
 
           <button
             type="button"

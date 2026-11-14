@@ -73,8 +73,7 @@ const Footer = () => {
 
         <div className="mt-10 flex flex-col gap-4 border-t border-[color:var(--color-olive-stone)] pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-[color:var(--color-ash-gray)]">
-            © {currentYear} Muhammad Syaiful Mu&apos;min. Built on a flat dark
-            canvas.
+            © {currentYear} Muhammad Syaiful Mu&apos;min. Built with care.
           </p>
 
           <button

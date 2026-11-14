@@ -77,7 +77,7 @@ const HeroSection = () => {
             <div className="absolute left-4 top-4 rounded-full border border-[color:var(--color-cream-glow)] px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[color:var(--color-cream-glow)]">
               Selected work
             </div>
-            <div className="absolute bottom-4 left-4 right-4 space-y-3 rounded-[8px] border border-[color:var(--color-olive-stone)] bg-[rgba(14,16,15,0.4)] p-4 backdrop-blur-sm">
+            <div className="absolute bottom-4 left-4 right-4 space-y-3 rounded-[8px] border border-[color:var(--color-olive-stone)] bg-[color:var(--color-hero-surface)] p-4 backdrop-blur-sm">
               <p className="text-sm uppercase tracking-[0.22em] text-[color:var(--color-ash-gray)]">
                 Approach
               </p>

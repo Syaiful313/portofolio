@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE_URL } from "@/lib/site";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -80,8 +81,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="scroll-smooth">
+    <html lang="id" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <meta name="color-scheme" content="light dark" />
         <meta name="geo.region" content="ID-JT" />
         <meta name="geo.placename" content="Temanggung, Jawa Tengah" />
         <meta name="geo.position" content="-7.3167;110.1750" />
@@ -92,12 +94,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-[color:var(--color-void-black)] text-[color:var(--color-cream-glow)] antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
-        <Toaster position="top-right" />
-        <Analytics />
-        <SpeedInsights />
+        <ThemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster position="top-right" />
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

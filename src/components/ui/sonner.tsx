@@ -15,15 +15,13 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         duration: 5000,
         classNames: {
-          // Use requested palette: text #c4b5a0, bg #1a1a1a
           toast:
-            "group toast border border-[#c4b5a0]/30 bg-[#1a1a1a] text-[#c4b5a0] shadow-xl backdrop-blur-md",
-          title: "text-[#c4b5a0] font-medium",
-          description: "text-[#c4b5a0]",
+            "group toast border border-[color:var(--color-olive-stone)] bg-[color:var(--color-void-black)] text-[color:var(--color-cream-glow)] shadow-xl backdrop-blur-md",
+          title: "font-medium",
           actionButton:
-            "rounded-md bg-[#c4b5a0] px-3 py-1 text-[#1a1a1a] hover:bg-[#d9c5a7]",
+            "rounded-md bg-[color:var(--color-pulse-green)] px-3 py-1 text-[color:var(--color-void-black)]",
           cancelButton:
-            "rounded-md border border-[#c4b5a0]/30 bg-transparent px-3 py-1 text-[#c4b5a0] hover:bg-white/5",
+            "rounded-md border border-[color:var(--color-olive-stone)] bg-transparent text-[color:var(--color-cream-glow)]",
         },
       }}
       {...props}
