@@ -10,14 +10,14 @@ const ExperienceSection = () => {
 
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div className="space-y-4">
-            <p className="curly-label">{`{ Experience }`}</p>
+            <p className="curly-label">{`{ Pengalaman }`}</p>
             <h2 className="text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-              Pengalaman saya dibentuk dari proyek freelance, volunteer, dan
-              kerja sistem internal.
+              Dari proyek freelance hingga pengembangan sistem di perusahaan.
             </h2>
             <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
-              Kombinasi itu bikin saya terbiasa melihat produk dari sisi
-              komunikasi bisnis, kualitas teknis, dan konsistensi implementasi.
+              Pengalaman ini membiasakan saya bekerja dengan kebutuhan nyata,
+              berkolaborasi dalam tim, dan memperhatikan kualitas implementasi
+              dari frontend hingga backend.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ const ExperienceSection = () => {
                   </div>
 
                   <Badge variant="outline">
-                    {index === experiences.length - 1 ? "Current" : "Past"}
+                    {index === experiences.length - 1 ? "Saat ini" : "Sebelumnya"}
                   </Badge>
                 </div>
 

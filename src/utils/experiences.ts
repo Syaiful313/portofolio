@@ -14,10 +14,10 @@ export const experiences: Experience[] = [
     company: "Freelance Project - Procurement Web App",
     period: "Feb 2025 – Apr 2025",
     description: [
-      "Designed and built a web-based procurement application with request submission, approvals, and item status tracking.",
-      "Used Next.js, TypeScript, and Tailwind CSS on the frontend, and Express.js, Prisma, and PostgreSQL on the backend.",
-      "Implemented JWT authentication and role-based access control for admins, managers, and users.",
-      "Built a dashboard with request status summaries, form validation, and real-time status notifications.",
+      "Merancang dan membangun aplikasi pengadaan berbasis web dengan fitur pengajuan, persetujuan, dan pelacakan status barang.",
+      "Menggunakan Next.js, TypeScript, dan Tailwind CSS untuk frontend, serta Express.js, Prisma, dan PostgreSQL untuk backend.",
+      "Menerapkan autentikasi JWT dan pembatasan akses berbasis peran untuk admin, manajer, dan pengguna.",
+      "Membangun dashboard ringkasan status pengajuan, validasi formulir, dan notifikasi perubahan status.",
     ],
     technologies: [
       "Next.js",
@@ -34,11 +34,11 @@ export const experiences: Experience[] = [
       "Volunteer Project - PAC LDII Traji Attendance & Education Platform",
     period: "Aug 2025 – Sep 2025",
     description: [
-      "Developed an internal attendance and education platform for PAC LDII Traji (Pimpinan Anak Cabang Lembaga Dakwah Islam Indonesia).",
-      "Built an attendance system with automatic recaps in the admin dashboard.",
-      "Designed class, materials, and student attendance management using Prisma ORM and PostgreSQL with complex relations.",
-      "Implemented JWT authentication and a role system (admin, instructor, student), plus API integration for weekly attendance reports.",
-      "Prepared integration for a companion mobile app using Flutter to support access for field users.",
+      "Mengembangkan platform internal untuk absensi dan pendidikan PAC LDII Traji (Pimpinan Anak Cabang Lembaga Dakwah Islam Indonesia).",
+      "Membangun sistem absensi dengan rekap otomatis di dashboard admin.",
+      "Merancang pengelolaan kelas, materi, dan absensi siswa menggunakan Prisma ORM dan PostgreSQL dengan relasi yang kompleks.",
+      "Menerapkan autentikasi JWT dan sistem peran admin, pengajar, serta siswa, sekaligus mengintegrasikan API untuk laporan absensi mingguan.",
+      "Menyiapkan integrasi dengan aplikasi pendamping berbasis Flutter untuk mendukung akses pengguna lapangan.",
     ],
     technologies: [
       "Next.js",
@@ -56,10 +56,10 @@ export const experiences: Experience[] = [
     company: "Scuto Indonesia",
     period: "Sep 2025 – Maret 2026",
     description: [
-      "Assisted in developing Scuto Indonesia's internal systems across both frontend and backend.",
-      "Handled API and database integration, debugging, and development documentation.",
-      "Collaborated with the team on building applications using Next.js and Node.js.",
-      "Used Git for version control and development workflows.",
+      "Membantu mengembangkan sistem internal Scuto Indonesia pada sisi frontend dan backend.",
+      "Menangani integrasi API dan database, debugging, serta dokumentasi pengembangan.",
+      "Berkolaborasi dengan tim dalam membangun aplikasi menggunakan Next.js dan Node.js.",
+      "Menggunakan Git untuk pengelolaan versi dan alur kerja pengembangan.",
     ],
     technologies: [
       "Next.js",
@@ -76,10 +76,10 @@ export const experiences: Experience[] = [
     company: "Scuto Indonesia",
     period: "Maret 2026 – Present",
     description: [
-      "Assisted in developing Scuto Indonesia's internal systems across both frontend and backend.",
-      "Handled API and database integration, debugging, and development documentation.",
-      "Collaborated with the team on building applications using Next.js and Node.js.",
-      "Used Git for version control and development workflows.",
+      "Membantu mengembangkan sistem internal Scuto Indonesia pada sisi frontend dan backend.",
+      "Menangani integrasi API dan database, debugging, serta dokumentasi pengembangan.",
+      "Berkolaborasi dengan tim dalam membangun aplikasi menggunakan Next.js dan Node.js.",
+      "Menggunakan Git untuk pengelolaan versi dan alur kerja pengembangan.",
     ],
     technologies: [
       "Next.js",
