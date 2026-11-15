@@ -21,15 +21,15 @@ const PortfolioSection = () => {
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl space-y-4">
-            <p className="curly-label">{`{ Selected projects }`}</p>
+            <p className="curly-label">{`{ Proyek Pilihan }`}</p>
             <h2 className="text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-              Project yang saya pilih bukan cuma visual, tapi juga menunjukkan
-              cara saya berpikir soal sistem dan detail.
+              Beberapa website dan aplikasi yang pernah saya rancang dan bangun.
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-relaxed text-[color:var(--color-ash-gray)] sm:text-base">
-            Setiap kartu di bawah dirancang seperti studi kasus ringkas: ada
-            konteks, teknologi, dan arah implementasi yang jelas.
+            Setiap proyek berangkat dari kebutuhan yang berbeda, mulai dari
+            website profil perusahaan hingga sistem transaksi. Pilih proyek
+            untuk melihat proses dan detail pengerjaannya.
           </p>
         </div>
 
@@ -52,13 +52,13 @@ const PortfolioSection = () => {
                   />
                   <div className="absolute inset-0 rounded-[8px] bg-[linear-gradient(180deg,rgba(14,16,15,0.06),rgba(14,16,15,0.66))]" />
                   <div className="absolute left-4 top-4 rounded-full border border-[color:var(--color-cream-glow)] px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-[color:var(--color-cream-glow)]">
-                    {project.category}
+                    {project.category === "fullstack" ? "Full-stack" : "Frontend"}
                   </div>
                 </div>
 
                 <div className="space-y-6 p-6 sm:p-8">
                   <div className="space-y-3">
-                    <p className="section-eyebrow">{`{ Project ${index + 1} }`}</p>
+                    <p className="section-eyebrow">{`{ Proyek ${index + 1} }`}</p>
                     <h3 className={`text-3xl leading-[1] tracking-[-0.04em] ${accentClass}`}>
                       {project.title}
                     </h3>
@@ -77,7 +77,7 @@ const PortfolioSection = () => {
 
                   <div className="flex flex-wrap gap-3">
                     <Link href={`/portfolios/${project.id}`} className="pill-link">
-                      View details
+                      Lihat detail
                       <ArrowUpRight aria-hidden="true" />
                     </Link>
                     {project.liveUrl !== "#" && (
@@ -87,7 +87,7 @@ const PortfolioSection = () => {
                         rel="noopener noreferrer"
                         className="pill-link"
                       >
-                        Live site
+                        Lihat situs
                       </Link>
                     )}
                     {project.githubUrl !== "#" && (
@@ -97,7 +97,7 @@ const PortfolioSection = () => {
                         rel="noopener noreferrer"
                         className="pill-link"
                       >
-                        Code
+                        Kode sumber
                       </Link>
                     )}
                   </div>
@@ -109,7 +109,7 @@ const PortfolioSection = () => {
 
         <div className="mt-10 flex justify-center">
           <Link href="/contact" className="pill-link">
-            Need a similar build?
+            Punya proyek serupa?
           </Link>
         </div>
       </div>

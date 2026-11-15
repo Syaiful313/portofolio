@@ -20,7 +20,7 @@ export const projects: Project[] = [
     id: 1,
     title: "Company Profile Website",
     description:
-      "A company profile website with optimized navigation and an integrated CMS for content management.",
+      "Website profil perusahaan dengan navigasi yang mudah digunakan dan CMS terintegrasi agar konten dapat dikelola dengan praktis.",
     image: "/CompanyProfile.png",
     category: "frontend",
     technologies: [
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     id: 2,
     title: "CMS Blog with Contentful",
     description:
-      "A CMS-based blog system that enables dynamic content management.",
+      "Blog berbasis CMS yang memudahkan pengelolaan dan pembaruan konten secara dinamis.",
     image: "/BlogCms.png",
     category: "frontend",
     technologies: [
@@ -72,7 +72,7 @@ export const projects: Project[] = [
     id: 3,
     title: "Ticketing App with Transaction System",
     description:
-      "A ticket booking app with dynamic transaction statuses, payments, and points usage.",
+      "Aplikasi pemesanan tiket dengan status transaksi dinamis, pembayaran, dan penggunaan poin.",
     image: "/WebTicket.png",
     category: "fullstack",
     technologies: [
@@ -100,7 +100,7 @@ export const projects: Project[] = [
     id: 4,
     title: "HotCoffee Blog",
     description:
-      "A minimalist, modern blog platform designed for coffee enthusiasts, offering engaging content and subscription features.",
+      "Platform blog modern dan minimalis untuk pencinta kopi, dilengkapi konten menarik dan fitur berlangganan.",
     image: "/blogbackendless.png",
     category: "frontend",
     technologies: [
@@ -127,7 +127,7 @@ export const projects: Project[] = [
     id: 5,
     title: "Socio Space",
     description:
-      "A company profile website for a co-working space, showcasing services, workspace options, and an integrated blog to drive community engagement.",
+      "Website profil co-working space untuk menampilkan layanan, pilihan ruang kerja, dan blog yang mendukung keterlibatan komunitas.",
     image: "/companyprofilebackendless.png",
     category: "frontend",
     technologies: [
