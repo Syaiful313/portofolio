@@ -30,9 +30,9 @@ const HeroSection = () => {
             transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: 0.05 }}
             className="max-w-4xl text-[clamp(3.4rem,11vw,9rem)] leading-[0.92] tracking-[-0.05em] text-[color:var(--color-cream-glow)]"
           >
-            Building sharp, fast websites that feel{" "}
+            Website untuk{" "}
             <span className="text-[color:var(--color-pulse-green)]">
-              intentional
+              bisnis Anda
             </span>
             .
           </motion.h1>
@@ -44,9 +44,9 @@ const HeroSection = () => {
             transition={{ duration: shouldReduceMotion ? 0 : 0.55, delay: 0.12 }}
             className="max-w-2xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg"
           >
-            Saya merancang dan membangun pengalaman web yang rapi, cepat, dan
-            mudah dipakai. Fokusnya ada pada tipografi, struktur, performa, dan
-            detail kecil yang membuat brand terasa lebih serius.
+            Saya Muhammad Syaiful Mu&apos;min, full-stack web developer yang
+            menyediakan jasa pembuatan website profesional untuk bisnis dan
+            personal brand. Lihat proyek pilihan saya di bawah.
           </motion.p>
 
           <motion.div
@@ -57,10 +57,10 @@ const HeroSection = () => {
             className="flex flex-wrap items-center gap-3"
           >
             <Link href="#portfolios" className="pill-link">
-              Explore projects
+              Lihat proyek pilihan
             </Link>
             <Link href="/contact" className="pill-link">
-              Start a project
+              Diskusikan website Anda
             </Link>
           </motion.div>
         </div>

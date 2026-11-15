@@ -7,9 +7,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 
 const stats = [
-  { label: "Years building", value: 3, suffix: "+" },
-  { label: "Projects shipped", value: 10, suffix: "+" },
-  { label: "Core stack", value: 6, suffix: "" },
+  { label: "Tahun berkarya", value: 3, suffix: "+" },
+  { label: "Proyek dikerjakan", value: 10, suffix: "+" },
+  { label: "Teknologi utama", value: 6, suffix: "" },
 ];
 
 const AboutSection = () => {
@@ -22,15 +22,16 @@ const AboutSection = () => {
 
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div className="space-y-6">
-            <p className="curly-label">{`{ Why work with me }`}</p>
+            <p className="curly-label">{`{ Tentang Saya }`}</p>
             <h2 className="max-w-xl text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-              Saya suka merapikan kompleksitas menjadi interface yang tenang
-              dan mudah dibaca.
+              Dari ide hingga website yang siap digunakan.
             </h2>
             <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
-              Fokus kerja saya ada pada struktur yang jelas, detail visual yang
-              konsisten, dan performa yang tetap ringan. Hasil akhirnya harus
-              terasa premium tanpa terlihat berlebihan.
+              Saya Muhammad Syaiful Mu&apos;min, full-stack web developer yang
+              membantu bisnis dan personal brand membangun website profesional.
+              Saya menangani proses dari struktur dan antarmuka hingga
+              implementasi, dengan perhatian pada performa, kemudahan penggunaan,
+              dan identitas brand.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -88,7 +89,7 @@ const AboutSection = () => {
             </div>
 
             <div className="rounded-[8px] border border-[color:var(--color-olive-stone)] p-6">
-              <p className="section-eyebrow">{`{ Stack }`}</p>
+              <p className="section-eyebrow">{`{ Teknologi }`}</p>
               <p className="mt-3 text-sm leading-relaxed text-[color:var(--color-ash-gray)]">
                 Next.js, TypeScript, React, Tailwind CSS, Node.js, dan
                 PostgreSQL menjadi fondasi kerja saya untuk membangun produk web

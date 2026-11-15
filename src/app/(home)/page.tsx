@@ -5,9 +5,9 @@ import { SITE_URL } from "@/lib/site";
 
 const HOME_URL = SITE_URL;
 
-const title = "Full-Stack Web Developer Indonesia";
+const title = "Muhammad Syaiful Mu'min | Web Developer & Jasa Pembuatan Website";
 const description =
-  "Portofolio Muhammad Syaiful Mu'min, full-stack web developer di Indonesia. Ahli membangun aplikasi web modern dengan Next.js, React, dan TypeScript berperforma tinggi.";
+  "Portofolio Muhammad Syaiful Mu'min, full-stack web developer yang menyediakan jasa pembuatan website profesional untuk bisnis dan personal brand.";
 const ogImage = `${HOME_URL}/og/og-cover.png`;
 
 export const metadata: Metadata = {
