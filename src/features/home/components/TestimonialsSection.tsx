@@ -9,14 +9,14 @@ const TestimonialsSection = () => {
 
         <div className="grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div className="space-y-4">
-            <p className="curly-label">{`{ Testimonials }`}</p>
+            <p className="curly-label">{`{ Kata Mereka }`}</p>
             <h2 className="text-3xl leading-[1.05] tracking-[-0.04em] sm:text-4xl lg:text-5xl">
-              Reputasi yang saya bangun datang dari komunikasi yang jelas dan
-              hasil yang konsisten.
+              Cerita dari orang-orang yang pernah bekerja bersama saya.
             </h2>
             <p className="max-w-xl text-base leading-relaxed text-[color:var(--color-ash-gray)] sm:text-lg">
-              Testimoni di bawah ini menunjukkan bagaimana saya bekerja: rapi,
-              responsif, dan fokus menyelesaikan masalah nyata.
+              Masukan mereka menggambarkan hal yang saya jaga di setiap proyek:
+              komunikasi yang terbuka, perhatian pada detail, dan solusi yang
+              sesuai kebutuhan.
             </p>
           </div>
 
